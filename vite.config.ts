@@ -173,7 +173,12 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+            // Workers Builds injects WORKERS_CI=1. Keep the existing Vercel
+            // output everywhere else so AI Studio/local behaviour is preserved.
+            preset:
+              process.env.WORKERS_CI === "1" || process.env.DEPLOY_TARGET === "cloudflare"
+                ? "cloudflare_module"
+                : "vercel",
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
