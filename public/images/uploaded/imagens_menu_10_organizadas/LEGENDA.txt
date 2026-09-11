@@ -1,0 +1,10 @@
+asas_de_frango.png -> Asas de frango
+atum.png -> Pizza Atum
+pepperoni.png -> Pizza Pepperoni
+cebola.png -> Pizza Cebola
+doner_chicken.png -> Doner Chicken
+chicken_mix_box.png -> Chicken Mix Box
+hamburguer_duplo.png -> Hambúrguer duplo
+egg_burger.png -> Egg Burger
+margherita.png -> Pizza Margherita
+frutti_di_mare.png -> Pizza Frutti di Mare

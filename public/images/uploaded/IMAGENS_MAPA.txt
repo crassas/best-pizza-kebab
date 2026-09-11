@@ -1,0 +1,14 @@
+IMAGENS EM FALTA — BEST PIZZA & KEBAB
+
+crispy_chicken_burger.webp -> Crispy Chicken Burger
+hmm_burger.webp -> Hmmm Burger
+menu_de_chicken_nuggets.webp -> Menu de Chicken Nuggets
+palitos_de_frango_com_fritas_e_refrigerante.webp -> Palitos de Frango com Fritas e Refrigerante
+kebab_prato_com_arroz.webp -> Kebab / Prato Kebab com Arroz
+prato_kebab_com_bebida.webp -> Prato Kebab com Bebida
+menu_prato_de_falafel.webp -> Menu Prato de Falafel
+doner_box.webp -> Döner Box
+doner_kebab.webp -> Doner Kebab
+banner_mais_populares.webp -> Banner Mais Populares
+
+NÃO inclui as 4 imagens já entregues anteriormente: Pizza Kebab Special, Menu Döner, Durum Kebab, Menu Dürüm de Falafel.
