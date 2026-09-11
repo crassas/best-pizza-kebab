@@ -8,7 +8,9 @@
   },
   "scripts": {
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 3000",
-    "build": "NODE_ENV=production node scripts/with-app-env.mjs vite build && mkdir -p .vercel/output/static && cp -f index.html .vercel/output/static/index.html 2>/dev/null || true && npm run db:migrate",
+    "build": "node scripts/build-target.mjs",
+    "build:legacy": "NODE_ENV=production node scripts/with-app-env.mjs vite build && mkdir -p .vercel/output/static && cp -f index.html .vercel/output/static/index.html 2>/dev/null || true && npm run db:migrate",
+    "build:cloudflare": "vite build --config vite.cloudflare.config.ts",
     "db:migrate": "node scripts/migrate.mjs",
     "build:dev": "node scripts/with-app-env.mjs vite build --mode development",
     "preview": "node scripts/with-app-env.mjs vite preview",
