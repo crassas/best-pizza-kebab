@@ -1,5 +1,5 @@
 export * from "./restaurant-base";
-import { menu as baseMenu, type MenuItem } from "./restaurant-base";
+import { menu as baseMenu, seo as baseSeo, type MenuItem } from "./restaurant-base";
 import { buildVerifiedMenu } from "./menu-expansion";
 
 export type DishWithCategory = MenuItem & { categoryId: string };
@@ -13,3 +13,9 @@ export const CATEGORIES = menu;
 export const ALL_DISHES: DishWithCategory[] = menu.flatMap((category) =>
   category.items.map((item) => ({ ...item, categoryId: category.id })),
 );
+
+// Keep all SEO metadata on the real production domain.
+export const seo = {
+  ...baseSeo,
+  canonical: "https://bestpizzaandkebab.pt/",
+};
