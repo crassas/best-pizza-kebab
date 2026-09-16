@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "Settings": {
+      "collection": "settings",
+      "description": "Global restaurant settings including online ordering status, hours, and links",
+      "fields": {
+        "isOnlineOrderingPaused": { "type": "boolean", "description": "Whether online orders are temporarily paused" },
+        "pausedNoticeEn": { "type": "string", "description": "English notice when ordering is paused" },
+        "pausedNoticePt": { "type": "string", "description": "Portuguese notice when ordering is paused" },
+        "deliveryLinks": { "type": "object", "description": "Delivery app URLs and contact information" },
+        "openingHours": { "type": "object", "description": "Structured opening hours per day of the week" },
+        "tickerMessages": { "type": "array", "description": "List of promotional ticker messages" },
+        "tickerActive": { "type": "boolean", "description": "Whether ticker banner is active" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last update" }
+      }
+    },
+    "Promotion": {
+      "collection": "promotions",
+      "description": "Flash promotions and offers",
+      "fields": {
+        "title": { "type": "string", "description": "Internal title" },
+        "messageEn": { "type": "string", "description": "English promotional copy" },
+        "messagePt": { "type": "string", "description": "Portuguese promotional copy" },
+        "isWebsiteOnly": { "type": "boolean", "description": "Badge for exclusive website offer" },
+        "locations": { "type": "array", "description": "Display placements: ticker, homepage, menu, product" },
+        "targetProductId": { "type": "string", "description": "Optional specific item ID" },
+        "startDate": { "type": "string", "description": "ISO start timestamp" },
+        "endDate": { "type": "string", "description": "ISO end timestamp" },
+        "status": { "type": "string", "description": "active, paused, scheduled, expired" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      }
+    },
+    "MenuOverride": {
+      "collection": "menu_overrides",
+      "description": "Owner overrides for dish pricing, availability, description, and photo",
+      "fields": {
+        "items": { "type": "object", "description": "Keyed by dish id with overrides" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of update" }
+      }
+    },
+    "History": {
+      "collection": "history",
+      "description": "Audit log of owner changes for tracking and restore",
+      "fields": {
+        "timestamp": { "type": "string", "description": "ISO timestamp" },
+        "action": { "type": "string", "description": "Action summary" },
+        "details": { "type": "string", "description": "Change details" },
+        "userEmail": { "type": "string", "description": "Owner email who performed action" }
+      }
+    }
+  }
+}

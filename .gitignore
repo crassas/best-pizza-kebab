@@ -1,12 +1,23 @@
 node_modules/
 build/
 dist/
-.output/
-.vercel/
-.wrangler/
-.dev.vars*
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
+
+# AI Studio / agent workspace internals — never commit to restaurant repo
+.agents/
+.quantum-state/
+.grok/
+.vercel/
+QUANTUM-AGENT-OMEGA/
+project-knowledge-pack/
+business-landing-template/
+best-kebab-redesign/
+attachments/
+artifacts/
+screenshots/
+.cache/
+*.zip

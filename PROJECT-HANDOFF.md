@@ -1,35 +1,60 @@
 # Project Handoff — Best Kebab & Pizza
 
 ## Overview
-A high-performance, responsive neighbourhood takeaway microsite for **Best Kebab & Pizza**, located at Rua de São Roque da Lameira 2346, Campanhã, Porto, Portugal.
+Production-oriented microsite for **Best Kebab & Pizza**, Rua de São Roque da Lameira 2346, Campanhã, Porto, Portugal.
 
-## Business Facts & Verified Data
+## Canonical public domain
+- **https://bestpizzaandkebab.pt/**
+
+## Business data currently configured
 - **Name:** Best Kebab & Pizza
-- **Address:** Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal
+- **Address:** Rua de São Roque da Lameira 2346, 4350-306 Porto, Portugal
 - **Phone:** +351 920 163 613
-- **WhatsApp:** 351920163613
-- **Opening Hours:** 
-  - Saturday–Thursday: 11:00–00:00 (Kitchen/Orders until closing)
-  - Friday: 15:30–00:00
-- **Rating:** 4.9 / 5 (149 verified Google reviews)
-- **Delivery Platforms:** Bolt Food, Uber Eats (external links)
+- **Public languages:** Portuguese (PT-PT) and English
+- **Delivery links:** Bolt Food and Uber Eats
+- **Menu source:** `src/lib/restaurant.ts`
 
-## Architecture & Tech Stack
-- **Framework:** TanStack Start / React 19 / Vite
-- **Styling:** Tailwind CSS v4
-- **Language Support:** Bilingual (Portuguese PT & English EN) via custom i18n context
-- **Ordering Flow:** Direct pickup order flow via WhatsApp (`wa.me/351920163613`) with structured items, quantities, pickup time (ASAP or scheduled with opening hours check), customer name, and optional notes.
-- **Price Architecture:** `SHOW_PRICES = true` (configurable in `src/lib/restaurant.ts`), client-side persistence via `localStorage` (`best-pizza-kebab:order:v1`).
-- **Owner Message Language:** Operational English (`OWNER_MESSAGE_LANGUAGE = "en"`) to ensure clarity for the restaurant owner.
+## Customer ordering flow
+- Products are added to the website order tray.
+- The final customer-facing CTA is **Enviar Pedido / Send Order**.
+- WhatsApp is used behind that final action to transport the pre-filled order to the restaurant.
+- The public copy states that the restaurant must confirm the order.
+- A sold-out product cannot be newly added; if it becomes unavailable while already in the tray, sending is blocked until it is removed.
+- The separate public "order at counter" flow has been removed.
 
-## Entry Points & Key Paths
-- **Main App Entry:** `/src/routes/index.tsx`
-- **Root Layout & Providers:** `/src/routes/__root.tsx`
-- **Restaurant & Menu Data:** `/src/lib/restaurant.ts`
-- **Order State Store:** `/src/lib/order-store.ts`
-- **Components:** `/src/components/site/` (menu-section, order-drawer, order-bar, header, hero, location, reviews, etc.)
+## Owner management
+Private route: **`/manage`**.
 
-## Deployment & Verification
-- **Dev Server:** `npm run dev` (binds to `0.0.0.0:8080`)
-- **Build Script:** `npm run build`
-- **Startup Script:** `/workspace/startup.sh`
+The owner interface is in English and supports:
+- promotions and scheduled flash promotions;
+- menu names/descriptions and prices;
+- sold-out / available state;
+- dish photos;
+- opening hours;
+- delivery/contact links;
+- promotional ticker messages;
+- online-order pause;
+- recent change history.
+
+Authentication uses Firebase Google Sign-In and must remain fail-closed until the real owner account is provisioned.
+
+## One-time production setup
+See `PRODUCTION-CHECKLIST.md`.
+
+## Main application paths
+- Public route: `src/routes/index.tsx`
+- Owner route: `src/routes/manage.tsx`
+- Root/providers: `src/routes/__root.tsx`
+- Restaurant/menu data: `src/lib/restaurant.ts`
+- Dynamic managed data: `src/lib/restaurant-context.tsx`
+- Owner authentication: `src/lib/owner-auth.tsx`
+- Cart/order state: `src/lib/cart-store.ts`
+- Firestore rules: `firestore.rules`
+- Storage rules: `storage.rules`
+
+## Local commands
+- `npm run dev`
+- `npm run build`
+- `npm run typecheck`
+
+This repository is deliberately separated from QUANTUM/agent repositories.

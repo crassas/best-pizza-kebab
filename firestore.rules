@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email)) ||
+        (exists(/databases/$(database)/documents/admins/$(request.auth.uid)) && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    // Public readable settings, menu overrides, and promotions
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /promotions/{promotionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /menu_overrides/{overrideId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /history/{historyId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    match /admins/{adminId} {
+      allow read: if isAuthenticated() && (request.auth.uid == adminId || request.auth.token.email == adminId || isAdmin());
+      allow write: if isAdmin();
+    }
+  }
+}

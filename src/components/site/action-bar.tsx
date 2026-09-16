@@ -1,88 +1,32 @@
-import { MapPin, Phone, UtensilsCrossed } from "lucide-react";
-import { WhatsAppIcon } from "@/components/site/whatsapp-icon";
+import { Phone, UtensilsCrossed, ShoppingBag } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
-import { copy, getWhatsAppUrl, restaurant } from "@/lib/restaurant";
+import { copy, restaurant } from "@/lib/restaurant";
+import { useRestaurantData } from "@/lib/restaurant-context";
 import { scrollToElement } from "@/lib/scroll";
 import { trackEvent } from "@/lib/analytics";
 
 export function ActionBar() {
   const { lang, t } = useI18n();
+  const { totalCount, totalPrice, setOpen, isOpen } = useCartStore();
+  const { settings } = useRestaurantData();
+  const count = totalCount();
+  const total = totalPrice();
+  const isPt = lang === "pt";
 
-  const items = [
-    {
-      id: "menu",
-      href: "#menu",
-      targetId: "menu",
-      icon: UtensilsCrossed,
-      label: copy.navMenu,
-      external: false,
-      colorClass: "text-orange",
-      onClick: () => trackEvent("menu_view", { from: "bottom_bar" }),
-    },
-    {
-      id: "whatsapp",
-      href: getWhatsAppUrl(lang),
-      icon: WhatsAppIcon,
-      label: copy.ctaWhatsapp,
-      external: true,
-      colorClass: "text-[#8ba27d]",
-      onClick: () => trackEvent("whatsapp_click", { from: "bottom_bar" }),
-    },
-    {
-      id: "phone",
-      href: `tel:${restaurant.phoneTel}`,
-      icon: Phone,
-      label: copy.navCall,
-      external: false,
-      colorClass: "text-orange",
-      onClick: () => trackEvent("phone_click", { from: "bottom_bar" }),
-    },
-    {
-      id: "directions",
-      href: "#local",
-      targetId: "local",
-      icon: MapPin,
-      label: copy.ctaDirections,
-      external: false,
-      colorClass: "text-orange",
-      onClick: () => trackEvent("directions_click", { from: "bottom_bar" }),
-    },
-  ];
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof items[number]) => {
-    item.onClick();
-    if (item.targetId) {
-      e.preventDefault();
-      scrollToElement(item.targetId, 70);
-    }
-  };
+  if (isOpen) return null;
 
   return (
-    <nav
-      aria-label={t(copy.navQuick)}
-      className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-line bg-bg md:hidden shadow-lg"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-    >
-      <ul className="grid grid-cols-4 divide-x divide-line">
-        {items.map((item) => {
-          const Icon = item.icon;
-          return (
-            <li key={item.id}>
-              <a
-                href={item.href}
-                onClick={(e) => handleClick(e, item)}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="flex min-h-14 flex-col items-center justify-center gap-1 px-0.5 transition-colors cursor-pointer text-cream hover:bg-surface active:bg-raised"
-              >
-                <Icon className={`size-4 shrink-0 ${item.colorClass}`} aria-hidden="true" />
-                <span className="max-w-full truncate px-0.5 text-[11px] font-bold uppercase tracking-wider">
-                  {t(item.label)}
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <AnimatePresence>
+      <motion.nav initial={{ y: 80 }} animate={{ y: 0 }} exit={{ y: 80 }} transition={{ type: "spring", stiffness: 350, damping: 30 }} aria-label={t(copy.navQuick)} className="fixed inset-x-0 bottom-0 z-40 border-t-3 border-black bg-brand-black md:hidden shadow-2xl" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+        <div className="checker-red-white h-1 w-full border-b border-black" />
+        <ul className="grid grid-cols-3 divide-x-2 divide-black">
+          <li><a href="#menu" onClick={(e) => { e.preventDefault(); trackEvent("menu_view", { from: "bottom_bar" }); scrollToElement("menu", 80); }} className="flex min-h-14 flex-col items-center justify-center gap-1 px-1 text-white hover:text-brand-red active:bg-surface transition-colors cursor-pointer"><UtensilsCrossed className="size-4.5 text-brand-red" /><span className="font-display text-xs uppercase tracking-wider">{t(copy.navMenu)}</span></a></li>
+          <li><button type="button" onClick={() => { trackEvent("cart_open", { from: "bottom_bar" }); setOpen(true); }} className="relative flex w-full min-h-14 flex-col items-center justify-center gap-1 px-1 text-white bg-brand-red active:bg-brand-red-dark transition-colors cursor-pointer"><div className="relative"><ShoppingBag className="size-4.5 text-white" />{count > 0 && <span className="absolute -top-1.5 -right-2.5 flex size-4 items-center justify-center rounded-full bg-white text-[10px] font-black text-brand-red border border-black shadow-xs">{count}</span>}</div><span className="font-display text-xs uppercase tracking-wider">{isPt ? "O Meu Pedido" : "My Tray"} {count > 0 && `(${total.toFixed(2)}€)`}</span></button></li>
+          <li><a href={`tel:${settings.deliveryLinks.phoneTel || restaurant.phoneTel}`} onClick={() => { trackEvent("phone_click", { from: "bottom_bar" }); }} className="flex min-h-14 flex-col items-center justify-center gap-1 px-1 text-white hover:text-brand-red active:bg-surface transition-colors cursor-pointer"><Phone className="size-4.5 text-brand-red" /><span className="font-display text-xs uppercase tracking-wider">{isPt ? "Ligar / Apoio" : "Call / Support"}</span></a></li>
+        </ul>
+      </motion.nav>
+    </AnimatePresence>
   );
 }
