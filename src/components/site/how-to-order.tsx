@@ -1,4 +1,14 @@
-import { ArrowRight, CheckCircle2, ExternalLink, ShoppingBag, UtensilsCrossed } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ClipboardCheck,
+  ExternalLink,
+  ListChecks,
+  MessageCircle,
+  ShoppingBag,
+  UtensilsCrossed,
+} from "lucide-react";
+import { WhatsAppIcon } from "@/components/site/whatsapp-icon";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { boltFood, uberEats } from "@/lib/restaurant";
@@ -17,14 +27,45 @@ export function HowToOrder() {
   const uberUrl = settings.deliveryLinks.uber || uberEats.storeUrl;
 
   const goToMenu = () => {
-    trackEvent("menu_view", { from: "how_to_order_section" });
+    trackEvent("menu_view", { from: "how_to_order_tutorial" });
     scrollToElement("menu", 80);
   };
 
   const openTray = () => {
-    trackEvent("cart_open", { from: "how_to_order_section" });
+    trackEvent("cart_open", { from: "how_to_order_tutorial" });
     setOpen(true);
   };
+
+  const tutorialSteps = [
+    {
+      icon: UtensilsCrossed,
+      title: isPt ? "Escolhe no menu" : "Choose from the menu",
+      text: isPt
+        ? "Abre o menu e escolhe os produtos que queres."
+        : "Open the menu and choose the items you want.",
+    },
+    {
+      icon: ShoppingBag,
+      title: isPt ? "Adiciona ao pedido" : "Add to your order",
+      text: isPt
+        ? "Em cada produto toca em “Adicionar ao pedido”."
+        : "Tap “Add to order” on each item.",
+    },
+    {
+      icon: ClipboardCheck,
+      title: isPt ? "Revê tudo" : "Review everything",
+      text: isPt
+        ? "Confirma quantidades, tamanhos e total no teu pedido."
+        : "Check quantities, sizes and the total in your order.",
+    },
+    {
+      icon: MessageCircle,
+      title: isPt ? "Envia pelo WhatsApp" : "Send via WhatsApp",
+      text: isPt
+        ? "O site prepara a mensagem completa e abre o WhatsApp já preenchido."
+        : "The site prepares the full message and opens WhatsApp already filled in.",
+    },
+  ];
 
   return (
     <section
@@ -37,18 +78,18 @@ export function HowToOrder() {
         <div className="mb-8 sm:mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="badge-stamp -rotate-1 bg-brand-yellow px-3 py-1 text-[11px] sm:text-xs text-black">
-              {isPt ? "PEDIR É SIMPLES" : "ORDERING IS SIMPLE"}
+              {isPt ? "COMO FAZER O PEDIDO" : "HOW TO ORDER"}
             </div>
             <h2 className="mt-3 font-display text-4xl sm:text-6xl lg:text-7xl uppercase leading-[0.9] tracking-tight text-white">
               {isPt ? (
                 <>
-                  Escolhe. Adiciona.
+                  Escolhe. Revê.
                   <br />
                   <span className="text-brand-red">Envia.</span>
                 </>
               ) : (
                 <>
-                  Choose. Add.
+                  Choose. Review.
                   <br />
                   <span className="text-brand-red">Send.</span>
                 </>
@@ -57,8 +98,8 @@ export function HowToOrder() {
           </div>
           <p className="max-w-lg text-sm sm:text-base font-medium leading-relaxed text-cream/75">
             {isPt
-              ? "Monta o pedido diretamente no site. No fim, enviamos o resumo ao restaurante para confirmação."
-              : "Build your order directly on the site. At the end, send the full order to the restaurant for confirmation."}
+              ? "Não precisas de escrever o pedido à mão. O site organiza os produtos, quantidades e total e prepara tudo para o WhatsApp."
+              : "You do not need to type the order manually. The site organises the items, quantities and total and prepares everything for WhatsApp."}
           </p>
         </div>
 
@@ -71,31 +112,61 @@ export function HowToOrder() {
             <div className="relative">
               <div className="flex items-center justify-between gap-3">
                 <div className="badge-stamp bg-white px-3 py-1 text-[11px] text-brand-red">
-                  {isPt ? "TAKEAWAY NO RESTAURANTE" : "RESTAURANT TAKEAWAY"}
+                  {isPt ? "TAKEAWAY PELO SITE" : "TAKEAWAY ON THE SITE"}
                 </div>
-                <ShoppingBag className="size-7 sm:size-9 text-brand-yellow" />
+                <ListChecks className="size-7 sm:size-9 text-brand-yellow" />
               </div>
 
               <h3 className="mt-5 max-w-xl font-display text-3xl sm:text-5xl uppercase leading-none text-white">
-                {isPt ? "Faz o pedido aqui." : "Order right here."}
+                {isPt ? "4 passos. O WhatsApp fica para o fim." : "4 steps. WhatsApp comes last."}
               </h3>
 
-              <div className="mt-6 grid gap-2.5 sm:grid-cols-3">
-                {[
-                  isPt ? "Escolhe no menu" : "Choose from the menu",
-                  isPt ? "Adiciona ao pedido" : "Add to your order",
-                  isPt ? "Envia para confirmação" : "Send for confirmation",
-                ].map((label, index) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-2 rounded-md border-2 border-black bg-black/20 px-3 py-3 text-xs sm:text-sm font-black uppercase tracking-wide text-white"
-                  >
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-black bg-brand-yellow text-xs font-black text-black">
-                      {index + 1}
-                    </span>
-                    <span>{label}</span>
-                  </div>
-                ))}
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {tutorialSteps.map((step, index) => {
+                  const Icon = step.icon;
+                  const isLast = index === tutorialSteps.length - 1;
+                  return (
+                    <div
+                      key={step.title}
+                      className={`relative rounded-lg border-3 border-black p-4 shadow-xs ${
+                        isLast ? "bg-bolt text-black" : "bg-black/20 text-white"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={`flex size-9 shrink-0 items-center justify-center rounded-md border-2 border-black font-display text-lg font-black ${
+                            isLast ? "bg-white text-black" : "bg-brand-yellow text-black"
+                          }`}
+                        >
+                          {index + 1}
+                        </span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <Icon className="size-4 shrink-0" />
+                            <h4 className="font-display text-xl uppercase tracking-wide leading-none">
+                              {step.title}
+                            </h4>
+                          </div>
+                          <p className={`mt-2 text-xs sm:text-sm font-semibold leading-relaxed ${isLast ? "text-black/75" : "text-white/80"}`}>
+                            {step.text}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 flex items-start gap-2 rounded-md border-2 border-black bg-white px-3.5 py-3 text-xs sm:text-sm font-semibold text-black">
+                <WhatsAppIcon size="sm" className="mt-0.5 shrink-0 text-bolt" />
+                <span>
+                  <strong className="font-black">
+                    {isPt ? "Mensagem automática:" : "Automatic message:"}
+                  </strong>{" "}
+                  {isPt
+                    ? "ao tocares em “Enviar pelo WhatsApp”, o site abre o WhatsApp com o pedido completo já escrito. Só confirmas o envio."
+                    : "when you tap “Send via WhatsApp”, the site opens WhatsApp with the complete order already written. You only confirm the send action."}
+                </span>
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -105,7 +176,13 @@ export function HowToOrder() {
                   className="flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-5 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <UtensilsCrossed className="size-4 text-brand-red" />
-                  {isPt ? "Escolher no menu" : "Choose from menu"}
+                  {count > 0
+                    ? isPt
+                      ? "Continuar no menu"
+                      : "Continue shopping"
+                    : isPt
+                      ? "Começar pedido"
+                      : "Start order"}
                   <ArrowRight className="size-4" />
                 </button>
 
@@ -115,7 +192,7 @@ export function HowToOrder() {
                   className="flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-yellow px-5 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
                 >
                   <ShoppingBag className="size-4" />
-                  {isPt ? "O meu pedido" : "My order"}
+                  {isPt ? "Abrir o meu pedido" : "Open my order"}
                   {count > 0 && (
                     <span className="rounded-full border-2 border-black bg-black px-2 py-0.5 text-[10px] text-white">
                       {count} · {total.toFixed(2)}€
@@ -128,8 +205,8 @@ export function HowToOrder() {
                 <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-brand-yellow" />
                 <span>
                   {isPt
-                    ? "O envio do pedido não é confirmação automática. O restaurante confirma antes da preparação."
-                    : "Sending the order is not automatic confirmation. The restaurant confirms it before preparation."}
+                    ? "O restaurante confirma o pedido antes da preparação. Abrir o WhatsApp não equivale a confirmação automática."
+                    : "The restaurant confirms the order before preparation. Opening WhatsApp is not automatic restaurant confirmation."}
                 </span>
               </div>
             </div>
@@ -150,8 +227,8 @@ export function HowToOrder() {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-cream/70">
                 {isPt
-                  ? "Usa uma das plataformas parceiras. O pedido e a entrega são tratados diretamente pela respetiva app."
-                  : "Use one of the partner platforms. Ordering and delivery are handled directly by the selected app."}
+                  ? "Para entrega ao domicílio, usa uma das plataformas parceiras. O pedido e a entrega são tratados diretamente pela respetiva app."
+                  : "For home delivery, use one of the partner platforms. Ordering and delivery are handled directly by the selected app."}
               </p>
 
               <div className="mt-6 flex flex-col gap-3">
@@ -164,7 +241,9 @@ export function HowToOrder() {
                 >
                   <span>
                     <span className="block">Bolt Food</span>
-                    <span className="block text-[10px] tracking-normal normal-case">{isPt ? "30% de desconto — ver condições" : "30% off — see terms"}</span>
+                    <span className="block text-[10px] tracking-normal normal-case">
+                      {isPt ? "30% de desconto — ver condições" : "30% off — see terms"}
+                    </span>
                   </span>
                   <ExternalLink className="size-4" />
                 </a>
