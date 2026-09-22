@@ -274,7 +274,7 @@ export function Hero() {
                       className={`relative aspect-square overflow-hidden rounded border-2 ${activeIndex === index ? "border-brand-red ring-2 ring-brand-red scale-105" : "border-black/60 opacity-60 hover:opacity-100"}`}
                       aria-label={item.tag}
                     >
-                      <img src={item.image} alt="" className="h-full w-full object-cover" />
+                      <img src={item.image} alt={`${item.tag} — Best Kebab & Pizza Porto`} className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>
