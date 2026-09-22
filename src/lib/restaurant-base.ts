@@ -856,14 +856,14 @@ export const menu: MenuCategory[] = [
 
 export const seo = {
   title: L(
-    "Best Kebab & Pizza | Kebab, Pizza e Takeaway no Porto",
-    "Best Kebab & Pizza | Kebab, Pizza & Takeaway in Porto"
+    "Best Kebab & Pizza Porto | Kebab, Pizza e Falafel em Campanhã",
+    "Best Kebab & Pizza Porto | Kebab, Pizza & Falafel in Campanhã"
   ),
   description: L(
-    "Best Kebab & Pizza em São Roque da Lameira, Campanhã, Porto. Kebab, pizza, hambúrgueres e falafel para takeaway; entrega via Bolt Food e Uber Eats. Telefone: +351 920 163 613.",
-    "Best Kebab & Pizza in São Roque da Lameira, Campanhã, Porto. Kebab, pizza, burgers and falafel for takeaway; delivery via Bolt Food and Uber Eats. Phone: +351 920 163 613."
+    "Best Kebab & Pizza em São Roque da Lameira, Campanhã – Porto. Kebab, pizza, falafel e hambúrgueres. Takeaway e entrega via Bolt Food e Uber Eats. Tel: 920 163 613.",
+    "Best Kebab & Pizza in São Roque da Lameira, Campanhã – Porto. Kebab, pizza, falafel and burgers. Takeaway and delivery via Bolt Food and Uber Eats. Phone: +351 920 163 613."
   ),
-  canonical: "https://bestpizzakebab.pt/",
+  canonical: "https://bestpizzaandkebab.pt/",
 };
 
 function interpolate(template: string, vars: Record<string, string>) {
