@@ -22,7 +22,7 @@ export function Featured() {
   };
 
   return (
-    <section id="destaques" className="scroll-mt-[calc(4rem+env(safe-area-inset-top))] bg-brand-black px-4 py-12 sm:px-6 sm:py-16 border-t-4 border-black">
+    <section id="destaques" className="scroll-mt-[calc(4rem+env(safe-area-inset-top))] bg-brand-black px-4 py-12 sm:px-6 sm:py-16 border-t-4 border-black [content-visibility:auto] [contain-intrinsic-size:850px]">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end mb-8">
           <div>
@@ -51,7 +51,7 @@ export function Featured() {
               >
                 <div className="hidden md:block checker-red-white md:h-2.5 w-full border-b-2 border-black" />
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-black border-b-3 border-black">
-                  <img src={dish.image} alt={t(dish.alt)} width={600} height={450} loading="lazy" decoding="async" className="size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
+                  <img src={dish.image} alt={t(dish.alt)} width={600} height={450} loading="lazy" decoding="async" fetchPriority="low" className="size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
                   <div className="absolute top-2.5 left-2.5 flex size-8 items-center justify-center rounded-md border-2 border-black bg-brand-yellow font-display text-lg font-black text-black shadow-xs -rotate-2">0{idx + 1}</div>
                   <div className="absolute top-2.5 right-2.5 badge-stamp bg-brand-red text-white text-[10px] px-2 py-0.5 rotate-1">★ {isPt ? "DESTAQUE" : "POPULAR"}</div>
                 </div>

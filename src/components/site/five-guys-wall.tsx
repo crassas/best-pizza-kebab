@@ -9,7 +9,7 @@ export function FiveGuysWall() {
   const reviewLinks = googleReviewLinks.slice(0, 4);
 
   return (
-    <section id="avaliacoes" className="relative bg-brand-black text-cream py-16 sm:py-20 border-b-4 border-black overflow-hidden">
+    <section id="avaliacoes" className="relative bg-brand-black text-cream py-16 sm:py-20 border-b-4 border-black overflow-hidden [content-visibility:auto] [contain-intrinsic-size:900px]">
       <div className="absolute top-0 inset-x-0"><CheckeredRibbon height="h-1 sm:h-4" /></div>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12 sm:mb-16">

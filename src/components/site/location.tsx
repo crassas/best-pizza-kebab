@@ -32,7 +32,7 @@ export function Location() {
   return (
     <section
       id="local"
-      className="scroll-mt-[calc(4rem+env(safe-area-inset-top))] overflow-hidden border-y-4 border-black bg-brand-black text-cream"
+      className="scroll-mt-[calc(4rem+env(safe-area-inset-top))] overflow-hidden border-y-4 border-black bg-brand-black text-cream [content-visibility:auto] [contain-intrinsic-size:1200px]"
     >
       <CheckeredRibbon height="h-1.5 sm:h-3" />
 
