@@ -143,8 +143,8 @@ export function Hero() {
             </h1>
             <p className="mt-5 max-w-xl text-lg sm:text-xl font-medium text-cream/90 leading-snug">
               {isPt
-                ? "Doner Kebab, Durum, Pizzas, Hambúrgueres, Falafel, Pratos e Snacks. Doses generosas e serviço rápido em Campanhã."
-                : "Doner Kebab, Durum, Pizza, Burgers, Falafel, Plates and Snacks. Generous portions and fast service in Campanhã."}
+                ? "Kebab no Porto e pizza em Campanhã: Doner Kebab, Durum, Falafel, Hambúrgueres, Pratos e Snacks para takeaway."
+                : "Kebab in Porto and pizza in Campanhã: Doner Kebab, Durum, Falafel, Burgers, Plates and Snacks for takeaway."}
             </p>
             <div className="mt-7 flex w-full sm:w-auto flex-wrap gap-3 sm:gap-4">
               <a
