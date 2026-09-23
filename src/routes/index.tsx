@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ActionBar } from "@/components/site/action-bar";
 import { BoltNotice } from "@/components/site/bolt-notice";
@@ -11,6 +12,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Location } from "@/components/site/location";
 import { MenuSection } from "@/components/site/menu-section";
 import { OrderDrawer } from "@/components/site/order-drawer";
+import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/lib/i18n";
 import { copy } from "@/lib/restaurant";
 import { scrollToElement } from "@/lib/scroll";
@@ -18,7 +20,17 @@ import { scrollToElement } from "@/lib/scroll";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
+
+  useEffect(() => {
+    trackEvent("page_view", {
+      lang,
+      referrer: document.referrer || undefined,
+    });
+    // One page view per page load; language changes are tracked separately.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <JsonLd />
