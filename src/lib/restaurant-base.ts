@@ -2,6 +2,56 @@ export type Lang = "pt" | "en";
 
 export type Localized = { pt: string; en: string };
 
+export type AllergenId =
+  | "gluten"
+  | "crustaceans"
+  | "eggs"
+  | "fish"
+  | "peanuts"
+  | "soy"
+  | "milk"
+  | "nuts"
+  | "celery"
+  | "mustard"
+  | "sesame"
+  | "sulphites"
+  | "lupin"
+  | "molluscs";
+
+export const ALLERGEN_IDS: AllergenId[] = [
+  "gluten",
+  "crustaceans",
+  "eggs",
+  "fish",
+  "peanuts",
+  "soy",
+  "milk",
+  "nuts",
+  "celery",
+  "mustard",
+  "sesame",
+  "sulphites",
+  "lupin",
+  "molluscs",
+];
+
+export const ALLERGEN_LABELS: Record<AllergenId, Localized> = {
+  gluten: { pt: "Cereais com glúten", en: "Cereals containing gluten" },
+  crustaceans: { pt: "Crustáceos", en: "Crustaceans" },
+  eggs: { pt: "Ovos", en: "Eggs" },
+  fish: { pt: "Peixe", en: "Fish" },
+  peanuts: { pt: "Amendoins", en: "Peanuts" },
+  soy: { pt: "Soja", en: "Soy" },
+  milk: { pt: "Leite / lactose", en: "Milk / lactose" },
+  nuts: { pt: "Frutos de casca rija", en: "Tree nuts" },
+  celery: { pt: "Aipo", en: "Celery" },
+  mustard: { pt: "Mostarda", en: "Mustard" },
+  sesame: { pt: "Sésamo", en: "Sesame" },
+  sulphites: { pt: "Sulfitos", en: "Sulphites" },
+  lupin: { pt: "Tremoço", en: "Lupin" },
+  molluscs: { pt: "Moluscos", en: "Molluscs" },
+};
+
 export type Money = number | null;
 
 export type MenuSize = {
@@ -20,6 +70,13 @@ export type MenuItem = {
   sizes?: MenuSize[];
   image?: string;
   imageAlt?: Localized;
+  /**
+   * Allergens that are directly identifiable from the currently published
+   * product name/description. This is intentionally not an exhaustive
+   * allergen declaration; recipes, sauces and supplier formulations must be
+   * confirmed with the restaurant.
+   */
+  knownAllergens?: AllergenId[];
 };
 
 export type MenuCategory = {
@@ -232,8 +289,8 @@ export const copy = {
   heroKicker: L("São Roque da Lameira · Porto", "São Roque da Lameira · Porto"),
   heroHeadline: L("Kebab no ponto. Pizza a sair.", "Kebab done right. Pizza just out."),
   heroSub: L(
-    "Takeaway no bairro: pizza, kebab, hambúrgueres, frango, falafel e pratos indianos.",
-    "Neighbourhood takeaway: pizza, kebab, burgers, chicken, falafel and Indian dishes.",
+    "Kebab no Porto e pizza em Campanhã: doner, durum, falafel, hambúrgueres e pratos para takeaway.",
+    "Kebab in Porto and pizza in Campanhã: doner, durum, falafel, burgers and plates for takeaway.",
   ),
   ctaMenu: L("Ver menu", "See menu"),
   ctaDirections: L("Como chegar", "Get directions"),
@@ -266,7 +323,7 @@ export const copy = {
   comingSoon: L("Em breve", "Coming soon"),
   sizesNote: L("Pequena e grande", "Small and large"),
   locationKicker: L("O sítio", "Find us"),
-  locationTitle: L("Mesmo aqui em São Roque da Lameira", "Right here in São Roque da Lameira"),
+  locationTitle: L("Kebab e pizza em Campanhã, Porto", "Kebab and pizza in Campanhã, Porto"),
   locationLead: L(
     "Encontra-nos na Rua de São Roque da Lameira 2346, Porto, a poucos passos das paragens STCP das linhas 800 e 801, incluindo no sentido da Rua de Fernão de Magalhães. Se estás a sair do trabalho, a caminho do centro ou vais para a zona do Dragão, podes fazer o pedido antes e levantar quando passares por cá.",
     "Find us at Rua de São Roque da Lameira 2346, Porto, a few steps from STCP bus stops for lines 800 and 801, including towards Rua de Fernão de Magalhães. Whether you're leaving work, heading into town, or going towards Dragão stadium, you can place your order ahead and pick it up when you pass by."
@@ -352,7 +409,7 @@ export const menu: MenuCategory[] = [
     id: "kebabs",
     label: L("Kebabs", "Kebabs"),
     items: [
-      { id: "durum", name: L("Durum (1 peça)", "Durum (1 pc)"), description: L("Wrap de tortilha com carne, vegetais e molho.", "Thin rolled wrap filled with meat, salad and sauce."), price: 4.99, image: "/images/uploaded/durum_kebab.png", imageAlt: L("Durum da Best Pizza & Kebab", "Best Pizza & Kebab Durum") },
+      { id: "durum", name: L("Durum (1 peça)", "Durum (1 pc)"), description: L("Durum com carne de kebab assada no espeto, vegetais e molho.", "Durum with spit-roasted kebab meat, vegetables and sauce."), price: 4.99, image: "/images/uploaded/durum_kebab.png", imageAlt: L("Durum da Best Pizza & Kebab", "Best Pizza & Kebab Durum") },
       { id: "doner", name: L("Doner Kebab (1 peça)", "Doner Kebab (1 pc)"), description: L("Carne grelhada no espeto com vegetais em pão pita.", "Kebab sandwich with sliced spit-roasted meat."), price: 4.50, image: "/images/uploaded/doner_kebab.webp", imageAlt: L("Doner Kebab da Best Pizza & Kebab", "Best Pizza & Kebab Doner Kebab") },
       { id: "doner-mix-box", name: L("Doner Mix Box", "Doner Mix Box"), price: 7.50 },
       {
@@ -856,12 +913,12 @@ export const menu: MenuCategory[] = [
 
 export const seo = {
   title: L(
-    "Best Kebab & Pizza Porto | Kebab, Pizza e Falafel em Campanhã",
-    "Best Kebab & Pizza Porto | Kebab, Pizza & Falafel in Campanhã"
+    "Kebab no Porto e Pizza em Campanhã | Best Kebab & Pizza",
+    "Kebab in Porto & Pizza in Campanhã | Best Kebab & Pizza"
   ),
   description: L(
-    "Best Kebab & Pizza em São Roque da Lameira, Campanhã – Porto. Kebab, pizza, falafel e hambúrgueres. Takeaway e entrega via Bolt Food e Uber Eats. Tel: 920 163 613.",
-    "Best Kebab & Pizza in São Roque da Lameira, Campanhã – Porto. Kebab, pizza, falafel and burgers. Takeaway and delivery via Bolt Food and Uber Eats. Phone: +351 920 163 613."
+    "Kebab no Porto em São Roque da Lameira, Campanhã. Doner kebab, durum, pizza, falafel e hambúrgueres para takeaway e entrega. Tel: 920 163 613.",
+    "Kebab in Porto at São Roque da Lameira, Campanhã. Doner kebab, durum, pizza, falafel and burgers for takeaway and delivery. Phone: +351 920 163 613."
   ),
   canonical: "https://bestpizzaandkebab.pt/",
 };
