@@ -161,7 +161,10 @@ export function Hero() {
               </a>
               <button
                 type="button"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  trackEvent("cart_open", { from: "hero" });
+                  setOpen(true);
+                }}
                 className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-black shadow-fastfood hover:bg-neutral-100"
               >
                 <ShoppingBag className="size-5 text-brand-red" />
@@ -179,6 +182,7 @@ export function Hero() {
                     href={links.bolt}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent("bolt_food_click", { from: "hero" })}
                     className="flex items-center justify-between rounded-md border-2 border-black bg-surface p-2.5 shadow-fastfood hover:border-bolt"
                   >
                     <span>
@@ -193,6 +197,7 @@ export function Hero() {
                     href={links.uber}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent("uber_eats_click", { from: "hero" })}
                     className="flex items-center justify-between rounded-md border-2 border-black bg-surface p-2.5 shadow-fastfood hover:border-uber"
                   >
                     <span>
