@@ -70,7 +70,7 @@ export function HowToOrder() {
   return (
     <section
       id="encomenda"
-      className="relative overflow-hidden border-y-4 border-black bg-brand-black text-cream"
+      className="relative overflow-hidden border-y-4 border-black bg-brand-black text-cream [content-visibility:auto] [contain-intrinsic-size:1000px]"
     >
       <div className="checker-red-white h-1.5 sm:h-3 w-full border-b-2 border-black" />
 
