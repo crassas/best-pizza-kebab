@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 export function Location() {
   const { lang } = useI18n();
   const { settings } = useRestaurantData();
-  const [mapMode, setMapMode] = useState<"2d" | "cesium">("cesium");
+  const [mapMode, setMapMode] = useState<"2d" | "cesium">("2d");
   const isPt = lang === "pt";
   const links = settings.deliveryLinks;
   const address =
@@ -46,15 +46,15 @@ export function Location() {
             <h2 className="mt-3 font-display text-4xl sm:text-6xl lg:text-7xl uppercase leading-[0.9] tracking-tight text-white">
               {isPt ? (
                 <>
-                  Mesmo aqui no
+                  Kebab e pizza em
                   <br />
-                  <span className="text-brand-red">Porto.</span>
+                  <span className="text-brand-red">Campanhã, Porto.</span>
                 </>
               ) : (
                 <>
-                  Right here in
+                  Kebab and pizza in
                   <br />
-                  <span className="text-brand-red">Porto.</span>
+                  <span className="text-brand-red">Campanhã, Porto.</span>
                 </>
               )}
             </h2>
@@ -62,8 +62,8 @@ export function Location() {
 
           <p className="max-w-xl text-sm sm:text-base font-medium leading-relaxed text-cream/70">
             {isPt
-              ? "Best Kebab & Pizza fica em São Roque da Lameira, Campanhã. Consulta o horário, abre a localização e segue diretamente para o restaurante."
-              : "Best Kebab & Pizza is in São Roque da Lameira, Campanhã. Check the opening hours, open the location and head straight to the restaurant."}
+              ? "Na Rua de São Roque da Lameira 2346 encontra doner kebab, durum, pizzas, falafel e hambúrgueres para takeaway em Campanhã. Consulta o horário e abre as direções para o restaurante."
+              : "At Rua de São Roque da Lameira 2346 you can find doner kebab, durum, pizza, falafel and burgers for takeaway in Campanhã. Check the opening hours and open directions to the restaurant."}
           </p>
         </div>
 
