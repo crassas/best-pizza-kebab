@@ -42,7 +42,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t-4 border-black bg-brand-black text-cream pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:pb-8">
+    <footer className="border-t-4 border-black bg-brand-black text-cream pb-[calc(5.75rem+env(safe-area-inset-bottom))] md:pb-8 [content-visibility:auto] [contain-intrinsic-size:900px]">
       <MarqueeBanner variant="yellow" speed="reverse" />
       <CheckeredRibbon height="h-1.5 sm:h-3" />
 
