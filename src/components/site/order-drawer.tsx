@@ -1,4 +1,5 @@
 import { Minus, Plus, Send, ShoppingBag, Trash2, X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { useRestaurantData } from "@/lib/restaurant-context";
@@ -29,6 +30,13 @@ export function OrderDrawer() {
       : "The order is subject to restaurant confirmation.";
     const text = `${intro}\n\n${lines.join("\n")}\n\nTotal: ${total.toFixed(2)}€\n\n${note}`;
     const number = settings.deliveryLinks.whatsapp.replace(/\D/g, "");
+
+    trackEvent("order_send_whatsapp", {
+      lang,
+      item_count: items.reduce((sum, item) => sum + item.quantity, 0),
+      distinct_items: items.length,
+      total,
+    });
 
     window.open(
       `https://wa.me/${number}?text=${encodeURIComponent(text)}`,

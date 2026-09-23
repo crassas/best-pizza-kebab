@@ -2,6 +2,7 @@ import { Phone, ShoppingBag } from "lucide-react";
 import { motion } from "motion/react";
 import { Wordmark } from "@/components/site/logo";
 import { MarqueeBanner, CheckeredRibbon } from "@/components/site/marquee-banner";
+import { trackEvent } from "@/lib/analytics";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { copy, restaurant } from "@/lib/restaurant";
@@ -44,8 +45,8 @@ export function Header() {
               return <button key={code} type="button" onClick={() => setLang(code)} className={cn("relative z-10 h-7 min-w-8 rounded-xs px-2 text-xs font-black uppercase transition-colors cursor-pointer", isActive ? "text-black" : "text-muted hover:text-white")} aria-pressed={isActive}>{isActive && <motion.span layoutId="activeLang" className="absolute inset-0 -z-10 rounded-xs bg-brand-yellow" transition={{ type: "spring", stiffness: 500, damping: 35 }} />}{code.toUpperCase()}</button>;
             })}
           </div>
-          <a href={`tel:${links.phoneTel || restaurant.phoneTel}`} className="hidden sm:inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-3 py-1.5 text-xs font-black uppercase text-brand-yellow shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5" aria-label={`${t(copy.ctaCall)} ${links.phoneDisplay || restaurant.phoneDisplay}`}><Phone className="size-3.5 text-brand-yellow" /><span>{links.phoneDisplay || restaurant.phoneDisplay}</span></a>
-          <button type="button" onClick={() => setOpen(true)} className="relative flex items-center gap-2 rounded-md border-2 border-black bg-brand-red hover:bg-brand-red-dark px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white shadow-fastfood transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer" aria-label={isPt ? "Abrir bandeja de pedido" : "Open order tray"}><ShoppingBag className="size-4 text-brand-yellow" /><span className="hidden xs:inline">{isPt ? "Pedido" : "Tray"}</span>{count > 0 && <span className="flex size-5 items-center justify-center rounded-full bg-brand-yellow text-[11px] font-black text-black">{count}</span>}</button>
+          <a href={`tel:${links.phoneTel || restaurant.phoneTel}`} onClick={() => trackEvent("phone_click", { from: "header" })} className="hidden sm:inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-3 py-1.5 text-xs font-black uppercase text-brand-yellow shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5" aria-label={`${t(copy.ctaCall)} ${links.phoneDisplay || restaurant.phoneDisplay}`}><Phone className="size-3.5 text-brand-yellow" /><span>{links.phoneDisplay || restaurant.phoneDisplay}</span></a>
+          <button type="button" onClick={() => { trackEvent("cart_open", { from: "header" }); setOpen(true); }} className="relative flex items-center gap-2 rounded-md border-2 border-black bg-brand-red hover:bg-brand-red-dark px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white shadow-fastfood transition-all active:translate-x-0.5 active:translate-y-0.5 cursor-pointer" aria-label={isPt ? "Abrir bandeja de pedido" : "Open order tray"}><ShoppingBag className="size-4 text-brand-yellow" /><span className="hidden xs:inline">{isPt ? "Pedido" : "Tray"}</span>{count > 0 && <span className="flex size-5 items-center justify-center rounded-full bg-brand-yellow text-[11px] font-black text-black">{count}</span>}</button>
         </div>
       </div>
       <CheckeredRibbon height="h-1 sm:h-2.5" />

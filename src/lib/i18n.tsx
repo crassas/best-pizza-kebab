@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { seo, type Lang, type Localized } from "@/lib/restaurant";
 
 const STORAGE_KEY = "bpk-lang";
@@ -69,6 +70,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
+    trackEvent("language_change", { lang: next });
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
 
