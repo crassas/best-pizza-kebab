@@ -81,7 +81,7 @@ async function getClient(): Promise<AnalyticsClient | null> {
 
   clientPromise = (async () => {
     const { default: posthog } = await import("posthog-js");
-    const host = import.meta.env.VITE_POSTHOG_HOST?.trim() || "https://us.i.posthog.com";
+    const host = import.meta.env.VITE_POSTHOG_HOST?.trim() || "https://eu.i.posthog.com";
 
     posthog.init(key, {
       api_host: host,
