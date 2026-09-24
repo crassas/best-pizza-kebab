@@ -16,12 +16,12 @@ import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
 const CATEGORY_IMAGES: Record<string, string> = {
-  kebabs: "/images/enhanced/06_kebab_batatas.png",
+  kebabs: "/images/optimized/06_kebab_batatas-thumb.webp",
   burgers: "/food/burger.jpg",
   chicken: "/food/chicken.jpg",
-  pizza: "/images/enhanced/05_pizza.png",
-  pizzas: "/images/enhanced/05_pizza.png",
-  plates: "/images/enhanced/07_kebab_prato_agua.png",
+  pizza: "/images/optimized/05_pizza-thumb.webp",
+  pizzas: "/images/optimized/05_pizza-thumb.webp",
+  plates: "/images/optimized/07_kebab_prato_agua-thumb.webp",
   pasta: "/food/pizza.jpg",
   indian: "/food/hero.jpg",
   drinks: "/food/hero.jpg",
