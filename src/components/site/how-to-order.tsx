@@ -262,7 +262,14 @@ export function HowToOrder() {
 
               <div className="mt-auto pt-6">
                 <div className="border-t-2 border-line pt-4 text-[11px] font-black uppercase tracking-wider text-muted">
-                  {isPt ? "Takeaway no site · Entrega nas apps" : "Takeaway on site · Delivery in apps"}
+                  <span>{isPt ? "Takeaway no site · Entrega nas apps" : "Takeaway on site · Delivery in apps"}</span>
+                  <a
+                    href="/takeaway-campanha/"
+                    className="mt-2 inline-flex items-center gap-1 text-brand-yellow hover:text-white"
+                  >
+                    {isPt ? "Takeaway em Campanhã" : "Takeaway in Campanhã"}
+                    <ArrowRight className="size-3" />
+                  </a>
                 </div>
               </div>
             </div>
