@@ -236,16 +236,16 @@ export const restaurant = {
   delivery: ["Bolt Food", "Uber Eats"] as const,
   photos: {
     hero: "/images/hero-logo.webp",
-    pizza: "/images/enhanced/05_pizza.png",
-    kebab: "/images/enhanced/06_kebab_batatas.png",
-    kebabPrato: "/images/enhanced/07_kebab_prato_agua.png",
-    falafel: "/images/enhanced/08_falafel.png",
+    pizza: "/images/optimized/05_pizza.webp",
+    kebab: "/images/optimized/06_kebab_batatas.webp",
+    kebabPrato: "/images/optimized/07_kebab_prato_agua.webp",
+    falafel: "/images/optimized/08_falafel.webp",
     burger: "/images/uploaded/hmm_burger.webp",
     chicken: "/images/uploaded/palitos_de_frango_com_fritas_e_refrigerante.webp",
-    interiorRefeicao: "/images/enhanced/01_interior_refeicao.png",
-    interiorSala: "/images/enhanced/02_interior_sala.png",
-    interiorBalcao: "/images/enhanced/03_interior_balcao.png",
-    dono: "/images/enhanced/04_dono_restaurante.png",
+    interiorRefeicao: "/images/optimized/01_interior_refeicao.webp",
+    interiorSala: "/images/optimized/02_interior_sala.webp",
+    interiorBalcao: "/images/optimized/03_interior_balcao.webp",
+    dono: "/images/optimized/04_dono_restaurante.webp",
   },
 } as const;
 
@@ -418,7 +418,7 @@ export const menu: MenuCategory[] = [
         description: L("Bolinhos fritos de grão-de-bico e especiarias.", "4 chickpea and herb falafel pieces."),
         vegetarian: true,
         price: 4.50,
-        image: "/images/enhanced/08_falafel.png",
+        image: "/images/optimized/08_falafel.webp",
         imageAlt: L("Falafel da Best Pizza & Kebab", "Best Pizza & Kebab Falafel"),
       },
       {
@@ -645,7 +645,7 @@ export const menu: MenuCategory[] = [
         description: L("Salada de kebab e água.", "Kebab salad and water."),
         servedWith: L("água", "water"),
         price: 5.99,
-        image: "/images/enhanced/07_kebab_prato_agua.png",
+        image: "/images/optimized/07_kebab_prato_agua.webp",
         imageAlt: L("Salada com Kebab da Best Pizza & Kebab", "Best Pizza & Kebab Kebab Salad"),
       },
       {
