@@ -62,6 +62,9 @@ async function verifyCloudflareSeoAssets() {
 const isCloudflare =
   process.env.WORKERS_CI === "1" || process.env.DEPLOY_TARGET === "cloudflare";
 
+console.log("[build-target] Generating optimized WebP image assets.");
+await run(process.execPath, ["scripts/optimize-public-images.mjs"]);
+
 if (isCloudflare) {
   console.log("[build-target] Cloudflare detected — building compiled SPA assets to dist/.");
   await run("vite", ["build", "--config", "vite.cloudflare.config.ts"]);
