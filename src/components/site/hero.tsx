@@ -12,7 +12,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
-import { ALL_DISHES, maps } from "@/lib/restaurant";
+import { ALL_DISHES } from "@/lib/restaurant";
 import { getManagedLiveStatus, useRestaurantData } from "@/lib/restaurant-context";
 import { scrollToElement } from "@/lib/scroll";
 import { trackEvent } from "@/lib/analytics";
@@ -115,14 +115,9 @@ export function Hero() {
             <ShieldCheck className="mr-1.5 size-3.5" />
             {isPt ? "Opções Halal" : "Halal Options"}
           </div>
-          <a
-            href={links.googleMaps || maps.search}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="badge-stamp rotate-1 bg-brand-yellow px-3 py-1.5 text-xs text-black"
-          >
+          <div className="badge-stamp rotate-1 bg-brand-yellow px-3 py-1.5 text-xs text-black">
             <Star className="mr-1 size-3.5 fill-black" />4.9 / 5.0 Google Reviews
-          </a>
+          </div>
           <div className="hidden sm:inline-flex badge-stamp bg-surface/90 px-3 py-1.5 text-xs text-muted border-line">
             <MapPin className="mr-1.5 size-3.5 text-brand-red" />
             São Roque da Lameira 2346, Porto
