@@ -21,3 +21,6 @@ artifacts/
 screenshots/
 .cache/
 *.zip
+
+# Generated at dev/build time from source photography
+public/images/optimized/
