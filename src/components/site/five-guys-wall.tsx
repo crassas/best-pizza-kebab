@@ -1,6 +1,5 @@
-import { Star, ExternalLink, Award } from "lucide-react";
+import { Star, Award } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { maps } from "@/lib/restaurant";
 import { CheckeredRibbon } from "@/components/site/marquee-banner";
 
 export function FiveGuysWall() {
@@ -33,32 +32,20 @@ export function FiveGuysWall() {
               : "Check the restaurant rating and, if you want, open all reviews directly on Google Maps."}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <div className="flex items-center gap-3 rounded-lg border-3 border-black bg-brand-red px-5 py-3 shadow-fastfood">
-              <div className="flex text-brand-yellow">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="size-4 fill-brand-yellow sm:size-5" />
-                ))}
-              </div>
-              <div className="border-l-2 border-white/40 pl-3 text-left">
-                <span className="block font-display text-2xl leading-none text-white sm:text-3xl">
-                  4.9 / 5.0
-                </span>
-                <span className="text-[10px] font-black uppercase tracking-wider text-brand-yellow sm:text-[11px]">
-                  Google Maps
-                </span>
-              </div>
+          <div className="mt-6 flex items-center gap-3 rounded-lg border-3 border-black bg-brand-red px-5 py-3 shadow-fastfood">
+            <div className="flex text-brand-yellow">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="size-4 fill-brand-yellow sm:size-5" />
+              ))}
             </div>
-
-            <a
-              href={maps.search}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center gap-2 rounded-md border-2 border-black bg-surface px-5 py-3 text-xs font-extrabold uppercase tracking-wider text-brand-yellow shadow-fastfood transition-colors hover:bg-raised sm:text-sm"
-            >
-              <span>{isPt ? "Ver todas as avaliações" : "View all reviews"}</span>
-              <ExternalLink className="size-4" />
-            </a>
+            <div className="border-l-2 border-white/40 pl-3 text-left">
+              <span className="block font-display text-2xl leading-none text-white sm:text-3xl">
+                4.9 / 5.0
+              </span>
+              <span className="text-[10px] font-black uppercase tracking-wider text-brand-yellow sm:text-[11px]">
+                Google Reviews
+              </span>
+            </div>
           </div>
         </div>
       </div>
