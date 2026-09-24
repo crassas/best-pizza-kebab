@@ -36,7 +36,6 @@ export function Header() {
           <a href="#menu" onClick={(e) => handleNav(e, "menu")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navMenu)}</a>
           <a href="#encomenda" onClick={(e) => handleNav(e, "encomenda")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{isPt ? "Entregas & Takeaway" : "Takeaway & Delivery"}</a>
           <a href="#avaliacoes" onClick={(e) => handleNav(e, "avaliacoes")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navReviews)}</a>
-          <a href="#local" onClick={(e) => handleNav(e, "local")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navDirections)}</a>
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="relative flex rounded border-2 border-black bg-surface p-0.5 shadow-xs" role="group" aria-label={t(copy.langSwitch)}>
