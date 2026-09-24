@@ -4,7 +4,6 @@ import {
   ExternalLink,
   Lock,
   MapPin,
-  Navigation,
   Phone,
   ShieldCheck,
 } from "lucide-react";
@@ -12,7 +11,7 @@ import { Wordmark } from "@/components/site/logo";
 import { MarqueeBanner, CheckeredRibbon } from "@/components/site/marquee-banner";
 import { WhatsAppIcon } from "@/components/site/whatsapp-icon";
 import { useI18n } from "@/lib/i18n";
-import { copy, maps, restaurant } from "@/lib/restaurant";
+import { copy, restaurant } from "@/lib/restaurant";
 import { useRestaurantData } from "@/lib/restaurant-context";
 import { scrollToElement } from "@/lib/scroll";
 
@@ -28,7 +27,6 @@ export function Footer() {
   const address =
     links.address ||
     `${restaurant.address.street}, ${restaurant.address.postalCode} ${restaurant.address.locality}`;
-  const mapUrl = links.googleMaps || maps.directions;
   const whatsapp = links.whatsapp || restaurant.whatsapp;
   const waUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(
     isPt
@@ -108,12 +106,7 @@ export function Footer() {
                 </p>
 
                 <div className="mt-3 space-y-2.5">
-                  <a
-                    href={mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 rounded-md border-2 border-line bg-black/20 px-3.5 py-3 transition-colors hover:border-brand-yellow"
-                  >
+                  <div className="flex items-start gap-3 rounded-md border-2 border-line bg-black/20 px-3.5 py-3">
                     <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-brand-red text-white">
                       <MapPin className="size-4" />
                     </span>
@@ -125,7 +118,7 @@ export function Footer() {
                         {address}
                       </span>
                     </span>
-                  </a>
+                  </div>
 
                   <a
                     href={`tel:${phoneTel}`}
@@ -143,24 +136,15 @@ export function Footer() {
                   </a>
                 </div>
 
-                <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="mt-3">
                   <a
                     href={waUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex min-h-10 items-center justify-center gap-1.5 rounded-md border-2 border-black bg-bolt px-3 py-2 text-[10px] font-black uppercase tracking-wider text-black shadow-xs"
+                    className="flex min-h-10 w-full items-center justify-center gap-1.5 rounded-md border-2 border-black bg-bolt px-3 py-2 text-[10px] font-black uppercase tracking-wider text-black shadow-xs"
                   >
                     <WhatsAppIcon size="xs" />
                     WhatsApp
-                  </a>
-                  <a
-                    href={mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-10 items-center justify-center gap-1.5 rounded-md border-2 border-black bg-white px-3 py-2 text-[10px] font-black uppercase tracking-wider text-black shadow-xs"
-                  >
-                    <Navigation className="size-3.5 text-brand-red" />
-                    {isPt ? "Direções" : "Directions"}
                   </a>
                 </div>
 
