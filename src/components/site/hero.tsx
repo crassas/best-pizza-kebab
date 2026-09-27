@@ -22,7 +22,7 @@ type SignatureDish = { id: string; tag: string; image: string; sizeId?: string }
 const SIGNATURE_DISHES: SignatureDish[] = [
   { id: "durum-kebab", tag: "DURUM KEBAB", image: "/images/optimized/06_kebab_batatas.webp" },
   { id: "special-kebab", tag: "PIZZA", image: "/images/optimized/05_pizza.webp", sizeId: "small" },
-  { id: "doner-mix-box", tag: "DONER MIX BOX", image: "/images/optimized/06_kebab_batatas.webp" },
+  { id: "doner-mix-box", tag: "DONER MIX BOX", image: "/images/uploaded/doner_box.webp" },
   { id: "crispy-chicken-burger", tag: "BURGER", image: "/food/burger.jpg" },
   { id: "doner-falafel", tag: "FALAFEL", image: "/images/optimized/08_falafel.webp" },
 ];
