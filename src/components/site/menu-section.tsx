@@ -68,7 +68,7 @@ export function MenuSection() {
 
   useEffect(() => {
     const scrollToCategory = (catId: string) => {
-      if (!catId || catId === "all" || catId === "menu-categories") return handleSelect("all");
+      if (!catId || catId === "all" || catId === "menu-categories" || catId === "menu-quick") return handleSelect("all");
       const clean = catId.startsWith("menu-") ? catId.slice(5) : catId;
       const matched = clean === "pizzas" ? "pizza" : clean;
       if (visibleMenu.some((c) => c.id === matched)) handleSelect(matched);
@@ -108,53 +108,35 @@ export function MenuSection() {
 
   return (
     <section id="menu" className="relative scroll-mt-[calc(4rem+env(safe-area-inset-top))] border-t-4 border-black bg-brand-black text-cream">
-      <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16">
-        <div className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-4">
-          <div><div className="inline-block rounded-xs bg-brand-red px-2.5 py-1 text-xs font-black uppercase tracking-widest text-white mb-2 shadow-xs">★ {isPt ? "CARDÁPIO OFICIAL" : "OFFICIAL MENU"} ★</div><h2 className="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none">{isPt ? "Kebab no Porto, pizza em Campanhã" : "Kebab in Porto, pizza in Campanhã"}</h2><p className="mt-2 text-sm sm:text-base text-muted max-w-2xl">{isPt ? "Na Rua de São Roque da Lameira encontra doner kebab, durum, pizzas, falafel, hambúrgueres, pratos e snacks para takeaway. Escolha os seus itens e monte o pedido no site." : "On Rua de São Roque da Lameira you can find doner kebab, durum, pizza, falafel, burgers, plates and snacks for takeaway. Choose your items and build your order on the site."}</p></div>
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto"><div className="relative z-20 w-full sm:w-72 pointer-events-auto"><Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted"/><input type="search" inputMode="search" enterKeyHint="search" autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false} value={search} onChange={(e)=>setSearch(e.currentTarget.value)} onFocus={(e)=>e.currentTarget.select()} placeholder={isPt ? "Pesquisar kebab, pizza..." : "Search kebab, pizza..."} aria-label={isPt ? "Pesquisar no menu" : "Search the menu"} className="relative z-20 h-12 w-full touch-manipulation rounded-md border-2 border-black bg-surface pl-10 pr-10 text-base font-bold text-white placeholder:text-muted focus:border-brand-yellow focus:outline-none" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", caretColor: "#ffc72c" }}/>{search && <button type="button" onClick={clearSearch} aria-label={isPt ? "Limpar pesquisa" : "Clear search"} className="absolute right-3 top-1/2 z-30 -translate-y-1/2 text-muted hover:text-white"><X className="size-4"/></button>}</div><button type="button" onClick={()=>setVegOnly(!vegOnly)} className={cn("flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-md border-2 border-black px-4 text-xs font-black uppercase tracking-wider transition-all", vegOnly ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface hover:bg-surface-card text-muted hover:text-white shadow-xs")}><Leaf className="size-3.5 text-bolt"/><span>{isPt ? "Vegetariano" : "Vegetarian"}</span></button></div>
-        </div>
-        <details className="mt-6 rounded-lg border-2 border-line bg-surface-card p-4 text-sm text-cream/85">
-          <summary className="cursor-pointer font-black uppercase tracking-wider text-brand-yellow">
-            {isPt ? "Informação sobre alergénios" : "Allergen information"}
-          </summary>
-          <p className="mt-3 max-w-4xl text-xs sm:text-sm leading-relaxed text-cream/75">
-            {isPt
-              ? "Indicamos apenas alergénios que são diretamente identificáveis nos ingredientes publicados. Receitas, molhos e fornecedores podem mudar. Se tem uma alergia ou intolerância, confirme sempre com o restaurante antes de encomendar."
-              : "We only show allergens directly identifiable from the published ingredients. Recipes, sauces and suppliers can change. If you have an allergy or intolerance, always confirm with the restaurant before ordering."}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {ALLERGEN_IDS.map((id) => (
-              <span key={id} className="rounded-full border border-line bg-brand-black px-2.5 py-1 text-[10px] font-bold text-cream/80">
-                {t(ALLERGEN_LABELS[id])}
-              </span>
-            ))}
-          </div>
-          <p className="mt-3 text-[11px] leading-relaxed text-muted">
-            {isPt
-              ? "A lista acima corresponde aos 14 grupos de alergénios de declaração obrigatória na UE. A informação específica de cada artigo deve ser confirmada quando não estiver identificada no cartão."
-              : "The list above reflects the 14 allergen groups requiring declaration in the EU. Item-specific information should be confirmed whenever it is not identified on the product card."}
-          </p>
-        </details>
+      <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 sm:pt-10">
+        <div className="inline-block rounded-xs bg-brand-red px-2.5 py-1 text-xs font-black uppercase tracking-widest text-white mb-2 shadow-xs">★ {isPt ? "CARDÁPIO OFICIAL" : "OFFICIAL MENU"} ★</div>
+        <h2 className="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none">{isPt ? "Kebab no Porto, pizza em Campanhã" : "Kebab in Porto, pizza in Campanhã"}</h2>
+        <p className="mt-2 text-sm sm:text-base text-muted max-w-2xl">{isPt ? "Escolhe primeiro a categoria e chega logo aos produtos. A pesquisa, o filtro vegetariano e os alergénios ficam logo a seguir." : "Choose a category first and go straight to the products. Search, vegetarian filter and allergen information follow immediately after."}</p>
       </div>
-      <div id="menu-categories" className="relative z-20 mt-8 border-y-2 border-black bg-surface/95 md:sticky md:top-[calc(5rem+env(safe-area-inset-top))] md:z-30 md:backdrop-blur-md"><div className="mx-auto max-w-7xl"><div ref={categoriesNavRef} className="no-scrollbar flex touch-pan-x gap-2 overflow-x-auto px-4 py-2.5 sm:px-6"><button type="button" ref={(el)=>{chipRefs.current.all=el}} onClick={()=>handleSelect("all")} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory === "all" && !filtered ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{isPt ? "★ TODAS AS CATEGORIAS" : "★ ALL CATEGORIES"}</button>{visibleMenu.map((category)=><button key={category.id} type="button" ref={(el)=>{chipRefs.current[category.id]=el}} onClick={()=>handleSelect(category.id)} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory===category.id && !filtered ? "bg-brand-yellow text-black shadow-fastfood-yellow" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{t(category.label)}</button>)}</div></div></div>
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+
+      <div id="menu-quick" className="scroll-mt-[calc(5rem+env(safe-area-inset-top))]">
+        <div className="mx-auto max-w-7xl px-4 pt-5 sm:px-6">
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-yellow">{isPt ? "ESCOLHE UMA CATEGORIA" : "CHOOSE A CATEGORY"}</p>
+          <div className="mt-1 flex items-end justify-between gap-4">
+            <h3 className="font-display text-3xl uppercase text-white sm:text-4xl">{isPt ? "Menu rápido" : "Quick menu"}</h3>
+            <span className="hidden rounded-full border-2 border-black bg-surface px-3 py-1 text-[10px] font-black uppercase text-muted sm:inline-flex">{visibleMenu.reduce((sum, category) => sum + category.items.length, 0)} {isPt ? "itens" : "items"}</span>
+          </div>
+        </div>
+        <div id="menu-categories" className="relative z-20 mt-3 border-y-2 border-black bg-surface/95 md:sticky md:top-[calc(5rem+env(safe-area-inset-top))] md:z-30 md:backdrop-blur-md"><div className="mx-auto max-w-7xl"><div ref={categoriesNavRef} className="no-scrollbar flex touch-pan-x gap-2 overflow-x-auto px-4 py-2.5 sm:px-6"><button type="button" ref={(el)=>{chipRefs.current.all=el}} onClick={()=>handleSelect("all")} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory === "all" && !filtered ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{isPt ? "★ TODAS AS CATEGORIAS" : "★ ALL CATEGORIES"}</button>{visibleMenu.map((category)=><button key={category.id} type="button" ref={(el)=>{chipRefs.current[category.id]=el}} onClick={()=>handleSelect(category.id)} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory===category.id && !filtered ? "bg-brand-yellow text-black shadow-fastfood-yellow" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{t(category.label)}</button>)}</div></div></div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative z-20 w-full sm:max-w-sm pointer-events-auto"><Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted"/><input type="search" inputMode="search" enterKeyHint="search" autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false} value={search} onChange={(e)=>setSearch(e.currentTarget.value)} onFocus={(e)=>e.currentTarget.select()} placeholder={isPt ? "Pesquisar kebab, pizza..." : "Search kebab, pizza..."} aria-label={isPt ? "Pesquisar no menu" : "Search the menu"} className="relative z-20 h-12 w-full touch-manipulation rounded-md border-2 border-black bg-surface pl-10 pr-10 text-base font-bold text-white placeholder:text-muted focus:border-brand-yellow focus:outline-none" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", caretColor: "#ffc72c" }}/>{search && <button type="button" onClick={clearSearch} aria-label={isPt ? "Limpar pesquisa" : "Clear search"} className="absolute right-3 top-1/2 z-30 -translate-y-1/2 text-muted hover:text-white"><X className="size-4"/></button>}</div>
+          <button type="button" onClick={()=>setVegOnly(!vegOnly)} className={cn("flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-md border-2 border-black px-4 text-xs font-black uppercase tracking-wider transition-all", vegOnly ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface hover:bg-surface-card text-muted hover:text-white shadow-xs")}><Leaf className="size-3.5 text-bolt"/><span>{isPt ? "Vegetariano" : "Vegetarian"}</span></button>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 pt-4 pb-8 sm:px-6 sm:pt-5 sm:pb-12">
         {selectedCategory !== "all" && !filtered && <div className="mb-6 flex items-center justify-between border-b-2 border-line pb-4"><button type="button" onClick={()=>handleSelect("all")} className="inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-yellow shadow-fastfood"><ArrowLeft className="size-4"/>{isPt ? "Ver Todas as Categorias" : "View All Categories"}</button></div>}
         <div>
           {showCategoryOverview ? (
             <div>
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-yellow">
-                    {isPt ? "ESCOLHE UMA CATEGORIA" : "CHOOSE A CATEGORY"}
-                  </p>
-                  <h3 className="mt-1 font-display text-3xl uppercase text-white sm:text-4xl">
-                    {isPt ? "Menu rápido" : "Quick menu"}
-                  </h3>
-                </div>
-                <span className="hidden rounded-full border-2 border-black bg-surface px-3 py-1 text-[10px] font-black uppercase text-muted sm:inline-flex">
-                  {visibleMenu.reduce((sum, category) => sum + category.items.length, 0)} {isPt ? "itens" : "items"}
-                </span>
-              </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {visibleMenu.map((category) => {
                   const image = optimizedMenuImage(CATEGORY_IMAGES[category.id]);
@@ -237,6 +219,29 @@ export function MenuSection() {
             </div>
           )}
         </div>
+
+        <details className="mt-7 rounded-lg border-2 border-line bg-surface-card p-4 text-sm text-cream/85">
+          <summary className="cursor-pointer font-black uppercase tracking-wider text-brand-yellow">
+            {isPt ? "Informação sobre alergénios" : "Allergen information"}
+          </summary>
+          <p className="mt-3 max-w-4xl text-xs sm:text-sm leading-relaxed text-cream/75">
+            {isPt
+              ? "Indicamos apenas alergénios que são diretamente identificáveis nos ingredientes publicados. Receitas, molhos e fornecedores podem mudar. Se tem uma alergia ou intolerância, confirme sempre com o restaurante antes de encomendar."
+              : "We only show allergens directly identifiable from the published ingredients. Recipes, sauces and suppliers can change. If you have an allergy or intolerance, always confirm with the restaurant before ordering."}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {ALLERGEN_IDS.map((id) => (
+              <span key={id} className="rounded-full border border-line bg-brand-black px-2.5 py-1 text-[10px] font-bold text-cream/80">
+                {t(ALLERGEN_LABELS[id])}
+              </span>
+            ))}
+          </div>
+          <p className="mt-3 text-[11px] leading-relaxed text-muted">
+            {isPt
+              ? "A lista acima corresponde aos 14 grupos de alergénios de declaração obrigatória na UE. A informação específica de cada artigo deve ser confirmada quando não estiver identificada no cartão."
+              : "The list above reflects the 14 allergen groups requiring declaration in the EU. Item-specific information should be confirmed whenever it is not identified on the product card."}
+          </p>
+        </details>
       </div>
     </section>
   );
