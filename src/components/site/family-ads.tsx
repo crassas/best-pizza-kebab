@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Users, UtensilsCrossed } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useI18n } from "@/lib/i18n";
@@ -113,34 +113,6 @@ const GENERAL_SLIDES: Slide[] = [
   },
 ];
 
-function buildSlides(): Slide[] {
-  const productSlides = PACKS.flatMap((pack) => [
-    {
-      id: `${pack.id}-pt`,
-      lang: "pt" as const,
-      image: pack.image,
-      eyebrow: "PUBLICIDADE BEST KEBAB & PIZZA",
-      title: pack.pt.name,
-      subtitle: pack.pt.callout,
-      detail: pack.pt.detail,
-      price: pack.price,
-      cta: "Ver menu",
-    },
-    {
-      id: `${pack.id}-en`,
-      lang: "en" as const,
-      image: pack.image,
-      eyebrow: "BEST KEBAB & PIZZA AD",
-      title: pack.en.name,
-      subtitle: pack.en.callout,
-      detail: pack.en.detail,
-      price: `€${pack.price.replace("€", "").replace(",", ".")}`,
-      cta: "See menu",
-    },
-  ]);
-  return [...GENERAL_SLIDES, ...productSlides];
-}
-
 const TOP_TICKER = [
   "FAMILY MENUS",
   "MENUS PARA PARTILHAR",
@@ -150,18 +122,9 @@ const TOP_TICKER = [
   "GOOD FOOD · GOOD COMPANY",
 ];
 
-const BOTTOM_TICKER = [
-  "2 KEBABS + 2 BATATAS + 2 BEBIDAS",
-  "2 DURUM + 2 BATATAS + 2 BEBIDAS",
-  "CHICKEN MIX BOX",
-  "DONER MIX BOX",
-  "DESDE 7,50€",
-  "FROM €7.50",
-];
-
 export function FamilyAds() {
   const { lang } = useI18n();
-  const slides = useMemo(buildSlides, []);
+  const slides = GENERAL_SLIDES;
   const [active, setActive] = useState(0);
   const current = slides[active] ?? slides[0]!;
   const isPt = lang === "pt";
@@ -183,8 +146,6 @@ export function FamilyAds() {
     window.dispatchEvent(new CustomEvent("select-menu-category", { detail: category }));
     window.setTimeout(() => scrollToElement(`dish-${packId}`, 105), 280);
   };
-
-  const currentPackId = PACKS.find((pack) => current.id.startsWith(pack.id))?.id;
 
   return (
     <section
@@ -264,7 +225,7 @@ export function FamilyAds() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => goMenu("family_billboard", currentPackId)}
+                      onClick={() => goMenu("family_billboard")}
                       className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform hover:-translate-y-0.5"
                     >
                       <UtensilsCrossed className="size-4 text-brand-red" />
@@ -288,14 +249,13 @@ export function FamilyAds() {
         </div>
 
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {PACKS.map((pack, index) => {
+          {PACKS.map((pack) => {
             const copy = isPt ? pack.pt : pack.en;
             return (
               <motion.button
                 key={pack.id}
                 type="button"
                 onClick={() => {
-                  setActive(2 + index * 2 + (isPt ? 0 : 1));
                   goMenu("family_card", pack.id);
                 }}
                 whileHover={{ y: -4 }}
@@ -336,22 +296,6 @@ export function FamilyAds() {
         </div>
       </div>
 
-      <div className="overflow-hidden border-t-2 border-black bg-brand-red py-2 text-white" aria-hidden="true">
-        <div className="animate-marquee-reverse">
-          {[0, 1, 2, 3].map((copyIndex) => (
-            <div
-              key={`family-bottom-${copyIndex}`}
-              className="flex shrink-0 items-center gap-8 px-4 font-display text-base font-black uppercase tracking-wider sm:text-lg"
-            >
-              {BOTTOM_TICKER.map((text, index) => (
-                <span key={`${copyIndex}-${index}`} className={index % 2 ? "text-brand-yellow" : ""}>
-                  ● {text}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
