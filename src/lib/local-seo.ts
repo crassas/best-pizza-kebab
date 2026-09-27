@@ -3,6 +3,7 @@ export type LocalizedText = { pt: string; en: string };
 const L = (pt: string, en: string): LocalizedText => ({ pt, en });
 
 export const localAreas = [
+  "Porto",
   "São Roque da Lameira",
   "Campanhã",
   "Cartes",
@@ -43,6 +44,16 @@ export const nearbyLocalAnchors = [
 ] as const;
 
 export const localFaq = [
+  {
+    question: L(
+      "Onde comer kebab no Porto?",
+      "Where can I eat kebab in Porto?",
+    ),
+    answer: L(
+      "O Best Kebab & Pizza é uma opção em Campanhã, na Rua de São Roque da Lameira 2346. Podes consultar o menu, avaliações públicas, horário e rota antes de escolher.",
+      "Best Kebab & Pizza is an option in Campanhã at Rua de São Roque da Lameira 2346. You can check the menu, public reviews, opening hours and route before choosing.",
+    ),
+  },
   {
     question: L(
       "Onde fica o Best Kebab & Pizza em São Roque da Lameira?",
