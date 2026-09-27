@@ -47,8 +47,8 @@ export function Location() {
 
               <p className="mt-3 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:text-base">
                 {isPt
-                  ? "Já escolheste o pedido? Confirma agora a distância e o melhor caminho até ao Best Kebab & Pizza."
-                  : "Finished choosing your order? Check the distance and the best route to Best Kebab & Pizza."}
+                  ? "Estamos na Rua de São Roque da Lameira 2346, no eixo São Roque–Cartes, perto do Parque de São Roque e de São Rock Climbing. As linhas STCP 401, 700, 800, 801, 806, 7M e 9M servem esta zona; confirma eventuais alterações de percurso na STCP."
+                  : "We are at Rua de São Roque da Lameira 2346, on the São Roque–Cartes axis, near Parque de São Roque and São Rock Climbing. STCP lines 401, 700, 800, 801, 806, 7M and 9M serve this area; check STCP for temporary route changes."}
               </p>
 
               <div className="mt-5 rounded-lg border-2 border-black bg-black/20 p-4">
@@ -62,6 +62,13 @@ export function Location() {
                   <ShieldCheck className="size-3.5 text-brand-red" />
                   {isPt ? "Opções Halal" : "Halal Options"}
                 </div>
+                <p className="mt-3 text-[10px] font-bold leading-relaxed text-white/75">
+                  {isPt ? (
+                    <>Parque de São Roque · Cartes · Falcão · Corujeira · <a href="/kebab-sao-roque-lameira/" className="text-brand-yellow underline underline-offset-2">Guia hiperlocal de São Roque</a></>
+                  ) : (
+                    <>Parque de São Roque · Cartes · Falcão · Corujeira · <a href="/kebab-sao-roque-lameira/" className="text-brand-yellow underline underline-offset-2">São Roque local guide</a></>
+                  )}
+                </p>
               </div>
 
               <a
