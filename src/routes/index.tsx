@@ -4,6 +4,7 @@ import { ActionBar } from "@/components/site/action-bar";
 import { BoltNotice } from "@/components/site/bolt-notice";
 import { Featured } from "@/components/site/featured";
 import { FiveGuysWall } from "@/components/site/five-guys-wall";
+import { FamilyAds } from "@/components/site/family-ads";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
