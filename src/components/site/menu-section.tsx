@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CupSoda, Leaf, Plus, Search, Soup, UtensilsCrossed, Wine, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { useRestaurantData } from "@/lib/restaurant-context";
@@ -140,7 +139,7 @@ export function MenuSection() {
       <div id="menu-categories" className="relative z-20 mt-8 border-y-2 border-black bg-surface/95 md:sticky md:top-[calc(5rem+env(safe-area-inset-top))] md:z-30 md:backdrop-blur-md"><div className="mx-auto max-w-7xl"><div ref={categoriesNavRef} className="no-scrollbar flex touch-pan-x gap-2 overflow-x-auto px-4 py-2.5 sm:px-6"><button type="button" ref={(el)=>{chipRefs.current.all=el}} onClick={()=>handleSelect("all")} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory === "all" && !filtered ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{isPt ? "★ TODAS AS CATEGORIAS" : "★ ALL CATEGORIES"}</button>{visibleMenu.map((category)=><button key={category.id} type="button" ref={(el)=>{chipRefs.current[category.id]=el}} onClick={()=>handleSelect(category.id)} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory===category.id && !filtered ? "bg-brand-yellow text-black shadow-fastfood-yellow" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{t(category.label)}</button>)}</div></div></div>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {selectedCategory !== "all" && !filtered && <div className="mb-6 flex items-center justify-between border-b-2 border-line pb-4"><button type="button" onClick={()=>handleSelect("all")} className="inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-yellow shadow-fastfood"><ArrowLeft className="size-4"/>{isPt ? "Ver Todas as Categorias" : "View All Categories"}</button></div>}
-        <AnimatePresence mode="wait"><motion.div key={selectedCategory+search+(vegOnly?"-veg":"")} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.2}}>
+        <div>
           {showCategoryOverview ? (
             <div>
               <div className="mb-5 flex items-center justify-between gap-4">
@@ -237,7 +236,7 @@ export function MenuSection() {
               <button type="button" onClick={()=>{clearSearch();setVegOnly(false);setSelectedCategory("all")}} className="mt-4 inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-brand-red px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-fastfood"><X className="size-4"/>{isPt?"Limpar Filtros":"Clear Filters"}</button>
             </div>
           )}
-        </motion.div></AnimatePresence>
+        </div>
       </div>
     </section>
   );
