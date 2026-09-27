@@ -8,6 +8,7 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
 import { HowToOrder } from "@/components/site/how-to-order";
+import { Hyperlocal } from "@/components/site/hyperlocal";
 import { JsonLd } from "@/components/site/json-ld";
 import { Location } from "@/components/site/location";
 import { MenuSection } from "@/components/site/menu-section";
@@ -39,7 +40,7 @@ function Home() {
       </a>
       <Header />
       <main className="pb-16 md:pb-0 bg-brand-black">
-        <Hero /><BoltNotice /><Featured /><MenuSection /><HowToOrder /><Location /><FiveGuysWall />
+        <Hero /><BoltNotice /><Featured /><MenuSection /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />
       </main>
       <Footer /><ActionBar /><OrderDrawer />
     </>
