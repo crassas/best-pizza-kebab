@@ -1,0 +1,30 @@
+# Best Kebab & Pizza
+
+Official website: https://bestpizzaandkebab.pt/
+Business type: Restaurant / takeaway
+Primary location: Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal
+Neighbourhood: São Roque da Lameira, Campanhã, Porto
+Phone: +351 920 163 613
+Languages: Portuguese and English
+
+## What the restaurant serves
+Kebab, doner, durum, pizza, falafel, burgers, chicken, salads and other menu items.
+The site identifies Halal options; customers should confirm which items are covered and any supplier or certification details at the restaurant.
+
+## Local coverage
+The restaurant is physically located in São Roque da Lameira.
+Nearby local search references include Campanhã, Cartes, Falcão, Cerco and Corujeira.
+Useful nearby reference points include Casa São Roque and the Alameda de Cartes area.
+
+## Direct answers
+- Where is it? Rua de São Roque da Lameira 2346, 4350-307 Porto.
+- Is takeaway available? Yes. Customers can choose from the menu, contact the restaurant and collect at the restaurant.
+- Are delivery options available? Yes, through the delivery platforms linked on the official website.
+- Is there kebab and pizza in São Roque da Lameira? Yes. Best Kebab & Pizza is located on Rua de São Roque da Lameira in Campanhã.
+
+## Canonical pages
+Home: https://bestpizzaandkebab.pt/
+Takeaway: https://bestpizzaandkebab.pt/takeaway-campanha/
+Sitemap: https://bestpizzaandkebab.pt/sitemap.xml
+
+Last updated: 2026-09-27
