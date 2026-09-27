@@ -202,6 +202,7 @@ export const restaurant = {
     lng: -8.5880384,
   },
   mapsQuery: "Rua de São Roque da Lameira 2346, 4350-306 Porto, Portugal",
+  googlePlaceId: "ChIJZwseeQBlJA0RFqu3nPEOAvg",
   timezone: TIMEZONE,
   /**
    * Horários verificados presencialmente na porta do estabelecimento:
@@ -250,8 +251,8 @@ export const restaurant = {
 } as const;
 
 export const maps = {
-  search: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.mapsQuery)}`,
-  directions: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(restaurant.mapsQuery)}`,
+  search: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Best Pizza & kebab Porto")}&query_place_id=${restaurant.googlePlaceId}`,
+  directions: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(restaurant.mapsQuery)}&destination_place_id=${restaurant.googlePlaceId}`,
   osmEmbed: `https://www.openstreetmap.org/export/embed.html?bbox=${restaurant.geo.lng - 0.008}%2C${restaurant.geo.lat - 0.005}%2C${restaurant.geo.lng + 0.008}%2C${restaurant.geo.lat + 0.005}&layer=mapnik&marker=${restaurant.geo.lat}%2C${restaurant.geo.lng}`,
 };
 
@@ -913,8 +914,8 @@ export const menu: MenuCategory[] = [
 
 export const seo = {
   title: L(
-    "Kebab no Porto e Pizza em Campanhã | Best Kebab & Pizza",
-    "Kebab in Porto & Pizza in Campanhã | Best Kebab & Pizza"
+    "Kebab em São Roque da Lameira e Campanhã | Best Kebab & Pizza",
+    "Kebab in São Roque da Lameira & Campanhã | Best Kebab & Pizza"
   ),
   description: L(
     "Kebab no Porto em São Roque da Lameira, Campanhã. Doner kebab, durum, pizza, falafel e hambúrgueres para takeaway e entrega. Tel: 920 163 613.",
@@ -1025,11 +1026,11 @@ export function getHoursStatus(date: Date): HoursStatus {
 
 export function jsonLd() {
   const domain = seo.canonical.replace(/\/$/, "");
-  return {
-    "@context": "https://schema.org",
+  const restaurantEntity = {
     "@type": "Restaurant",
     "@id": `${domain}/#restaurant`,
     name: restaurant.name,
+    alternateName: ["Best Pizza & Kebab", "Best Kebab & Pizza"],
     legalName: restaurant.name,
     url: domain,
     image: [
@@ -1038,12 +1039,17 @@ export function jsonLd() {
       `${domain}${restaurant.photos.kebab}`,
       `${domain}${restaurant.photos.interiorRefeicao}`,
     ],
+    description:
+      "Kebab, durum, pizza, falafel, hambúrgueres e pratos na Rua de São Roque da Lameira 2346, em Campanhã, Porto.",
     servesCuisine: restaurant.cuisine,
     priceRange: "€",
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: "Campanhã, Porto"
-    },
+    areaServed: [
+      { "@type": "Place", name: "São Roque da Lameira, Campanhã, Porto" },
+      { "@type": "Place", name: "Cartes, Campanhã, Porto" },
+      { "@type": "Place", name: "Falcão, Campanhã, Porto" },
+      { "@type": "Place", name: "Corujeira, Campanhã, Porto" },
+      { "@type": "Place", name: "Campanhã, Porto" },
+    ],
     telephone: restaurant.phoneDisplay,
     address: {
       "@type": "PostalAddress",
@@ -1068,37 +1074,91 @@ export function jsonLd() {
     hasMenu: `${domain}/#menu`,
     hasMap: maps.search,
     sameAs: [
+      maps.search,
       boltFood.storeUrl,
       uberEats.storeUrl,
-      maps.search
     ],
     potentialAction: [
       {
         "@type": "OrderAction",
-        "target": {
+        target: {
           "@type": "EntryPoint",
-          "urlTemplate": boltFood.storeUrl,
-          "inLanguage": ["pt", "en"],
-          "actionPlatform": [
+          urlTemplate: boltFood.storeUrl,
+          inLanguage: ["pt", "en"],
+          actionPlatform: [
             "http://schema.org/DesktopWebPlatform",
-            "http://schema.org/MobileWebPlatform"
-          ]
+            "http://schema.org/MobileWebPlatform",
+          ],
         },
-        "deliveryMethod": ["http://purl.org/goodrelations/v1#DeliveryModeDirectOutbound"]
+        deliveryMethod: ["http://purl.org/goodrelations/v1#DeliveryModeDirectOutbound"],
       },
       {
         "@type": "OrderAction",
-        "target": {
+        target: {
           "@type": "EntryPoint",
-          "urlTemplate": uberEats.storeUrl,
-          "inLanguage": ["pt", "en"],
-          "actionPlatform": [
+          urlTemplate: uberEats.storeUrl,
+          inLanguage: ["pt", "en"],
+          actionPlatform: [
             "http://schema.org/DesktopWebPlatform",
-            "http://schema.org/MobileWebPlatform"
-          ]
+            "http://schema.org/MobileWebPlatform",
+          ],
         },
-        "deliveryMethod": ["http://purl.org/goodrelations/v1#DeliveryModeDirectOutbound"]
-      }
-    ]
+        deliveryMethod: ["http://purl.org/goodrelations/v1#DeliveryModeDirectOutbound"],
+      },
+    ],
+  };
+
+  const websiteEntity = {
+    "@type": "WebSite",
+    "@id": `${domain}/#website`,
+    url: `${domain}/`,
+    name: "Best Pizza & Kebab",
+    alternateName: ["Best Kebab & Pizza", "Best Pizza and Kebab Porto"],
+    publisher: { "@id": `${domain}/#restaurant` },
+    inLanguage: ["pt-PT", "en"],
+  };
+
+  const faqEntity = {
+    "@type": "FAQPage",
+    "@id": `${domain}/#local-faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Onde comer kebab em São Roque da Lameira?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "O Best Kebab & Pizza fica na Rua de São Roque da Lameira 2346, 4350-306 Porto, em Campanhã, com doner kebab, durum, falafel, pizzas, hambúrgueres e takeaway.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Há takeaway de kebab perto do Parque de São Roque?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sim. O Best Kebab & Pizza fica na própria Rua de São Roque da Lameira, perto do Parque de São Roque. O pedido pode ser preparado para levantamento após confirmação.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Que transportes passam na zona de São Roque da Lameira?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A Rua de São Roque da Lameira é servida por várias linhas STCP, incluindo 401, 700, 800, 801, 806, 7M e 9M. As paragens e percursos podem mudar temporariamente devido a obras, por isso convém confirmar no site da STCP.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "O Best Kebab & Pizza fica perto de Cartes?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sim. O restaurante fica no eixo São Roque da Lameira–Cartes, próximo da zona da Alameda de Cartes e de referências locais como o Parque de São Roque.",
+        },
+      },
+    ],
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [restaurantEntity, websiteEntity, faqEntity],
   };
 }
