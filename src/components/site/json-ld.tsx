@@ -11,7 +11,7 @@ export function JsonLd() {
       {
         ...restaurantNode,
         name: restaurant.name,
-        alternateName: ["Best Pizza & Kebab"],
+        alternateName: ["Best Pizza & Kebab", "Best Pizza and Kebab Porto"],
         address: {
           ...(restaurantNode.address as Record<string, unknown>),
           postalCode: restaurant.address.postalCode,
@@ -21,6 +21,7 @@ export function JsonLd() {
           name,
         })),
         hasMap: maps.search,
+        hasMenu: "https://bestpizzaandkebab.pt/#menu-quick",
         sameAs: [
           ...((restaurantNode.sameAs as string[] | undefined) ?? []).filter(
             (url) => !url.includes("google.com/maps"),
