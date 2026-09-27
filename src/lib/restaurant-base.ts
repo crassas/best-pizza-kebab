@@ -1027,7 +1027,7 @@ export function getHoursStatus(date: Date): HoursStatus {
 export function jsonLd() {
   const domain = seo.canonical.replace(/\/$/, "");
   const restaurantEntity = {
-    "@type": "Restaurant",
+    "@type": ["Restaurant", "LocalBusiness"],
     "@id": `${domain}/#restaurant`,
     name: restaurant.name,
     alternateName: ["Best Pizza & Kebab", "Best Kebab & Pizza"],
@@ -1071,7 +1071,7 @@ export function jsonLd() {
       opens: block.open,
       closes: block.close,
     })),
-    hasMenu: `${domain}/#menu`,
+    hasMenu: { "@id": `${domain}/#menu` },
     hasOfferCatalog: { "@id": `${domain}/#family-offers` },
     hasMap: maps.search,
     sameAs: [
@@ -1107,6 +1107,37 @@ export function jsonLd() {
         deliveryMethod: ["http://purl.org/goodrelations/v1#DeliveryModeDirectOutbound"],
       },
     ],
+  };
+
+
+  const menuEntity = {
+    "@type": "Menu",
+    "@id": `${domain}/#menu`,
+    name: "Menu Best Kebab & Pizza",
+    url: `${domain}/#menu`,
+    inLanguage: ["pt-PT", "en"],
+    hasMenuSection: menu
+      .filter((category) => category.items.length > 0)
+      .map((category) => ({
+        "@type": "MenuSection",
+        name: category.label.pt,
+        hasMenuItem: category.items.map((item) => {
+          const prices = item.sizes?.map((size) => size.price).filter((price): price is number => typeof price === "number") ?? [];
+          const price = typeof item.price === "number" ? item.price : prices.length ? Math.min(...prices) : undefined;
+          return {
+            "@type": "MenuItem",
+            name: item.name.pt,
+            description: item.description?.pt,
+            suitableForDiet: item.vegetarian ? "https://schema.org/VegetarianDiet" : undefined,
+            offers: price !== undefined ? {
+              "@type": "Offer",
+              price: price.toFixed(2),
+              priceCurrency: "EUR",
+              availability: "https://schema.org/InStock",
+            } : undefined,
+          };
+        }),
+      })),
   };
 
   const websiteEntity = {
@@ -1234,6 +1265,6 @@ export function jsonLd() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantEntity, websiteEntity, familyOffersEntity, faqEntity],
+    "@graph": [restaurantEntity, websiteEntity, menuEntity, familyOffersEntity, faqEntity],
   };
 }
