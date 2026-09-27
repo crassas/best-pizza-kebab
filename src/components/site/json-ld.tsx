@@ -1,4 +1,4 @@
-import { jsonLd, restaurant, seo } from "@/lib/restaurant";
+import { jsonLd, maps, restaurant, seo } from "@/lib/restaurant";
 import { localAreas, localFaq } from "@/lib/local-seo";
 
 export function JsonLd() {
@@ -20,6 +20,13 @@ export function JsonLd() {
           "@type": "Place",
           name,
         })),
+        hasMap: maps.search,
+        sameAs: [
+          ...((restaurantNode.sameAs as string[] | undefined) ?? []).filter(
+            (url) => !url.includes("google.com/maps"),
+          ),
+          maps.search,
+        ],
       },
       {
         "@type": "WebPage",
