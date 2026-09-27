@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Leaf, Plus, Search, X, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Beer, Check, CupSoda, Leaf, Plus, Search, Soup, UtensilsCrossed, Wine, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
@@ -15,17 +15,22 @@ import {
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
-const CATEGORY_IMAGES: Record<string, string> = {
+const CATEGORY_IMAGES: Partial<Record<string, string>> = {
   kebabs: "/images/optimized/06_kebab_batatas-thumb.webp",
-  burgers: "/food/burger.jpg",
-  chicken: "/food/chicken.jpg",
+  burgers: "/images/uploaded/hmm_burger.webp",
+  chicken: "/images/uploaded/palitos_de_frango_com_fritas_e_refrigerante.webp",
+  plates: "/images/optimized/07_kebab_prato_agua-thumb.webp",
+  indian: "/images/uploaded/samosa_simple.jpg",
   pizza: "/images/optimized/05_pizza-thumb.webp",
   pizzas: "/images/optimized/05_pizza-thumb.webp",
-  plates: "/images/optimized/07_kebab_prato_agua-thumb.webp",
-  pasta: "/food/pizza.jpg",
-  indian: "/food/hero.jpg",
-  drinks: "/food/hero.jpg",
+  extras: "/images/uploaded/samosa_snack.jpg",
 };
+
+const CATEGORY_FALLBACK_ICONS = {
+  pasta: Soup,
+  drinks: CupSoda,
+  beers: Wine,
+} as const;
 
 const visibleMenu = menu.filter((c) => c.items.length > 0);
 
@@ -153,7 +158,8 @@ export function MenuSection() {
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {visibleMenu.map((category) => {
-                  const image = optimizedMenuImage(CATEGORY_IMAGES[category.id] || "/food/hero.jpg");
+                  const image = optimizedMenuImage(CATEGORY_IMAGES[category.id]);
+                  const FallbackIcon = CATEGORY_FALLBACK_ICONS[category.id as keyof typeof CATEGORY_FALLBACK_ICONS] ?? UtensilsCrossed;
                   return (
                     <button
                       key={category.id}
@@ -161,7 +167,7 @@ export function MenuSection() {
                       onClick={() => handleSelect(category.id)}
                       className="group relative min-h-28 overflow-hidden rounded-xl border-3 border-black bg-surface-card text-left shadow-fastfood"
                     >
-                      {image && (
+                      {image ? (
                         <img
                           src={image}
                           alt=""
@@ -173,6 +179,13 @@ export function MenuSection() {
                           fetchPriority="low"
                           className="absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-500 group-hover:scale-105"
                         />
+                      ) : (
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 flex items-center justify-end bg-gradient-to-br from-surface-card via-raised to-brand-black pr-8"
+                        >
+                          <FallbackIcon className="size-20 text-brand-yellow/55" strokeWidth={1.4} />
+                        </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/20" />
                       <div className="relative z-10 flex min-h-28 items-center justify-between gap-3 p-4">
@@ -195,14 +208,15 @@ export function MenuSection() {
             <div className="space-y-12">
               {displayedCategories.map((category) => {
                 const items = category.items;
-                const image = optimizedMenuImage(CATEGORY_IMAGES[category.id] || "/food/hero.jpg");
+                const image = optimizedMenuImage(CATEGORY_IMAGES[category.id]);
+                  const FallbackIcon = CATEGORY_FALLBACK_ICONS[category.id as keyof typeof CATEGORY_FALLBACK_ICONS] ?? UtensilsCrossed;
                 return (
                   <div key={category.id} id={getCategoryAnchor(category.id)} className="rounded-xl border-4 border-black bg-surface-card p-5 sm:p-7 shadow-fastfood overflow-hidden [content-visibility:auto] [contain-intrinsic-size:700px]">
                     <div className="hidden sm:block checker-red-white sm:h-3 w-full border-b-2 border-black sm:-mt-7 sm:-mx-7 mb-6 sm:w-[calc(100%+3.5rem)]"/>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-3 border-black pb-4 mb-6">
                       <div className="flex items-center gap-3">
                         <div className="size-14 rounded-lg border-2 border-black overflow-hidden bg-black/30 shadow-fastfood">
-                          {image && <img src={image} alt={isPt ? `${t(category.label)} — Best Kebab & Pizza em Campanhã, Porto` : `${t(category.label)} — Best Kebab & Pizza in Campanhã, Porto`} width={112} height={112} loading="lazy" decoding="async" fetchPriority="low" className="size-full object-cover"/>}
+                          {image ? <img src={image} alt={isPt ? `${t(category.label)} — Best Kebab & Pizza em Campanhã, Porto` : `${t(category.label)} — Best Kebab & Pizza in Campanhã, Porto`} width={112} height={112} loading="lazy" decoding="async" fetchPriority="low" className="size-full object-cover"/> : <div aria-hidden="true" className="flex size-full items-center justify-center bg-raised"><FallbackIcon className="size-7 text-brand-yellow" strokeWidth={1.6}/></div>}
                         </div>
                         <div>
                           <div className="badge-stamp bg-brand-yellow text-black px-2 py-0.5 text-[10px] mb-1">★ CATEGORIA OFICIAL ★</div>
