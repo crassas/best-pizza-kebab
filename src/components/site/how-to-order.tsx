@@ -28,7 +28,7 @@ export function HowToOrder() {
 
   const goToMenu = () => {
     trackEvent("menu_view", { from: "how_to_order_tutorial" });
-    scrollToElement("menu", 80);
+    scrollToElement("menu-quick", 76);
   };
 
   const openTray = () => {
