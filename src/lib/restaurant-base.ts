@@ -1072,6 +1072,7 @@ export function jsonLd() {
       closes: block.close,
     })),
     hasMenu: `${domain}/#menu`,
+    hasOfferCatalog: { "@id": `${domain}/#family-offers` },
     hasMap: maps.search,
     sameAs: [
       maps.search,
@@ -1116,6 +1117,64 @@ export function jsonLd() {
     alternateName: ["Best Kebab & Pizza", "Best Pizza and Kebab Porto"],
     publisher: { "@id": `${domain}/#restaurant` },
     inLanguage: ["pt-PT", "en"],
+  };
+
+
+  const familyOffersEntity = {
+    "@type": "OfferCatalog",
+    "@id": `${domain}/#family-offers`,
+    name: "Family Menus e opções para partilhar",
+    url: `${domain}/menus-family-campanha/`,
+    itemListElement: [
+      {
+        "@type": "Offer",
+        price: "15.00",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: `${domain}/#dish-family-kebab`,
+        itemOffered: {
+          "@type": "MenuItem",
+          name: "Family Kebab Menu",
+          description: "2 kebabs, 2 batatas fritas e 2 bebidas",
+        },
+      },
+      {
+        "@type": "Offer",
+        price: "16.00",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: `${domain}/#dish-family-durum`,
+        itemOffered: {
+          "@type": "MenuItem",
+          name: "Family Durum Kebab",
+          description: "2 durum, 2 batatas fritas e 2 bebidas",
+        },
+      },
+      {
+        "@type": "Offer",
+        price: "10.00",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: `${domain}/#dish-chicken-mix-box`,
+        itemOffered: {
+          "@type": "MenuItem",
+          name: "Chicken Mix Box",
+          description: "4 nuggets, 4 asinhas e 4 tiras de frango",
+        },
+      },
+      {
+        "@type": "Offer",
+        price: "7.50",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: `${domain}/#dish-doner-mix-box`,
+        itemOffered: {
+          "@type": "MenuItem",
+          name: "Doner Mix Box",
+          description: "Mix de doner para partilhar",
+        },
+      },
+    ],
   };
 
   const faqEntity = {
@@ -1175,6 +1234,6 @@ export function jsonLd() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantEntity, websiteEntity, faqEntity],
+    "@graph": [restaurantEntity, websiteEntity, familyOffersEntity, faqEntity],
   };
 }
