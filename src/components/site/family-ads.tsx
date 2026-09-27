@@ -92,7 +92,7 @@ const GENERAL_SLIDES: Slide[] = [
   {
     id: "family-overview-pt",
     lang: "pt",
-    image: "/images/family/family-hero.svg",
+    image: "/images/optimized/01_interior_refeicao.webp",
     eyebrow: "SÃO ROQUE · CAMPANHÃ · PORTO",
     title: "MENUS FAMILY",
     subtitle: "Boa comida. Bom preço. Boa companhia.",
@@ -103,7 +103,7 @@ const GENERAL_SLIDES: Slide[] = [
   {
     id: "family-overview-en",
     lang: "en",
-    image: "/images/family/family-hero.svg",
+    image: "/images/optimized/01_interior_refeicao.webp",
     eyebrow: "SÃO ROQUE · CAMPANHÃ · PORTO",
     title: "FAMILY MENUS",
     subtitle: "Good food. Fair price. Good company.",
@@ -174,7 +174,7 @@ export function FamilyAds() {
   }, [slides.length]);
 
   const goMenu = (from: string) => {
-    trackEvent("family_menu_click", { from, slide: current.id });
+    trackEvent("banner_click", { banner: "family_menus", from, slide: current.id });
     scrollToElement("menu", 80);
   };
 
