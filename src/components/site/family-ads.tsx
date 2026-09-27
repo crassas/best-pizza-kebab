@@ -111,6 +111,28 @@ const GENERAL_SLIDES: Slide[] = [
     price: "FROM €7.50",
     cta: "See menu",
   },
+  {
+    id: "best-kebab-porto-pt",
+    lang: "pt",
+    image: "/images/optimized/06_kebab_batatas.webp",
+    eyebrow: "DESAFIO · PORTO",
+    title: "O MELHOR KEBAB DO PORTO?",
+    subtitle: "SÓ HÁ UMA MANEIRA DE DESCOBRIR.",
+    detail: "Prova primeiro. Discute depois.",
+    price: "TU DECIDES",
+    cta: "Ver kebabs",
+  },
+  {
+    id: "best-kebab-porto-en",
+    lang: "en",
+    image: "/images/optimized/06_kebab_batatas.webp",
+    eyebrow: "PORTO · CHALLENGE",
+    title: "BEST KEBAB IN PORTO?",
+    subtitle: "THERE'S ONLY ONE WAY TO FIND OUT.",
+    detail: "Taste first. Argue later.",
+    price: "YOU DECIDE",
+    cta: "See kebabs",
+  },
 ];
 
 const TOP_TICKER = [
