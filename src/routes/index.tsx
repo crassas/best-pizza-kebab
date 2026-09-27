@@ -36,7 +36,7 @@ function Home() {
   return (
     <>
       <JsonLd />
-      <a href="#menu-quick" onClick={(e) => { e.preventDefault(); scrollToElement("menu-quick", 76); }} className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-white">
+      <a href="#menu-quick" onClick={(e) => { e.preventDefault(); scrollToElement("menu-quick", 128); }} className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-white">
         {t(copy.skip)}
       </a>
       <Header />
