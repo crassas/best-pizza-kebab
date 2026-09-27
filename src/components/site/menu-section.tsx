@@ -57,20 +57,14 @@ export function MenuSection() {
   const isPt = lang === "pt";
   const chipRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const categoriesNavRef = useRef<HTMLDivElement | null>(null);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const clearSearch = useCallback(() => {
     setSearch("");
-    if (searchInputRef.current) searchInputRef.current.value = "";
   }, []);
 
   const handleSelect = useCallback((categoryId: string) => {
     clearSearch();
     setSelectedCategory(categoryId);
-    if (categoriesNavRef.current) {
-      const y = categoriesNavRef.current.getBoundingClientRect().top + window.pageYOffset - 90;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
   }, [clearSearch]);
 
   useEffect(() => {
@@ -88,7 +82,13 @@ export function MenuSection() {
     return () => { window.removeEventListener("select-menu-category", custom); window.removeEventListener("hashchange", hash); };
   }, [handleSelect]);
 
-  useEffect(() => { chipRefs.current[selectedCategory]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); }, [selectedCategory]);
+  useEffect(() => {
+    const scroller = categoriesNavRef.current;
+    const chip = chipRefs.current[selectedCategory];
+    if (!scroller || !chip) return;
+    const left = chip.offsetLeft - (scroller.clientWidth - chip.offsetWidth) / 2;
+    scroller.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+  }, [selectedCategory]);
 
   const filteredMenu = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -112,7 +112,7 @@ export function MenuSection() {
       <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16">
         <div className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-4">
           <div><div className="inline-block rounded-xs bg-brand-red px-2.5 py-1 text-xs font-black uppercase tracking-widest text-white mb-2 shadow-xs">★ {isPt ? "CARDÁPIO OFICIAL" : "OFFICIAL MENU"} ★</div><h2 className="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white leading-none">{isPt ? "Kebab no Porto, pizza em Campanhã" : "Kebab in Porto, pizza in Campanhã"}</h2><p className="mt-2 text-sm sm:text-base text-muted max-w-2xl">{isPt ? "Na Rua de São Roque da Lameira encontra doner kebab, durum, pizzas, falafel, hambúrgueres, pratos e snacks para takeaway. Escolha os seus itens e monte o pedido no site." : "On Rua de São Roque da Lameira you can find doner kebab, durum, pizza, falafel, burgers, plates and snacks for takeaway. Choose your items and build your order on the site."}</p></div>
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto"><div className="relative w-full sm:w-72"><Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted"/><input ref={searchInputRef} type="text" inputMode="search" enterKeyHint="search" autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false} onInput={(e)=>setSearch(e.currentTarget.value)} placeholder={isPt ? "Pesquisar kebab, pizza..." : "Search kebab, pizza..."} aria-label={isPt ? "Pesquisar no menu" : "Search the menu"} className="h-12 w-full rounded-md border-2 border-black bg-surface pl-10 pr-10 text-base font-bold text-white placeholder:text-muted focus:border-brand-yellow focus:outline-none" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", caretColor: "#ffc72c" }}/>{search && <button type="button" onClick={clearSearch} aria-label={isPt ? "Limpar pesquisa" : "Clear search"} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-white"><X className="size-4"/></button>}</div><button type="button" onClick={()=>setVegOnly(!vegOnly)} className={cn("flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-md border-2 border-black px-4 text-xs font-black uppercase tracking-wider transition-all", vegOnly ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface hover:bg-surface-card text-muted hover:text-white shadow-xs")}><Leaf className="size-3.5 text-bolt"/><span>{isPt ? "Vegetariano" : "Vegetarian"}</span></button></div>
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto"><div className="relative z-20 w-full sm:w-72 pointer-events-auto"><Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted"/><input type="search" inputMode="search" enterKeyHint="search" autoComplete="off" autoCorrect="off" autoCapitalize="none" spellCheck={false} value={search} onChange={(e)=>setSearch(e.currentTarget.value)} onFocus={(e)=>e.currentTarget.select()} placeholder={isPt ? "Pesquisar kebab, pizza..." : "Search kebab, pizza..."} aria-label={isPt ? "Pesquisar no menu" : "Search the menu"} className="relative z-20 h-12 w-full touch-manipulation rounded-md border-2 border-black bg-surface pl-10 pr-10 text-base font-bold text-white placeholder:text-muted focus:border-brand-yellow focus:outline-none" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff", caretColor: "#ffc72c" }}/>{search && <button type="button" onClick={clearSearch} aria-label={isPt ? "Limpar pesquisa" : "Clear search"} className="absolute right-3 top-1/2 z-30 -translate-y-1/2 text-muted hover:text-white"><X className="size-4"/></button>}</div><button type="button" onClick={()=>setVegOnly(!vegOnly)} className={cn("flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-md border-2 border-black px-4 text-xs font-black uppercase tracking-wider transition-all", vegOnly ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface hover:bg-surface-card text-muted hover:text-white shadow-xs")}><Leaf className="size-3.5 text-bolt"/><span>{isPt ? "Vegetariano" : "Vegetarian"}</span></button></div>
         </div>
         <details className="mt-6 rounded-lg border-2 border-line bg-surface-card p-4 text-sm text-cream/85">
           <summary className="cursor-pointer font-black uppercase tracking-wider text-brand-yellow">
@@ -137,7 +137,7 @@ export function MenuSection() {
           </p>
         </details>
       </div>
-      <div id="menu-categories" ref={categoriesNavRef} className="sticky top-[calc(4rem+env(safe-area-inset-top))] z-30 mt-8 border-y-2 border-black bg-surface/95 backdrop-blur-md"><div className="mx-auto max-w-7xl"><div className="no-scrollbar flex gap-2 overflow-x-auto px-4 py-2.5 sm:px-6"><button type="button" ref={(el)=>{chipRefs.current.all=el}} onClick={()=>handleSelect("all")} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory === "all" && !filtered ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{isPt ? "★ TODAS AS CATEGORIAS" : "★ ALL CATEGORIES"}</button>{visibleMenu.map((category)=><button key={category.id} type="button" ref={(el)=>{chipRefs.current[category.id]=el}} onClick={()=>handleSelect(category.id)} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory===category.id && !filtered ? "bg-brand-yellow text-black shadow-fastfood-yellow" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{t(category.label)}</button>)}</div></div></div>
+      <div id="menu-categories" className="relative z-20 mt-8 border-y-2 border-black bg-surface/95 md:sticky md:top-[calc(5rem+env(safe-area-inset-top))] md:z-30 md:backdrop-blur-md"><div className="mx-auto max-w-7xl"><div ref={categoriesNavRef} className="no-scrollbar flex touch-pan-x gap-2 overflow-x-auto px-4 py-2.5 sm:px-6"><button type="button" ref={(el)=>{chipRefs.current.all=el}} onClick={()=>handleSelect("all")} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory === "all" && !filtered ? "bg-brand-red text-white shadow-fastfood-red" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{isPt ? "★ TODAS AS CATEGORIAS" : "★ ALL CATEGORIES"}</button>{visibleMenu.map((category)=><button key={category.id} type="button" ref={(el)=>{chipRefs.current[category.id]=el}} onClick={()=>handleSelect(category.id)} className={cn("relative z-10 h-10 shrink-0 rounded-md border-2 border-black px-4 text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xs", selectedCategory===category.id && !filtered ? "bg-brand-yellow text-black shadow-fastfood-yellow" : "bg-surface text-muted hover:text-white hover:bg-raised")}>{t(category.label)}</button>)}</div></div></div>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {selectedCategory !== "all" && !filtered && <div className="mb-6 flex items-center justify-between border-b-2 border-line pb-4"><button type="button" onClick={()=>handleSelect("all")} className="inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-yellow shadow-fastfood"><ArrowLeft className="size-4"/>{isPt ? "Ver Todas as Categorias" : "View All Categories"}</button></div>}
         <AnimatePresence mode="wait"><motion.div key={selectedCategory+search+(vegOnly?"-veg":"")} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.2}}>
