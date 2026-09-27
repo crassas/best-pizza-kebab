@@ -2,6 +2,7 @@ import { ArrowRight, Flame } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { featured, getCategoryAnchor, type Localized } from "@/lib/restaurant";
 import { trackEvent } from "@/lib/analytics";
+import { scrollToElement } from "@/lib/scroll";
 
 export function Featured() {
   const { lang, t } = useI18n();
@@ -14,10 +15,7 @@ export function Featured() {
       window.dispatchEvent(
         new CustomEvent("select-menu-category", { detail: categoryId }),
       );
-      const menuEl = document.getElementById("menu-quick");
-      if (menuEl) {
-        menuEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      scrollToElement("menu-quick", 128);
     }
   };
 
