@@ -1,6 +1,7 @@
-import { Star, Award } from "lucide-react";
+import { Star, Award, ExternalLink } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { CheckeredRibbon } from "@/components/site/marquee-banner";
+import { maps } from "@/lib/restaurant";
 
 export function FiveGuysWall() {
   const { lang } = useI18n();
@@ -28,8 +29,8 @@ export function FiveGuysWall() {
 
           <p className="mt-3 max-w-xl text-sm font-medium leading-relaxed text-cream/75 sm:text-base">
             {isPt
-              ? "Consulta a classificação do restaurante e, se quiseres, abre todas as avaliações diretamente no Google Maps."
-              : "Check the restaurant rating and, if you want, open all reviews directly on Google Maps."}
+              ? "Lê o que outros clientes escreveram no Google ou, depois da tua visita, deixa a tua própria avaliação."
+              : "Read what other customers wrote on Google or, after your visit, leave your own review."}
           </p>
 
           <div className="mt-6 flex items-center gap-3 rounded-lg border-3 border-black bg-brand-red px-5 py-3 shadow-fastfood">
@@ -46,6 +47,27 @@ export function FiveGuysWall() {
                 Google Reviews
               </span>
             </div>
+          </div>
+
+          <div className="mt-5 grid w-full max-w-lg gap-3 sm:grid-cols-2">
+            <a
+              href={maps.readReviews}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-4 py-3 text-xs font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
+            >
+              {isPt ? "Ler avaliações" : "Read reviews"}
+              <ExternalLink className="size-4" />
+            </a>
+            <a
+              href={maps.writeReview}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-yellow px-4 py-3 text-xs font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
+            >
+              {isPt ? "Deixar uma avaliação" : "Leave a review"}
+              <ExternalLink className="size-4" />
+            </a>
           </div>
         </div>
       </div>

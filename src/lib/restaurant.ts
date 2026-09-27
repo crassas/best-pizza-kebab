@@ -15,15 +15,17 @@ export const restaurant = {
   ...baseRestaurant,
   address: {
     ...baseRestaurant.address,
-    postalCode: "4350-307",
+    postalCode: "4350-306",
   },
-  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal",
+  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-306 Porto, Portugal",
 } as const;
 
 export const maps = {
   search: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.mapsQuery)}`,
   directions: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(restaurant.mapsQuery)}`,
   osmEmbed: baseMaps.osmEmbed,
+  readReviews: baseMaps.search,
+  writeReview: `https://search.google.com/local/writereview?placeid=${baseRestaurant.googlePlaceId}`,
 };
 
 // The physical in-store menu photographed on 2026-09-16 is layered on top of

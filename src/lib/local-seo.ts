@@ -49,8 +49,8 @@ export const localFaq = [
       "Where is Best Kebab & Pizza in São Roque da Lameira?",
     ),
     answer: L(
-      "Fica na Rua de São Roque da Lameira 2346, 4350-307 Porto, em Campanhã. A Casa São Roque e a zona da Alameda de Cartes são referências próximas.",
-      "It is at Rua de São Roque da Lameira 2346, 4350-307 Porto, in Campanhã. Casa São Roque and the Alameda de Cartes area are nearby reference points.",
+      "Fica na Rua de São Roque da Lameira 2346, 4350-306 Porto, em Campanhã. A Casa São Roque e a zona da Alameda de Cartes são referências próximas.",
+      "It is at Rua de São Roque da Lameira 2346, 4350-306 Porto, in Campanhã. Casa São Roque and the Alameda de Cartes area are nearby reference points.",
     ),
   },
   {
