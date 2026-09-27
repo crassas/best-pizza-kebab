@@ -139,7 +139,7 @@ export function FamilyAds() {
   const goMenu = (from: string, packId?: string) => {
     trackEvent("banner_click", { banner: "family_menus", from, slide: current.id, packId });
     if (!packId) {
-      scrollToElement("menu-quick", 76);
+      scrollToElement("menu-quick", 128);
       return;
     }
     const category = packId === "chicken-mix-box" ? "chicken" : "kebabs";
