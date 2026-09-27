@@ -36,12 +36,12 @@ function Home() {
   return (
     <>
       <JsonLd />
-      <a href="#menu" onClick={(e) => { e.preventDefault(); scrollToElement("menu", 70); }} className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-white">
+      <a href="#menu-quick" onClick={(e) => { e.preventDefault(); scrollToElement("menu-quick", 76); }} className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-white">
         {t(copy.skip)}
       </a>
       <Header />
       <main className="pb-16 md:pb-0 bg-brand-black">
-        <Hero /><FamilyAds /><BoltNotice /><Featured /><MenuSection /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />
+        <Hero /><FamilyAds /><MenuSection /><BoltNotice /><Featured /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />
       </main>
       <Footer /><ActionBar /><OrderDrawer />
     </>
