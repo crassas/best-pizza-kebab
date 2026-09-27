@@ -19,7 +19,7 @@ const CATEGORY_IMAGES: Partial<Record<string, string>> = {
   kebabs: "/images/optimized/06_kebab_batatas-thumb.webp",
   burgers: "/images/uploaded/hmm_burger.webp",
   chicken: "/images/uploaded/palitos_de_frango_com_fritas_e_refrigerante.webp",
-  plates: "/images/optimized/07_kebab_prato_agua-thumb.webp",
+  dishes: "/images/optimized/07_kebab_prato_agua-thumb.webp",
   indian: "/images/uploaded/samosa_simple.jpg",
   pizza: "/images/optimized/05_pizza-thumb.webp",
   pizzas: "/images/optimized/05_pizza-thumb.webp",
