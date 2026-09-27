@@ -41,7 +41,7 @@ function Home() {
       </a>
       <Header />
       <main className="pb-16 md:pb-0 bg-brand-black">
-        <Hero /><BoltNotice /><FamilyAds /><Featured /><MenuSection /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />
+        <Hero /><FamilyAds /><BoltNotice /><Featured /><MenuSection /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />
       </main>
       <Footer /><ActionBar /><OrderDrawer />
     </>
