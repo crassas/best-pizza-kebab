@@ -28,7 +28,7 @@ type Pack = {
 const PACKS: Pack[] = [
   {
     id: "family-kebab",
-    image: "/images/uploaded/menu_doner.png",
+    image: "/images/menu-optimized/uploaded/menu_doner.webp",
     price: "15€",
     pt: {
       name: "Family Kebab Menu",
@@ -43,7 +43,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "family-durum",
-    image: "/images/uploaded/durum_kebab.png",
+    image: "/images/menu-optimized/uploaded/durum_kebab.webp",
     price: "16€",
     pt: {
       name: "Family Durum Kebab",
@@ -58,7 +58,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "chicken-mix-box",
-    image: "/images/uploaded/imagens_menu_10_organizadas/chicken_mix_box.png",
+    image: "/images/menu-optimized/uploaded/imagens_menu_10_organizadas/chicken_mix_box.webp",
     price: "10€",
     pt: {
       name: "Chicken Mix Box",
@@ -73,7 +73,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "doner-mix-box",
-    image: "/images/uploaded/doner_box.webp",
+    image: "/images/menu-optimized/uploaded/doner_box.webp",
     price: "7,50€",
     pt: {
       name: "Doner Mix Box",
