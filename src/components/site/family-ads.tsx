@@ -134,7 +134,7 @@ function buildSlides(): Slide[] {
       title: pack.en.name,
       subtitle: pack.en.callout,
       detail: pack.en.detail,
-      price: pack.price.replace(",", "."),
+      price: `€${pack.price.replace("€", "").replace(",", ".")}`,
       cta: "See menu",
     },
   ]);
@@ -173,10 +173,18 @@ export function FamilyAds() {
     return () => window.clearInterval(id);
   }, [slides.length]);
 
-  const goMenu = (from: string) => {
-    trackEvent("banner_click", { banner: "family_menus", from, slide: current.id });
-    scrollToElement("menu", 80);
+  const goMenu = (from: string, packId?: string) => {
+    trackEvent("banner_click", { banner: "family_menus", from, slide: current.id, packId });
+    if (!packId) {
+      scrollToElement("menu", 80);
+      return;
+    }
+    const category = packId === "chicken-mix-box" ? "chicken" : "kebabs";
+    window.dispatchEvent(new CustomEvent("select-menu-category", { detail: category }));
+    window.setTimeout(() => scrollToElement(`dish-${packId}`, 105), 280);
   };
+
+  const currentPackId = PACKS.find((pack) => current.id.startsWith(pack.id))?.id;
 
   return (
     <section
@@ -256,7 +264,7 @@ export function FamilyAds() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => goMenu("family_billboard")}
+                      onClick={() => goMenu("family_billboard", currentPackId)}
                       className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform hover:-translate-y-0.5"
                     >
                       <UtensilsCrossed className="size-4 text-brand-red" />
@@ -288,7 +296,7 @@ export function FamilyAds() {
                 type="button"
                 onClick={() => {
                   setActive(2 + index * 2 + (isPt ? 0 : 1));
-                  goMenu("family_card");
+                  goMenu("family_card", pack.id);
                 }}
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.985 }}
