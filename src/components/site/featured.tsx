@@ -14,7 +14,7 @@ export function Featured() {
       window.dispatchEvent(
         new CustomEvent("select-menu-category", { detail: categoryId }),
       );
-      const menuEl = document.getElementById("menu");
+      const menuEl = document.getElementById("menu-quick");
       if (menuEl) {
         menuEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
