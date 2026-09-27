@@ -4,9 +4,9 @@
     "name": "Best Kebab & Pizza",
     "url": "https://bestpizzaandkebab.pt/",
     "lang": "pt-PT",
-    "title": "Kebab em São Roque da Lameira e Campanhã | Best Kebab & Pizza",
-    "description": "Kebab em São Roque da Lameira, Campanhã, Porto. Rua de São Roque da Lameira 2346, junto ao eixo São Roque–Cartes. Doner, durum, pizza, falafel e takeaway.",
-    "ogTitle": "Kebab em São Roque da Lameira, Campanhã | Best Kebab & Pizza",
+    "title": "Kebab no Porto | São Roque da Lameira, Campanhã | Best Kebab & Pizza",
+    "description": "Kebab no Porto em São Roque da Lameira, Campanhã. Doner, durum, falafel, pizza, takeaway e entrega. Rua de São Roque da Lameira 2346.",
+    "ogTitle": "Kebab no Porto, Campanhã | Best Kebab & Pizza",
     "ogDescription": "Rua de São Roque da Lameira 2346. Kebab, durum, pizza, falafel e takeaway perto de São Roque, Cartes e Parque de São Roque.",
     "ogImage": "https://bestpizzaandkebab.pt/og.jpg",
     "ogType": "restaurant"
@@ -44,6 +44,7 @@
   },
   "pages": [
     "/takeaway-campanha/",
+    "/kebab-porto/",
     "/kebab-sao-roque-lameira/",
     "/menus-family-campanha/"
   ]
