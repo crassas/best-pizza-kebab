@@ -1154,6 +1154,22 @@ export function jsonLd() {
           text: "Sim. O restaurante fica no eixo São Roque da Lameira–Cartes, próximo da zona da Alameda de Cartes e de referências locais como o Parque de São Roque.",
         },
       },
+      {
+        "@type": "Question",
+        name: "Que menus para partilhar tem o Best Kebab & Pizza?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Há opções para partilhar como Family Kebab Menu por 15 €, Family Durum Kebab por 16 €, Chicken Mix Box por 10 € e Doner Mix Box por 7,50 €. Consulta o menu oficial para disponibilidade e preços atuais.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Há menu familiar de kebab em Campanhã, Porto?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Sim. Na Rua de São Roque da Lameira 2346, em Campanhã, o Best Kebab & Pizza apresenta Family Kebab Menu e Family Durum Kebab, além de caixas para partilhar.",
+        },
+      },
     ],
   };
 
