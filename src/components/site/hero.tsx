@@ -115,11 +115,11 @@ export function Hero() {
             </p>
             <div className="mt-7 flex w-full sm:w-auto flex-wrap gap-3 sm:gap-4">
               <a
-                href="#menu"
+                href="#menu-quick"
                 onClick={(e) => {
                   e.preventDefault();
                   trackEvent("menu_view", { from: "hero_cta" });
-                  scrollToElement("menu", 80);
+                  scrollToElement("menu-quick", 76);
                 }}
                 className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-red px-7 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-white shadow-fastfood hover:bg-brand-red-dark"
               >
