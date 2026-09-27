@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Beer, Check, CupSoda, Leaf, Plus, Search, Soup, UtensilsCrossed, Wine, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, CupSoda, Leaf, Plus, Search, Soup, UtensilsCrossed, Wine, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
@@ -159,7 +159,7 @@ export function MenuSection() {
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {visibleMenu.map((category) => {
                   const image = optimizedMenuImage(CATEGORY_IMAGES[category.id]);
-                  const FallbackIcon = CATEGORY_FALLBACK_ICONS[category.id as keyof typeof CATEGORY_FALLBACK_ICONS] ?? UtensilsCrossed;
+                const FallbackIcon = CATEGORY_FALLBACK_ICONS[category.id as keyof typeof CATEGORY_FALLBACK_ICONS] ?? UtensilsCrossed;
                   return (
                     <button
                       key={category.id}
