@@ -176,7 +176,8 @@ ${pages.map((p) => `  <url><loc>${xmlEscape(new URL(p.replace(/^\//, ""), base).
 </urlset>
 `;
   write(path.join(publicDir, "sitemap.xml"), sitemap);
-  write(path.join(publicDir, "robots.txt"),
+  const robotsPath = path.join(publicDir, "robots.txt");
+  if (!fs.existsSync(robotsPath)) write(robotsPath,
 `User-agent: *
 Allow: /
 
@@ -197,7 +198,8 @@ ${site.description}
 
 This file is a machine-readable business summary. Canonical facts remain the website and verified business profiles.
 `;
-  write(path.join(publicDir, "llms.txt"), llms);
+  const llmsPath = path.join(publicDir, "llms.txt");
+  if (!fs.existsSync(llmsPath)) write(llmsPath, llms);
 
   write(path.join(publicDir, "seo-engine.json"), JSON.stringify({
     version: 1,
@@ -317,6 +319,18 @@ function audit() {
 
   for (const f of ["robots.txt", "sitemap.xml", "llms.txt", "seo-engine.json"]) {
     if (!fs.existsSync(path.join(publicDir, f))) errors.push(`Generated file missing: public/${f}`);
+  }
+  const sitemapPath = path.join(publicDir, "sitemap.xml");
+  if (fs.existsSync(sitemapPath) && site.url) {
+    const sitemap = read(sitemapPath);
+    const base = ensureSlash(site.url);
+    for (const page of new Set(["/", ...(config.pages || [])])) {
+      const url = new URL(page.replace(/^\//, ""), base).href;
+      if (!sitemap.includes(`<loc>${xmlEscape(url)}</loc>`))
+        errors.push(`Sitemap missing configured page: ${url}`);
+      if (page !== "/" && !fs.existsSync(path.join(publicDir, page.replace(/^\//, ""), "index.html")))
+        errors.push(`Configured page has no public/index.html: ${page}`);
+    }
   }
 
   console.log("\nSEO ENGINE AUDIT");
