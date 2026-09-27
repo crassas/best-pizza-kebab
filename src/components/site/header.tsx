@@ -21,7 +21,7 @@ export function Header() {
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    scrollToElement(targetId, 80);
+    scrollToElement(targetId, targetId === "menu-quick" ? 128 : 80);
   };
 
   return (
