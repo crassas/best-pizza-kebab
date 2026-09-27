@@ -69,34 +69,6 @@ export function Hero() {
     trackEvent("add_to_cart", { item: dish.id, from: "hero_showcase", price });
   };
 
-  const primaryTicker = isPt
-    ? [
-        "★ DONER KEBAB · DURUM · PIZZAS · HAMBÚRGUERES ★",
-        "● FALAFEL · PRATOS · SNACKS ●",
-        "★ TAKEAWAY · BOLT FOOD · UBER EATS ★",
-        "● SÃO ROQUE DA LAMEIRA 2346 · CAMPANHÃ ●",
-      ]
-    : [
-        "★ DONER KEBAB · DURUM · PIZZA · BURGERS ★",
-        "● FALAFEL · PLATES · SNACKS ●",
-        "★ TAKEAWAY · BOLT FOOD · UBER EATS ★",
-        "● SÃO ROQUE DA LAMEIRA 2346 · CAMPANHÃ ●",
-      ];
-
-  const secondaryTicker = isPt
-    ? [
-        "★ MONTE O PEDIDO NO SITE E ENVIE PARA CONFIRMAÇÃO ★",
-        "● BOLT FOOD COM 30% DE DESCONTO ●",
-        "★ HORÁRIOS ATUALIZADOS NESTA PÁGINA ★",
-        "● KEBAB · PIZZA · FALAFEL · HAMBÚRGUERES ●",
-      ]
-    : [
-        "★ BUILD YOUR ORDER ON THE SITE AND SEND IT FOR CONFIRMATION ★",
-        "● 30% OFF ON BOLT FOOD ●",
-        "★ OPENING HOURS UPDATED ON THIS PAGE ★",
-        "● KEBAB · PIZZA · FALAFEL · BURGERS ●",
-      ];
-
   return (
     <section
       id="topo"
@@ -289,45 +261,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="border-y-4 border-black bg-black overflow-hidden">
-        <div className="checker-red-white h-1 sm:h-3.5 w-full border-b sm:border-b-2 border-black" />
-
-        <div className="bg-brand-red py-2.5 overflow-hidden whitespace-nowrap border-b-2 border-black" aria-hidden="true">
-          <div className="animate-marquee-fast">
-            {[0, 1, 2, 3].map((copyIndex) => (
-              <div
-                key={`primary-${copyIndex}`}
-                className="flex shrink-0 items-center gap-8 px-4 font-display text-lg sm:text-xl tracking-wider uppercase text-white font-black"
-              >
-                {primaryTicker.map((phrase, index) => (
-                  <span key={`${copyIndex}-${index}`} className={index % 2 ? "text-brand-yellow" : undefined}>
-                    {phrase}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white py-2 overflow-hidden whitespace-nowrap" aria-hidden="true">
-          <div className="animate-marquee-reverse">
-            {[0, 1, 2, 3].map((copyIndex) => (
-              <div
-                key={`secondary-${copyIndex}`}
-                className="flex shrink-0 items-center gap-8 px-4 font-display text-base sm:text-lg tracking-wider uppercase text-black font-black"
-              >
-                {secondaryTicker.map((phrase, index) => (
-                  <span key={`${copyIndex}-${index}`} className={index % 2 === 0 ? "text-brand-red" : undefined}>
-                    {phrase}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="hidden sm:block checker-red-white sm:h-3.5 w-full sm:border-t-2 border-black" />
-      </div>
+      <div className="checker-red-white h-1.5 sm:h-3.5 w-full border-y-2 border-black" aria-hidden="true" />
     </section>
   );
 }
