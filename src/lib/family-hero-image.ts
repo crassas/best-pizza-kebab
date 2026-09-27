@@ -1,0 +1,2 @@
+export const FAMILY_HERO_IMAGE = "data:image/webp;base64," +
+"";
