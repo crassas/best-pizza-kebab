@@ -33,7 +33,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] font-bold"><span className={cn("size-2 rounded-full", live.isOpen ? "bg-bolt animate-beacon" : "bg-red-500")} /><span className={live.isOpen ? "text-bolt" : "text-red-400"}>{t(live.label)}</span></div>
         </div>
         <nav className="hidden md:flex items-center gap-1 font-display tracking-wider uppercase text-base" aria-label={t(copy.navSections)}>
-          <a href="#menu" onClick={(e) => handleNav(e, "menu")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navMenu)}</a>
+          <a href="#menu-quick" onClick={(e) => handleNav(e, "menu-quick")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navMenu)}</a>
           <a href="#encomenda" onClick={(e) => handleNav(e, "encomenda")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{isPt ? "Entregas & Takeaway" : "Takeaway & Delivery"}</a>
           <a href="#avaliacoes" onClick={(e) => handleNav(e, "avaliacoes")} className="rounded px-3 py-1.5 text-cream hover:text-brand-yellow hover:bg-surface transition-colors cursor-pointer">{t(copy.navReviews)}</a>
         </nav>
