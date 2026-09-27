@@ -46,16 +46,25 @@ export function Hyperlocal() {
               ))}
             </div>
 
-            <a
-              href={maps.directions}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("directions_click", { from: "hyperlocal" })}
-              className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-red px-5 py-3 text-sm font-black uppercase tracking-wider text-white shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
-            >
-              <Navigation className="size-4" />
-              {isPt ? "Traçar rota até São Roque" : "Get directions to São Roque"}
-            </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={maps.directions}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent("directions_click", { from: "hyperlocal" })}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-red px-5 py-3 text-sm font-black uppercase tracking-wider text-white shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
+              >
+                <Navigation className="size-4" />
+                {isPt ? "Traçar rota até São Roque" : "Get directions to São Roque"}
+              </a>
+              <a
+                href="/kebab-porto/"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-5 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
+              >
+                <Search className="size-4 text-brand-red" />
+                {isPt ? "Kebab no Porto: guia" : "Kebab in Porto: guide"}
+              </a>
+            </div>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
