@@ -28,7 +28,7 @@ type Pack = {
 const PACKS: Pack[] = [
   {
     id: "family-kebab",
-    image: "/images/family/family-kebab.webp",
+    image: "/images/uploaded/menu_doner.png",
     price: "15€",
     pt: {
       name: "Family Kebab Menu",
@@ -43,7 +43,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "family-durum",
-    image: "/images/family/family-durum.webp",
+    image: "/images/uploaded/durum_kebab.png",
     price: "16€",
     pt: {
       name: "Family Durum Kebab",
@@ -58,7 +58,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "chicken-mix-box",
-    image: "/images/family/chicken-mix-box.webp",
+    image: "/images/uploaded/imagens_menu_10_organizadas/chicken_mix_box.png",
     price: "10€",
     pt: {
       name: "Chicken Mix Box",
@@ -73,7 +73,7 @@ const PACKS: Pack[] = [
   },
   {
     id: "doner-mix-box",
-    image: "/images/family/doner-mix-box.webp",
+    image: "/images/uploaded/doner_box.webp",
     price: "7,50€",
     pt: {
       name: "Doner Mix Box",
@@ -92,7 +92,7 @@ const GENERAL_SLIDES: Slide[] = [
   {
     id: "family-overview-pt",
     lang: "pt",
-    image: "/images/family/family-hero.webp",
+    image: "/images/family/family-hero.svg",
     eyebrow: "SÃO ROQUE · CAMPANHÃ · PORTO",
     title: "MENUS FAMILY",
     subtitle: "Boa comida. Bom preço. Boa companhia.",
@@ -103,7 +103,7 @@ const GENERAL_SLIDES: Slide[] = [
   {
     id: "family-overview-en",
     lang: "en",
-    image: "/images/family/family-hero.webp",
+    image: "/images/family/family-hero.svg",
     eyebrow: "SÃO ROQUE · CAMPANHÃ · PORTO",
     title: "FAMILY MENUS",
     subtitle: "Good food. Fair price. Good company.",
@@ -163,7 +163,7 @@ export function FamilyAds() {
   const { lang } = useI18n();
   const slides = useMemo(buildSlides, []);
   const [active, setActive] = useState(0);
-  const current = slides[active];
+  const current = slides[active] ?? slides[0]!;
   const isPt = lang === "pt";
 
   useEffect(() => {
