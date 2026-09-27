@@ -29,6 +29,21 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 const visibleMenu = menu.filter((c) => c.items.length > 0);
 
+function optimizedMenuImage(src?: string) {
+  if (!src) return undefined;
+  if (/^https?:\/\//i.test(src)) return src;
+  if (src.startsWith("/images/optimized/") || src.startsWith("/images/menu-optimized/")) return src;
+  if (src.startsWith("/images/uploaded/")) {
+    const relative = src.slice("/images/uploaded/".length).replace(/\.[^.]+$/, ".webp");
+    return `/images/menu-optimized/uploaded/${relative}`;
+  }
+  if (src.startsWith("/food/")) {
+    const relative = src.slice("/food/".length).replace(/\.[^.]+$/, ".webp");
+    return `/images/menu-optimized/food/${relative}`;
+  }
+  return src;
+}
+
 export function MenuSection() {
   const { lang, t } = useI18n();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -84,7 +99,8 @@ export function MenuSection() {
   }, [search, vegOnly]);
 
   const filtered = Boolean(search.trim() || vegOnly);
-  const displayedCategories = filtered ? filteredMenu : selectedCategory === "all" ? filteredMenu : filteredMenu.filter((c) => c.id === selectedCategory);
+  const showCategoryOverview = selectedCategory === "all" && !filtered;
+  const displayedCategories = filtered ? filteredMenu : selectedCategory === "all" ? [] : filteredMenu.filter((c) => c.id === selectedCategory);
 
   return (
     <section id="menu" className="relative scroll-mt-[calc(4rem+env(safe-area-inset-top))] border-t-4 border-black bg-brand-black text-cream">
@@ -120,7 +136,93 @@ export function MenuSection() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {selectedCategory !== "all" && !filtered && <div className="mb-6 flex items-center justify-between border-b-2 border-line pb-4"><button type="button" onClick={()=>handleSelect("all")} className="inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-surface hover:bg-raised px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-yellow shadow-fastfood"><ArrowLeft className="size-4"/>{isPt ? "Ver Todas as Categorias" : "View All Categories"}</button></div>}
         <AnimatePresence mode="wait"><motion.div key={selectedCategory+search+(vegOnly?"-veg":"")} initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-10}} transition={{duration:.2}}>
-          {displayedCategories.length ? <div className="space-y-12">{displayedCategories.map((category)=>{const preview=selectedCategory==="all"&&!filtered; const items=preview?category.items.slice(0,4):category.items; const image=CATEGORY_IMAGES[category.id]||"/food/hero.jpg"; return <div key={category.id} id={getCategoryAnchor(category.id)} className="rounded-xl border-4 border-black bg-surface-card p-5 sm:p-7 shadow-fastfood overflow-hidden [content-visibility:auto] [contain-intrinsic-size:700px]"><div className="hidden sm:block checker-red-white sm:h-3 w-full border-b-2 border-black sm:-mt-7 sm:-mx-7 mb-6 sm:w-[calc(100%+3.5rem)]"/><div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-3 border-black pb-4 mb-6"><div className="flex items-center gap-3"><div className="size-14 rounded-lg border-2 border-black overflow-hidden shadow-fastfood"><img src={image} alt={isPt ? `${t(category.label)} — Best Kebab & Pizza em Campanhã, Porto` : `${t(category.label)} — Best Kebab & Pizza in Campanhã, Porto`} width={112} height={112} loading="lazy" decoding="async" fetchPriority="low" className="size-full object-cover"/></div><div><div className="badge-stamp bg-brand-yellow text-black px-2 py-0.5 text-[10px] mb-1">★ CATEGORIA OFICIAL ★</div><h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wider text-white leading-none">{t(category.label)}</h3>{category.intro&&<p className="text-xs text-brand-yellow font-bold mt-1">{t(category.intro)}</p>}</div></div><span className="badge-stamp bg-surface px-3 py-1 text-xs text-muted border-black">{category.items.length} {isPt?"Opções Disponíveis":"Available Options"}</span></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{items.map((item)=><FastFoodItemCard key={item.id} item={item}/>)}</div>{preview&&category.items.length>items.length&&<div className="mt-6 border-t-2 border-line pt-4 text-center"><button type="button" onClick={()=>handleSelect(category.id)} className="inline-flex items-center gap-2 rounded-md border-2 border-black bg-brand-yellow px-6 py-2.5 text-xs font-black uppercase tracking-wider text-black shadow-fastfood-yellow">{isPt?`Ver Todos os ${category.items.length} ${t(category.label)}`:`View All ${category.items.length} ${t(category.label)}`}<ArrowRight className="size-4"/></button></div>}</div>})}</div> : <div className="mx-auto max-w-md py-16 text-center"><p className="font-display text-2xl uppercase text-white">{isPt?"Nenhum artigo encontrado":"No items found"}</p><button type="button" onClick={()=>{clearSearch();setVegOnly(false);setSelectedCategory("all")}} className="mt-4 inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-brand-red px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-fastfood"><X className="size-4"/>{isPt?"Limpar Filtros":"Clear Filters"}</button></div>}
+          {showCategoryOverview ? (
+            <div>
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-brand-yellow">
+                    {isPt ? "ESCOLHE UMA CATEGORIA" : "CHOOSE A CATEGORY"}
+                  </p>
+                  <h3 className="mt-1 font-display text-3xl uppercase text-white sm:text-4xl">
+                    {isPt ? "Menu rápido" : "Quick menu"}
+                  </h3>
+                </div>
+                <span className="hidden rounded-full border-2 border-black bg-surface px-3 py-1 text-[10px] font-black uppercase text-muted sm:inline-flex">
+                  {visibleMenu.reduce((sum, category) => sum + category.items.length, 0)} {isPt ? "itens" : "items"}
+                </span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {visibleMenu.map((category) => {
+                  const image = optimizedMenuImage(CATEGORY_IMAGES[category.id] || "/food/hero.jpg");
+                  return (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() => handleSelect(category.id)}
+                      className="group relative min-h-28 overflow-hidden rounded-xl border-3 border-black bg-surface-card text-left shadow-fastfood"
+                    >
+                      {image && (
+                        <img
+                          src={image}
+                          alt=""
+                          aria-hidden="true"
+                          width={640}
+                          height={360}
+                          loading="lazy"
+                          decoding="async"
+                          fetchPriority="low"
+                          className="absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/20" />
+                      <div className="relative z-10 flex min-h-28 items-center justify-between gap-3 p-4">
+                        <div>
+                          <h4 className="font-display text-2xl uppercase leading-none text-white">
+                            {t(category.label)}
+                          </h4>
+                          <p className="mt-1 text-[11px] font-bold text-brand-yellow">
+                            {category.items.length} {isPt ? "opções" : "options"}
+                          </p>
+                        </div>
+                        <ArrowRight className="size-5 shrink-0 text-brand-yellow transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : displayedCategories.length ? (
+            <div className="space-y-12">
+              {displayedCategories.map((category) => {
+                const items = category.items;
+                const image = optimizedMenuImage(CATEGORY_IMAGES[category.id] || "/food/hero.jpg");
+                return (
+                  <div key={category.id} id={getCategoryAnchor(category.id)} className="rounded-xl border-4 border-black bg-surface-card p-5 sm:p-7 shadow-fastfood overflow-hidden [content-visibility:auto] [contain-intrinsic-size:700px]">
+                    <div className="hidden sm:block checker-red-white sm:h-3 w-full border-b-2 border-black sm:-mt-7 sm:-mx-7 mb-6 sm:w-[calc(100%+3.5rem)]"/>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-3 border-black pb-4 mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="size-14 rounded-lg border-2 border-black overflow-hidden bg-black/30 shadow-fastfood">
+                          {image && <img src={image} alt={isPt ? `${t(category.label)} — Best Kebab & Pizza em Campanhã, Porto` : `${t(category.label)} — Best Kebab & Pizza in Campanhã, Porto`} width={112} height={112} loading="lazy" decoding="async" fetchPriority="low" className="size-full object-cover"/>}
+                        </div>
+                        <div>
+                          <div className="badge-stamp bg-brand-yellow text-black px-2 py-0.5 text-[10px] mb-1">★ CATEGORIA OFICIAL ★</div>
+                          <h3 className="font-display text-2xl sm:text-4xl uppercase tracking-wider text-white leading-none">{t(category.label)}</h3>
+                          {category.intro&&<p className="text-xs text-brand-yellow font-bold mt-1">{t(category.intro)}</p>}
+                        </div>
+                      </div>
+                      <span className="badge-stamp bg-surface px-3 py-1 text-xs text-muted border-black">{category.items.length} {isPt?"Opções Disponíveis":"Available Options"}</span>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{items.map((item)=><FastFoodItemCard key={item.id} item={item}/>)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="mx-auto max-w-md py-16 text-center">
+              <p className="font-display text-2xl uppercase text-white">{isPt?"Nenhum artigo encontrado":"No items found"}</p>
+              <button type="button" onClick={()=>{clearSearch();setVegOnly(false);setSelectedCategory("all")}} className="mt-4 inline-flex items-center gap-1.5 rounded-md border-2 border-black bg-brand-red px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-fastfood"><X className="size-4"/>{isPt?"Limpar Filtros":"Clear Filters"}</button>
+            </div>
+          )}
         </motion.div></AnimatePresence>
       </div>
     </section>
@@ -135,7 +237,7 @@ function FastFoodItemCard({ item }: { item: MenuItem }) {
   const [addedAnimation, setAddedAnimation] = useState(false);
   const isPt = lang === "pt";
   const isAvailable = isDishAvailable(item.id);
-  const customImg = getDishImage(item.id);
+  const customImg = optimizedMenuImage(getDishImage(item.id, item.image));
   const dynamicName = getDishName(item.id, item.name);
   const dynamicDesc = getDishDescription(item.id, item.description);
   const hasSizes = Boolean(item.sizes?.length);
@@ -143,5 +245,5 @@ function FastFoodItemCard({ item }: { item: MenuItem }) {
   const rawPrice = activeSize?.price ?? item.price ?? 0;
   const currentPrice = activeSize ? (getDishSizePrice(item.id, activeSize.id, rawPrice) ?? rawPrice) : (getDishPrice(item.id, rawPrice) ?? rawPrice);
   const handleAddToCart = () => { if (!isAvailable || settings.isOnlineOrderingPaused) return; addItem({id:item.id,name:dynamicName[lang],sizeName:activeSize?t(activeSize.label):undefined,price:currentPrice}); setAddedAnimation(true); setTimeout(()=>setAddedAnimation(false),1200); trackEvent("add_to_cart",{item:item.id,price:currentPrice}); };
-  return <div id={`dish-${item.id}`} className={cn("scroll-mt-28 flex flex-col justify-between rounded-lg border-3 border-black bg-surface p-4 shadow-fastfood transition-all",isAvailable?"hover:border-brand-yellow hover:bg-raised":"opacity-75 border-brand-red/40 bg-surface/80")}><div>{customImg&&<div className="mb-3 h-36 w-full overflow-hidden rounded-md border-2 border-black"><img src={customImg} alt={dynamicName[lang]} width={640} height={360} loading="lazy" decoding="async" fetchPriority="low" className="h-full w-full object-cover"/></div>}<div className="flex items-start justify-between gap-2"><h4 className="font-display text-xl uppercase tracking-wide text-white leading-tight">{dynamicName[lang]}</h4><div className="flex items-center gap-1 shrink-0">{!isAvailable?<span className="badge-stamp bg-brand-red text-white border-black px-1.5 py-0.5 text-[10px] font-black uppercase">{isPt?"Esgotado":"Sold Out"}</span>:item.vegetarian?<span className="badge-stamp bg-bolt text-black border-black px-1.5 py-0.5 text-[10px]"><Leaf className="size-2.5 mr-0.5"/>Veg</span>:null}</div></div>{dynamicDesc&&<p className="mt-1 text-xs text-cream/70 leading-relaxed font-medium">{dynamicDesc[lang]}</p>}{item.servedWith&&<p className="mt-1 text-[11px] font-black text-brand-yellow">+ {t(item.servedWith)}</p>}{item.knownAllergens?.length ? <p className="mt-2 text-[10px] leading-relaxed text-cream/60"><strong className="text-cream/80">{isPt?"Alergénios identificados":"Identified allergens"}:</strong> {item.knownAllergens.map((id)=>t(ALLERGEN_LABELS[id])).join(", ")}. {isPt?"Confirme outros alergénios e contaminação cruzada com o restaurante.":"Confirm other allergens and cross-contact with the restaurant."}</p> : <p className="mt-2 text-[10px] leading-relaxed text-cream/55">{isPt?"Alergénios: confirme com o restaurante antes de encomendar.":"Allergens: confirm with the restaurant before ordering."}</p>}{hasSizes&&item.sizes&&<div className="mt-3 flex gap-1.5">{item.sizes.map((size,idx)=>{const sizePrice=getDishSizePrice(item.id,size.id,size.price??0)??size.price??0;return <button key={size.id} type="button" onClick={()=>setSelectedSizeIndex(idx)} className={cn("flex-1 rounded border-2 py-1 text-[11px] font-black uppercase",selectedSizeIndex===idx?"border-black bg-brand-yellow text-black shadow-xs":"border-black/60 bg-surface-card text-muted hover:text-white")}>{t(size.label)}: {sizePrice>0?`${sizePrice.toFixed(2)} €`:""}</button>})}</div>}</div><div className="mt-4 pt-3 border-t-2 border-line flex items-center justify-between gap-2"><div className="badge-stamp bg-brand-red text-white px-2.5 py-1 text-xl leading-none">{currentPrice>0?`${currentPrice.toFixed(2)} €`:""}</div>{isAvailable?<button type="button" disabled={settings.isOnlineOrderingPaused} onClick={handleAddToCart} className={cn("flex items-center gap-1.5 rounded-md border-2 border-black px-3.5 py-1.5 text-xs font-black uppercase tracking-wider disabled:opacity-50",addedAnimation?"bg-bolt text-black":"bg-brand-yellow text-black shadow-fastfood-yellow")}>{addedAnimation?<><Check className="size-3.5"/>{isPt?"Adicionado!":"Added!"}</>:<><Plus className="size-3.5"/>{isPt?"Adicionar ao Pedido":"Add to Order"}</>}</button>:<span className="text-xs font-black uppercase text-brand-red">{isPt?"Indisponível hoje":"Unavailable today"}</span>}</div></div>;
+  return <div id={`dish-${item.id}`} className={cn("scroll-mt-28 flex flex-col justify-between rounded-lg border-3 border-black bg-surface p-4 shadow-fastfood transition-all",isAvailable?"hover:border-brand-yellow hover:bg-raised":"opacity-75 border-brand-red/40 bg-surface/80")}><div>{customImg&&<div className="mb-3 h-36 w-full overflow-hidden rounded-md border-2 border-black bg-raised"><img src={customImg} alt={dynamicName[lang]} width={640} height={360} loading="lazy" decoding="async" fetchPriority="low" className="h-full w-full object-cover"/></div>}<div className="flex items-start justify-between gap-2"><h4 className="font-display text-xl uppercase tracking-wide text-white leading-tight">{dynamicName[lang]}</h4><div className="flex items-center gap-1 shrink-0">{!isAvailable?<span className="badge-stamp bg-brand-red text-white border-black px-1.5 py-0.5 text-[10px] font-black uppercase">{isPt?"Esgotado":"Sold Out"}</span>:item.vegetarian?<span className="badge-stamp bg-bolt text-black border-black px-1.5 py-0.5 text-[10px]"><Leaf className="size-2.5 mr-0.5"/>Veg</span>:null}</div></div>{dynamicDesc&&<p className="mt-1 text-xs text-cream/70 leading-relaxed font-medium">{dynamicDesc[lang]}</p>}{item.servedWith&&<p className="mt-1 text-[11px] font-black text-brand-yellow">+ {t(item.servedWith)}</p>}{item.knownAllergens?.length ? <p className="mt-2 text-[10px] leading-relaxed text-cream/60"><strong className="text-cream/80">{isPt?"Alergénios identificados":"Identified allergens"}:</strong> {item.knownAllergens.map((id)=>t(ALLERGEN_LABELS[id])).join(", ")}. {isPt?"Confirme outros alergénios e contaminação cruzada com o restaurante.":"Confirm other allergens and cross-contact with the restaurant."}</p> : <p className="mt-2 text-[10px] leading-relaxed text-cream/55">{isPt?"Alergénios: confirme com o restaurante antes de encomendar.":"Allergens: confirm with the restaurant before ordering."}</p>}{hasSizes&&item.sizes&&<div className="mt-3 flex gap-1.5">{item.sizes.map((size,idx)=>{const sizePrice=getDishSizePrice(item.id,size.id,size.price??0)??size.price??0;return <button key={size.id} type="button" onClick={()=>setSelectedSizeIndex(idx)} className={cn("flex-1 rounded border-2 py-1 text-[11px] font-black uppercase",selectedSizeIndex===idx?"border-black bg-brand-yellow text-black shadow-xs":"border-black/60 bg-surface-card text-muted hover:text-white")}>{t(size.label)}: {sizePrice>0?`${sizePrice.toFixed(2)} €`:""}</button>})}</div>}</div><div className="mt-4 pt-3 border-t-2 border-line flex items-center justify-between gap-2"><div className="badge-stamp bg-brand-red text-white px-2.5 py-1 text-xl leading-none">{currentPrice>0?`${currentPrice.toFixed(2)} €`:""}</div>{isAvailable?<button type="button" disabled={settings.isOnlineOrderingPaused} onClick={handleAddToCart} className={cn("flex items-center gap-1.5 rounded-md border-2 border-black px-3.5 py-1.5 text-xs font-black uppercase tracking-wider disabled:opacity-50",addedAnimation?"bg-bolt text-black":"bg-brand-yellow text-black shadow-fastfood-yellow")}>{addedAnimation?<><Check className="size-3.5"/>{isPt?"Adicionado!":"Added!"}</>:<><Plus className="size-3.5"/>{isPt?"Adicionar ao Pedido":"Add to Order"}</>}</button>:<span className="text-xs font-black uppercase text-brand-red">{isPt?"Indisponível hoje":"Unavailable today"}</span>}</div></div>;
 }
