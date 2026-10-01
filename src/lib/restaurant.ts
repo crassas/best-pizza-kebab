@@ -15,9 +15,9 @@ export const restaurant = {
   ...baseRestaurant,
   address: {
     ...baseRestaurant.address,
-    postalCode: "4350-306",
+    postalCode: "4350-307",
   },
-  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-306 Porto, Portugal",
+  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal",
 } as const;
 
 export const maps = {
@@ -68,8 +68,8 @@ export const ALL_DISHES: DishWithCategory[] = menu.flatMap((category) =>
 export const seo = {
   ...baseSeo,
   title: {
-    pt: "Kebab e Pizza em São Roque da Lameira, Porto | Best Kebab & Pizza",
-    en: "Kebab & Pizza in São Roque da Lameira, Porto | Best Kebab & Pizza",
+    pt: "Kebab e Pizza em São Roque da Lameira, Porto | Best Pizza & Kebab",
+    en: "Kebab & Pizza in São Roque da Lameira, Porto | Best Pizza & Kebab",
   },
   description: {
     pt: "Kebab, pizza, falafel e takeaway na Rua de São Roque da Lameira 2346, Campanhã. Perto de Cartes, Falcão, Cerco e Corujeira. Tel: 920 163 613.",
