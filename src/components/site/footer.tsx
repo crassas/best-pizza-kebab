@@ -30,8 +30,8 @@ export function Footer() {
   const whatsapp = links.whatsapp || restaurant.whatsapp;
   const waUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(
     isPt
-      ? "Olá! Gostaria de obter informações sobre o Best Kebab & Pizza."
-      : "Hello! I'd like some information about Best Kebab & Pizza.",
+      ? "Olá! Gostaria de obter informações sobre o Best Pizza & Kebab."
+      : "Hello! I'd like some information about Best Pizza & Kebab.",
   )}`;
 
   const handleAnchor = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
