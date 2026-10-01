@@ -170,8 +170,8 @@ const HOURS_DEFAULT = { open: "11:00", close: "00:00" } as const;
 const HOURS_FRIDAY = { open: "15:30", close: "00:00" } as const;
 
 export const restaurant = {
-  name: "Best Kebab & Pizza",
-  shortName: "Best Kebab & Pizza",
+  name: "Best Pizza & Kebab",
+  shortName: "Best Pizza & Kebab",
   phoneDisplay: "+351 920 163 613",
   phoneTel: "+351920163613",
   whatsapp: "351920163613",
@@ -189,7 +189,7 @@ export const restaurant = {
   ],
   address: {
     street: "Rua de São Roque da Lameira 2346",
-    postalCode: "4350-306",
+    postalCode: "4350-307",
     locality: "Porto",
     region: "Porto",
     country: "PT",
@@ -201,7 +201,7 @@ export const restaurant = {
     lat: 41.1573572,
     lng: -8.5880384,
   },
-  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-306 Porto, Portugal",
+  mapsQuery: "Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal",
   googlePlaceId: "ChIJZwseeQBlJA0RFqu3nPEOAvg",
   timezone: TIMEZONE,
   /**
@@ -260,8 +260,8 @@ export function getWhatsAppUrl(lang: "pt" | "en" = "pt", customMsg?: string) {
   const text =
     customMsg ||
     (lang === "pt"
-      ? "Olá! Gostaria de consultar o menu e fazer um pedido no BEST KEBAB & PIZZA."
-      : "Hello! I would like to check the menu and place an order at BEST KEBAB & PIZZA.");
+      ? "Olá! Gostaria de consultar o menu e fazer um pedido no BEST PIZZA & KEBAB."
+      : "Hello! I would like to check the menu and place an order at BEST PIZZA & KEBAB.");
   return `https://wa.me/${restaurant.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
@@ -353,7 +353,7 @@ export const copy = {
   googleRatingLabel: L("Avaliações verificadas", "Verified reviews"),
   readOnGoogle: L("Ver no Google", "Open on Google"),
   allReviewsOnGoogle: L("Ver todas as avaliações no Google Maps", "View all reviews on Google Maps"),
-  footerNote: L("BEST KEBAB & PIZZA — Porto", "BEST KEBAB & PIZZA — Porto"),
+  footerNote: L("BEST PIZZA & KEBAB — Porto", "BEST PIZZA & KEBAB — Porto"),
   footerRights: L("Takeaway em Campanhã", "Takeaway in Campanhã"),
 };
 
@@ -914,8 +914,8 @@ export const menu: MenuCategory[] = [
 
 export const seo = {
   title: L(
-    "Kebab em São Roque da Lameira e Campanhã | Best Kebab & Pizza",
-    "Kebab in São Roque da Lameira & Campanhã | Best Kebab & Pizza"
+    "Kebab em São Roque da Lameira e Campanhã | Best Pizza & Kebab",
+    "Kebab in São Roque da Lameira & Campanhã | Best Pizza & Kebab"
   ),
   description: L(
     "Kebab no Porto em São Roque da Lameira, Campanhã. Doner kebab, durum, pizza, falafel e hambúrgueres para takeaway e entrega. Tel: 920 163 613.",
@@ -1030,7 +1030,7 @@ export function jsonLd() {
     "@type": ["Restaurant", "LocalBusiness"],
     "@id": `${domain}/#restaurant`,
     name: restaurant.name,
-    alternateName: ["Best Pizza & Kebab", "Best Kebab & Pizza"],
+    alternateName: ["Best Kebab & Pizza", "Best Pizza and Kebab Porto"],
     legalName: restaurant.name,
     url: domain,
     image: [
@@ -1113,7 +1113,7 @@ export function jsonLd() {
   const menuEntity = {
     "@type": "Menu",
     "@id": `${domain}/#menu`,
-    name: "Menu Best Kebab & Pizza",
+    name: "Menu Best Pizza & Kebab",
     url: `${domain}/#menu`,
     inLanguage: ["pt-PT", "en"],
     hasMenuSection: menu
@@ -1217,7 +1217,7 @@ export function jsonLd() {
         name: "Onde comer kebab em São Roque da Lameira?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "O Best Kebab & Pizza fica na Rua de São Roque da Lameira 2346, 4350-306 Porto, em Campanhã, com doner kebab, durum, falafel, pizzas, hambúrgueres e takeaway.",
+          text: "O Best Pizza & Kebab fica na Rua de São Roque da Lameira 2346, 4350-307 Porto, em Campanhã, com doner kebab, durum, falafel, pizzas, hambúrgueres e takeaway.",
         },
       },
       {
@@ -1225,7 +1225,7 @@ export function jsonLd() {
         name: "Há takeaway de kebab perto do Parque de São Roque?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sim. O Best Kebab & Pizza fica na própria Rua de São Roque da Lameira, perto do Parque de São Roque. O pedido pode ser preparado para levantamento após confirmação.",
+          text: "Sim. O Best Pizza & Kebab fica na própria Rua de São Roque da Lameira, perto do Parque de São Roque. O pedido pode ser preparado para levantamento após confirmação.",
         },
       },
       {
@@ -1238,7 +1238,7 @@ export function jsonLd() {
       },
       {
         "@type": "Question",
-        name: "O Best Kebab & Pizza fica perto de Cartes?",
+        name: "O Best Pizza & Kebab fica perto de Cartes?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Sim. O restaurante fica no eixo São Roque da Lameira–Cartes, próximo da zona da Alameda de Cartes e de referências locais como o Parque de São Roque.",
@@ -1246,7 +1246,7 @@ export function jsonLd() {
       },
       {
         "@type": "Question",
-        name: "Que menus para partilhar tem o Best Kebab & Pizza?",
+        name: "Que menus para partilhar tem o Best Pizza & Kebab?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Há opções para partilhar como Family Kebab Menu por 15 €, Family Durum Kebab por 16 €, Chicken Mix Box por 10 € e Doner Mix Box por 7,50 €. Consulta o menu oficial para disponibilidade e preços atuais.",
@@ -1257,7 +1257,7 @@ export function jsonLd() {
         name: "Há menu familiar de kebab em Campanhã, Porto?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Sim. Na Rua de São Roque da Lameira 2346, em Campanhã, o Best Kebab & Pizza apresenta Family Kebab Menu e Family Durum Kebab, além de caixas para partilhar.",
+          text: "Sim. Na Rua de São Roque da Lameira 2346, em Campanhã, o Best Pizza & Kebab apresenta Family Kebab Menu e Family Durum Kebab, além de caixas para partilhar.",
         },
       },
     ],
