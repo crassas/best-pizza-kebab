@@ -11,7 +11,7 @@ export function JsonLd() {
       {
         ...restaurantNode,
         name: restaurant.name,
-        alternateName: ["Best Pizza & Kebab", "Best Pizza and Kebab Porto"],
+        alternateName: ["Best Kebab & Pizza", "Best Pizza and Kebab Porto"],
         address: {
           ...(restaurantNode.address as Record<string, unknown>),
           postalCode: restaurant.address.postalCode,
