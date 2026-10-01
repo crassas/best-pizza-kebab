@@ -20,7 +20,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "build:legacy": "NODE_ENV=production node scripts/with-app-env.mjs vite build && mkdir -p .vercel/output/static && cp -f index.html .vercel/output/static/index.html 2>/dev/null || true && npm run db:migrate",
-    "build:cloudflare": "node scripts/optimize-public-images.mjs && vite build --config vite.cloudflare.config.ts",
+    "build:cloudflare": "node scripts/seo-engine.mjs all && node scripts/optimize-public-images.mjs && vite build --config vite.cloudflare.config.ts",
     "optimize:images": "node scripts/optimize-public-images.mjs",
     "seo:generate": "node scripts/seo-engine.mjs generate",
     "seo:audit": "node scripts/seo-engine.mjs audit",
