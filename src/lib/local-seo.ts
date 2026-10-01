@@ -30,8 +30,8 @@ export const nearbyLocalAnchors = [
   {
     name: "Falcão e Cerco",
     detail: L(
-      "O Best Kebab & Pizza fica no eixo local entre São Roque, Falcão e Cerco, em Campanhã.",
-      "Best Kebab & Pizza sits on the local São Roque–Falcão–Cerco axis in Campanhã.",
+      "O Best Pizza & Kebab fica no eixo local entre São Roque, Falcão e Cerco, em Campanhã.",
+      "Best Pizza & Kebab sits on the local São Roque–Falcão–Cerco axis in Campanhã.",
     ),
   },
   {
@@ -50,18 +50,18 @@ export const localFaq = [
       "Where can I eat kebab in Porto?",
     ),
     answer: L(
-      "O Best Kebab & Pizza é uma opção em Campanhã, na Rua de São Roque da Lameira 2346. Podes consultar o menu, avaliações públicas, horário e rota antes de escolher.",
-      "Best Kebab & Pizza is an option in Campanhã at Rua de São Roque da Lameira 2346. You can check the menu, public reviews, opening hours and route before choosing.",
+      "O Best Pizza & Kebab é uma opção em Campanhã, na Rua de São Roque da Lameira 2346. Podes consultar o menu, avaliações públicas, horário e rota antes de escolher.",
+      "Best Pizza & Kebab is an option in Campanhã at Rua de São Roque da Lameira 2346. You can check the menu, public reviews, opening hours and route before choosing.",
     ),
   },
   {
     question: L(
-      "Onde fica o Best Kebab & Pizza em São Roque da Lameira?",
-      "Where is Best Kebab & Pizza in São Roque da Lameira?",
+      "Onde fica o Best Pizza & Kebab em São Roque da Lameira?",
+      "Where is Best Pizza & Kebab in São Roque da Lameira?",
     ),
     answer: L(
-      "Fica na Rua de São Roque da Lameira 2346, 4350-306 Porto, em Campanhã. A Casa São Roque e a zona da Alameda de Cartes são referências próximas.",
-      "It is at Rua de São Roque da Lameira 2346, 4350-306 Porto, in Campanhã. Casa São Roque and the Alameda de Cartes area are nearby reference points.",
+      "Fica na Rua de São Roque da Lameira 2346, 4350-307 Porto, em Campanhã. A Casa São Roque e a zona da Alameda de Cartes são referências próximas.",
+      "It is at Rua de São Roque da Lameira 2346, 4350-307 Porto, in Campanhã. Casa São Roque and the Alameda de Cartes area are nearby reference points.",
     ),
   },
   {
