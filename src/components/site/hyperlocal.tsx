@@ -31,8 +31,8 @@ export function Hyperlocal() {
 
             <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-ink/75 sm:text-base">
               {isPt
-                ? "Estamos na Rua de São Roque da Lameira 2346. Para quem pesquisa perto de São Roque, Cartes, Falcão, Cerco ou Corujeira, esta é a referência local do Best Kebab & Pizza em Campanhã."
-                : "We are at Rua de São Roque da Lameira 2346. For anyone searching around São Roque, Cartes, Falcão, Cerco or Corujeira, this is the local Best Kebab & Pizza reference in Campanhã."}
+                ? "Estamos na Rua de São Roque da Lameira 2346. Para quem pesquisa perto de São Roque, Cartes, Falcão, Cerco ou Corujeira, esta é a referência local do Best Pizza & Kebab em Campanhã."
+                : "We are at Rua de São Roque da Lameira 2346. For anyone searching around São Roque, Cartes, Falcão, Cerco or Corujeira, this is the local Best Pizza & Kebab reference in Campanhã."}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2" aria-label={isPt ? "Zonas próximas" : "Nearby areas"}>
