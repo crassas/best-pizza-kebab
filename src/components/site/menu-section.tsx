@@ -161,7 +161,7 @@ export function MenuSection() {
                           loading="lazy"
                           decoding="async"
                           fetchPriority="low"
-                          className="absolute inset-0 h-full w-full object-cover opacity-45 transition-transform duration-500 group-hover:scale-105"
+                          className="absolute inset-0 h-full w-full object-cover opacity-60 brightness-105 saturate-110 contrast-105 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
                         />
                       ) : (
                         <div
@@ -171,7 +171,7 @@ export function MenuSection() {
                           <FallbackIcon className="size-20 text-brand-yellow/55" strokeWidth={1.4} />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/20" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/10" />
                       <div className="relative z-10 flex min-h-28 items-center justify-between gap-3 p-4">
                         <div>
                           <h4 className="font-display text-2xl uppercase leading-none text-white">
