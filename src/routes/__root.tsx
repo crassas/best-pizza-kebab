@@ -7,7 +7,7 @@ import { LanguageProvider } from "@/lib/i18n";
 import { restaurant, seo } from "@/lib/restaurant";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Best Kebab & Pizza";
+const APP_NAME = "Best Pizza & Kebab";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -30,7 +30,7 @@ export const Route = createRootRoute({
       { property: "og:description", content: seo.description.pt },
       { property: "og:url", content: seo.canonical },
       { property: "og:image", content: "https://bestpizzaandkebab.pt/og.jpg" },
-      { property: "og:image:alt", content: "Best Kebab & Pizza — kebab e pizza em São Roque da Lameira, Campanhã, Porto" },
+      { property: "og:image:alt", content: "Best Pizza & Kebab — kebab e pizza em São Roque da Lameira, Campanhã, Porto" },
       { property: "og:locale", content: "pt_PT" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: seo.title.pt },
