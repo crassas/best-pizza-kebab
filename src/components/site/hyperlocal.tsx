@@ -64,6 +64,13 @@ export function Hyperlocal() {
                 <Search className="size-4 text-brand-red" />
                 {isPt ? "Kebab no Porto: guia" : "Kebab in Porto: guide"}
               </a>
+              <a
+                href="/pizza-campanha/"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-yellow px-5 py-3 text-sm font-black uppercase tracking-wider text-black shadow-fastfood transition-transform active:translate-x-0.5 active:translate-y-0.5"
+              >
+                <Search className="size-4 text-brand-red" />
+                {isPt ? "Pizza em Campanhã" : "Pizza in Campanhã"}
+              </a>
             </div>
           </div>
 
