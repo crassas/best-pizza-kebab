@@ -102,10 +102,10 @@ export function Hero() {
               ★ KEBAB • DURUM • PIZZA • FALAFEL ★
             </div>
             <h1 className="mt-3 font-display text-5xl sm:text-7xl lg:text-8xl leading-[0.88] uppercase tracking-tight text-white">
-              BEST KEBAB
+              BEST PIZZA
               <br />
               <span className="mt-1 inline-block -rotate-1 border-3 border-black bg-white px-3 py-0.5 text-brand-red shadow-fastfood">
-                &amp; PIZZA
+                &amp; KEBAB
               </span>
             </h1>
             <p className="mt-5 max-w-xl text-lg sm:text-xl font-medium text-cream/90 leading-snug">
