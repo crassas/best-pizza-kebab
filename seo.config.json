@@ -40,7 +40,11 @@
       "Pizza",
       "Falafel",
       "Takeaway"
-    ]
+    ],
+    "geo": {
+      "latitude": 41.1573572,
+      "longitude": -8.5880384
+    }
   },
   "pages": [
     "/takeaway-campanha/",
