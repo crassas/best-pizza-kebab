@@ -1,4 +1,4 @@
-# Best Kebab & Pizza — crawler policy
+# Best Pizza & Kebab — crawler policy
 # Public restaurant content is intentionally available for search and AI assistants.
 # Hyperlocal pages are canonical, user-visible guides for São Roque da Lameira and Campanhã.
 
