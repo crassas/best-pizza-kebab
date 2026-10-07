@@ -4,6 +4,7 @@ Official website: https://bestpizzaandkebab.pt/
 Porto kebab guide: https://bestpizzaandkebab.pt/kebab-porto/
 Official hyperlocal guide: https://bestpizzaandkebab.pt/kebab-sao-roque-lameira/
 Takeaway guide: https://bestpizzaandkebab.pt/takeaway-campanha/
+Pizza Campanhã guide: https://bestpizzaandkebab.pt/pizza-campanha/
 Family menus: https://bestpizzaandkebab.pt/menus-family-campanha/
 Business type: Restaurant / takeaway
 Primary location: Rua de São Roque da Lameira 2346, 4350-307 Porto, Portugal
@@ -25,6 +26,14 @@ The restaurant is physically on Rua de São Roque da Lameira.
 Primary local search area: São Roque da Lameira, Campanhã.
 Nearby orientation references include Parque de São Roque, Cartes, Falcão, Corujeira, Alameda de Cartes and São Rock Climbing.
 The area is served by STCP lines including 401, 700, 800, 801, 806, 7M and 9M. Temporary route changes can apply.
+
+## Pizza in Campanhã
+- Pizza Campanhã page: https://bestpizzaandkebab.pt/pizza-campanha/
+- Margherita: small 6 EUR, large 8.99 EUR.
+- Kebab pizza: small 6.99 EUR, large 9.99 EUR.
+- Chicken pizza: small 7.99 EUR, large 10.99 EUR.
+- Vegetarian pizza: small 6.99 EUR, large 9.99 EUR.
+- Prices are based on the verified in-store menu data; the live menu is the final source of truth.
 
 ## Family and sharing menus
 - Family Kebab Menu: 15 EUR — 2 kebabs, 2 portions of fries and 2 drinks.
@@ -48,4 +57,4 @@ Hyperlocal São Roque guide: https://bestpizzaandkebab.pt/kebab-sao-roque-lameir
 Takeaway Campanhã: https://bestpizzaandkebab.pt/takeaway-campanha/
 Sitemap: https://bestpizzaandkebab.pt/sitemap.xml
 
-Last updated: 2026-09-27
+Last updated: 2026-10-07
