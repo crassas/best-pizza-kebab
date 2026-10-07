@@ -2,31 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bestpizzaandkebab.pt/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://bestpizzaandkebab.pt/takeaway-campanha/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestpizzaandkebab.pt/kebab-porto/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://bestpizzaandkebab.pt/kebab-sao-roque-lameira/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bestpizzaandkebab.pt/pizza-campanha/</loc>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://bestpizzaandkebab.pt/menus-family-campanha/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
