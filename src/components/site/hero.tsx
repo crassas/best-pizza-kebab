@@ -16,6 +16,8 @@ import { ALL_DISHES } from "@/lib/restaurant";
 import { getManagedLiveStatus, useRestaurantData } from "@/lib/restaurant-context";
 import { scrollToElement } from "@/lib/scroll";
 import { trackEvent } from "@/lib/analytics";
+import { WhatsAppIcon } from "@/components/site/whatsapp-icon";
+import { getInquiryWhatsAppUrl, type InquiryTopic } from "@/lib/whatsapp-inquiry";
 
 type SignatureDish = { id: string; tag: string; image: string; sizeId?: string };
 
@@ -25,6 +27,12 @@ const SIGNATURE_DISHES: SignatureDish[] = [
   { id: "doner-mix-box", tag: "DONER MIX BOX", image: "/images/menu-optimized/uploaded/doner_box.webp" },
   { id: "crispy-chicken-burger", tag: "BURGER", image: "/images/menu-optimized/food/burger.webp" },
   { id: "doner-falafel", tag: "FALAFEL", image: "/images/optimized/08_falafel.webp" },
+];
+
+const QUICK_QUESTIONS: { topic: InquiryTopic; pt: string; en: string }[] = [
+  { topic: "burgers", pt: "Têm burgers?", en: "Got burgers?" },
+  { topic: "kebab", pt: "O que leva o kebab?", en: "What's in the kebab?" },
+  { topic: "takeaway", pt: "Posso encomendar?", en: "Can I order pickup?" },
 ];
 
 export function Hero() {
@@ -138,6 +146,42 @@ export function Hero() {
                 {isPt ? "Ver Pedido" : "View Order"}
               </button>
             </div>
+
+            <div className="mt-5 w-full max-w-xl rounded-lg border-2 border-brand-yellow/70 bg-surface-card p-4 sm:p-5" aria-label={isPt ? "Perguntas rápidas pelo WhatsApp" : "Quick questions on WhatsApp"}>
+              <div className="flex items-start gap-3">
+                <WhatsAppIcon size="sm" className="mt-0.5 shrink-0 text-bolt" />
+                <div>
+                  <p className="font-display text-xl uppercase tracking-wide text-white">
+                    {isPt ? "Uma dúvida antes de pedir?" : "A question before ordering?"}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-cream/75 sm:text-sm">
+                    {isPt
+                      ? "Pergunta diretamente à equipa pelo WhatsApp — sem carrinho nem formulário."
+                      : "Ask our team on WhatsApp — no cart or form required."}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                {QUICK_QUESTIONS.map(({ topic, pt, en }) => (
+                  <a
+                    key={topic}
+                    href={getInquiryWhatsAppUrl(settings.deliveryLinks.whatsapp, lang, topic)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent("whatsapp_inquiry_click", { from: "hero", topic, lang })}
+                    className="flex min-h-12 items-center justify-center rounded-md border-2 border-black bg-brand-yellow px-3 py-2 text-center text-xs font-black uppercase tracking-wide text-black shadow-fastfood transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    {isPt ? pt : en} <span className="ml-1" aria-hidden="true">↗</span>
+                  </a>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-cream/65">
+                {isPt
+                  ? "A mensagem fica preparada no WhatsApp. Só é enviada quando tocares em Enviar; produtos e pedidos dependem de confirmação."
+                  : "Your message opens ready to send. Tap Send yourself; availability and orders are confirmed by the restaurant."}
+              </p>
+            </div>
+
             <div className="mt-8 w-full max-w-lg border-t-2 border-line/60 pt-6">
               <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-red">
                 <Zap className="size-4" />
