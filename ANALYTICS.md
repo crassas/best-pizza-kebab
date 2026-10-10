@@ -17,7 +17,8 @@ If `VITE_POSTHOG_KEY` is empty, remote analytics stay disabled and the site cont
 - `menu_view`
 - `add_to_cart`
 - `cart_open`
-- `order_send_whatsapp`
+- `order_send_whatsapp` — prepared cart request (not a confirmed order)
+- `whatsapp_inquiry_click` — direct question link, with `from`, `topic`, `lang` (not proof of a sent message)
 - `phone_click`
 - `directions_click`
 - `bolt_food_click`
