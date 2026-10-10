@@ -18,6 +18,7 @@ export type TrackingEvent =
   | "cart_open"
   | "order_send_whatsapp"
   | "whatsapp_click"
+  | "whatsapp_inquiry_click"
   | "phone_click"
   | "directions_click"
   | "bolt_food_click"
