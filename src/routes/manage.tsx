@@ -15,7 +15,13 @@ import { HistoryView } from "@/components/manage/history-view";
 import { type Promotion } from "@/lib/restaurant-context";
 import { ShieldCheck, LogOut, Globe } from "lucide-react";
 
-export const Route = createFileRoute("/manage")({ component: ManagePage });
+export const Route = createFileRoute("/manage")({
+  head: () => ({ meta: [
+    { title: "Área de gestão | Best Pizza & Kebab" },
+    { name: "robots", content: "noindex, nofollow, noarchive" },
+  ] }),
+  component: ManagePage,
+});
 
 function ManagePage() {
   const { user, isAuthorized, isLoading, signOut } = useOwnerAuth();

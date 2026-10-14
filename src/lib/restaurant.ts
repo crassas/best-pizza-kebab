@@ -68,11 +68,11 @@ export const ALL_DISHES: DishWithCategory[] = menu.flatMap((category) =>
 export const seo = {
   ...baseSeo,
   title: {
-    pt: "Kebab e Pizza em São Roque da Lameira, Porto | Best Pizza & Kebab",
+    pt: "Kebab em Campanhã, Porto | Pizza e Takeaway | Best Pizza & Kebab",
     en: "Kebab & Pizza in São Roque da Lameira, Porto | Best Pizza & Kebab",
   },
   description: {
-    pt: "Kebab, pizza, falafel e takeaway na Rua de São Roque da Lameira 2346, Campanhã. Perto de Cartes, Falcão, Cerco e Corujeira. Tel: 920 163 613.",
+    pt: "Kebab em Campanhã, Porto, na Rua de São Roque da Lameira 2346. Doner, durum, falafel, pizza e takeaway. Consulta o menu e como chegar.",
     en: "Kebab, pizza, falafel and takeaway at Rua de São Roque da Lameira 2346, Campanhã. Near Cartes, Falcão, Cerco and Corujeira. Phone: +351 920 163 613.",
   },
   canonical: "https://bestpizzaandkebab.pt/",

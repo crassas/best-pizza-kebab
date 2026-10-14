@@ -1,0 +1,6 @@
+# Admin route must not compete with the restaurant in search results.
+# Let crawlers visit the URL so they can observe the noindex directive.
+/manage
+  X-Robots-Tag: noindex, nofollow, noarchive
+/manage/*
+  X-Robots-Tag: noindex, nofollow, noarchive
