@@ -1,27 +1,18 @@
 import sharp from "sharp";
-import { join } from "node:path";
+import { readFile, writeFile } from "node:fs/promises";
 
-async function render() {
-  const svgPath = join(process.cwd(), "public", "favicon.svg");
-  const pngPath = join(process.cwd(), "public", "best-kebab-favicon-v2.png");
-  const grokPath = join(process.cwd(), "public", "__grok", "icon-180.png");
-
-  console.log("Rendering favicon.svg to best-kebab-favicon-v2.png at 512x512...");
-  await sharp(svgPath)
-    .resize(512, 512)
-    .png()
-    .toFile(pngPath);
-
-  console.log("Rendering favicon.svg to public/__grok/icon-180.png at 180x180...");
-  await sharp(svgPath)
-    .resize(180, 180)
-    .png()
-    .toFile(grokPath);
-
-  console.log("Icons rendered successfully!");
-}
-
-render().catch((err) => {
-  console.error("Error rendering icons:", err);
-  process.exit(1);
-});
+// Read the existing restaurant artwork directly; the old SVG referenced its
+// own output. Make a square crop for icons without changing the site logo.
+const source = await readFile("public/best-kebab-favicon-v2.png");
+const square = await sharp(source).resize(512, 512, { fit: "cover", position: "centre" }).png().toBuffer();
+await sharp(square).resize(96, 96).png().toFile("public/favicon.png");
+await sharp(square).resize(180, 180).png().toFile("public/apple-touch-icon.png");
+const frame = await sharp(square).resize(48, 48).png().toBuffer();
+const header = Buffer.alloc(22);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(1, 4);
+header[6] = 48; header[7] = 48;
+header.writeUInt16LE(1, 10); header.writeUInt16LE(32, 12);
+header.writeUInt32LE(frame.length, 14); header.writeUInt32LE(22, 18);
+await writeFile("public/favicon.ico", Buffer.concat([header, frame]));
+console.log("Generated square restaurant icons: 96px, 180px and ICO.");
