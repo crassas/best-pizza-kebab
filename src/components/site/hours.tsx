@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Clock3 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { copy, fill, weekdayName, type HoursStatus } from "@/lib/restaurant";
+import { copy, fill, weekdayName, temporaryClosure, type HoursStatus } from "@/lib/restaurant";
 import {
   getManagedHoursStatus,
   useRestaurantData,
@@ -42,6 +42,10 @@ function useHoursStatus(openingHours: WeekHours) {
 function StatusLine({ status }: { status: HoursStatus }) {
   const { t } = useI18n();
 
+  if (temporaryClosure.active) {
+    return <p className="text-sm font-bold text-brand-yellow" aria-live="polite">{t(temporaryClosure.notice)}</p>;
+  }
+
   if (status.isOpen) {
     return (
       <p className="text-sm font-bold text-bolt" aria-live="polite">
@@ -77,9 +81,9 @@ export function HoursCompact({ className }: { className?: string }) {
 
   return (
     <div className={cn("text-sm leading-relaxed text-cream/70", className)}>
-      <p>
+      {!temporaryClosure.active && <p>
         {t(weekdayName[new Date().getDay()])}: {status.todayOpen}–{status.todayClose}
-      </p>
+      </p>}
       <StatusLine status={status} />
     </div>
   );
@@ -100,17 +104,17 @@ export function HoursBlock() {
             <Clock3 className="size-4" />
           </span>
           <p className="font-display text-xl uppercase tracking-wider text-white">
-            {t(copy.hoursLabel)}
+            {temporaryClosure.active ? (isPt ? "Horário habitual" : "Usual hours") : t(copy.hoursLabel)}
           </p>
         </div>
         {status && (
           <span
             className={cn(
               "rounded-full border-2 border-black px-3 py-1 text-[10px] font-black uppercase tracking-wider shadow-xs",
-              status.isOpen ? "bg-bolt text-black" : "bg-brand-red text-white",
+              status.isOpen && !temporaryClosure.active ? "bg-bolt text-black" : "bg-brand-red text-white",
             )}
           >
-            {status.isOpen ? t(copy.openNow) : t(copy.closedNow)}
+            {temporaryClosure.active ? t(temporaryClosure.label) : status.isOpen ? t(copy.openNow) : t(copy.closedNow)}
           </span>
         )}
       </div>

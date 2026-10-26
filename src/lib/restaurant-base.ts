@@ -2,6 +2,17 @@ export type Lang = "pt" | "en";
 
 export type Localized = { pt: string; en: string };
 
+// Owner-confirmed holiday closure. Remove only after confirmation of reopening;
+// the approximate ten-day break is not a confirmed reopening date.
+export const temporaryClosure = {
+  active: true,
+  label: { pt: "Encerrado temporariamente", en: "Temporarily closed" },
+  notice: {
+    pt: "Encerrado temporariamente para férias. A data de reabertura será anunciada após confirmação.",
+    en: "Temporarily closed for holidays. The reopening date will be announced once confirmed.",
+  },
+};
+
 export type AllergenId =
   | "gluten"
   | "crustaceans"
@@ -1133,7 +1144,7 @@ export function jsonLd() {
               "@type": "Offer",
               price: price.toFixed(2),
               priceCurrency: "EUR",
-              availability: "https://schema.org/InStock",
+              availability: temporaryClosure.active ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
             } : undefined,
           };
         }),
@@ -1161,7 +1172,7 @@ export function jsonLd() {
         "@type": "Offer",
         price: "15.00",
         priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
+        availability: temporaryClosure.active ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
         url: `${domain}/#dish-family-kebab`,
         itemOffered: {
           "@type": "MenuItem",
@@ -1173,7 +1184,7 @@ export function jsonLd() {
         "@type": "Offer",
         price: "16.00",
         priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
+        availability: temporaryClosure.active ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
         url: `${domain}/#dish-family-durum`,
         itemOffered: {
           "@type": "MenuItem",
@@ -1185,7 +1196,7 @@ export function jsonLd() {
         "@type": "Offer",
         price: "10.00",
         priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
+        availability: temporaryClosure.active ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
         url: `${domain}/#dish-chicken-mix-box`,
         itemOffered: {
           "@type": "MenuItem",
@@ -1197,7 +1208,7 @@ export function jsonLd() {
         "@type": "Offer",
         price: "7.50",
         priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
+        availability: temporaryClosure.active ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
         url: `${domain}/#dish-doner-mix-box`,
         itemOffered: {
           "@type": "MenuItem",
@@ -1263,8 +1274,15 @@ export function jsonLd() {
     ],
   };
 
+  const publishedRestaurant = temporaryClosure.active
+    ? (() => {
+        const { openingHours, openingHoursSpecification, potentialAction, ...entity } = restaurantEntity;
+        return { ...entity, description: `${entity.description} ${temporaryClosure.notice.pt}` };
+      })()
+    : restaurantEntity;
+
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantEntity, websiteEntity, menuEntity, familyOffersEntity, faqEntity],
+    "@graph": [publishedRestaurant, websiteEntity, menuEntity, familyOffersEntity, faqEntity],
   };
 }
