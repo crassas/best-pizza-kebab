@@ -32,6 +32,28 @@ type AnalyticsClient = {
 };
 
 const OWNER_EXCLUDE_KEY = "bpk-analytics-excluded";
+const ANALYTICS_CONSENT_KEY = "bpk-analytics-consent";
+
+export function analyticsConsentGranted() {
+  if (typeof window === "undefined") return false;
+  try { return window.localStorage.getItem(ANALYTICS_CONSENT_KEY) === "yes"; }
+  catch { return false; }
+}
+
+export function setAnalyticsConsent(granted: boolean) {
+  if (typeof window === "undefined") return;
+  try { window.localStorage.setItem(ANALYTICS_CONSENT_KEY, granted ? "yes" : "no"); }
+  catch { /* Without storage, keep analytics disabled. */ return; }
+  if (!granted && client) {
+    // Clear locally stored analytics identifiers and stop future events.
+    const posthog = client as AnalyticsClient & { opt_out_capturing?: () => void; reset?: () => void };
+    posthog.opt_out_capturing?.();
+    posthog.reset?.();
+    client = null;
+    clientPromise = null;
+  }
+}
+
 const SITE_ID = "bestpizzaandkebab.pt";
 
 let client: AnalyticsClient | null = null;
@@ -72,7 +94,7 @@ export function isAnalyticsExcluded() {
 }
 
 async function getClient(): Promise<AnalyticsClient | null> {
-  if (typeof window === "undefined" || isAnalyticsExcluded()) return null;
+  if (typeof window === "undefined" || isAnalyticsExcluded() || !analyticsConsentGranted()) return null;
   if (client) return client;
   if (clientPromise) return clientPromise;
 
@@ -130,7 +152,7 @@ export function trackEvent(event: TrackingEvent, metadata: AnalyticsMetadata = {
     );
   }
 
-  if (excluded) return;
+  if (excluded || !analyticsConsentGranted()) return;
 
   void getClient().then((posthog) => {
     if (!posthog) return;
