@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { analyticsConsentGranted, setAnalyticsConsent } from "@/lib/analytics";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -20,6 +22,12 @@ export function Footer() {
   const { settings } = useRestaurantData();
   const isPt = lang === "pt";
   const currentYear = new Date().getFullYear();
+  const [analyticsAllowed, setAnalyticsAllowed] = useState(() => analyticsConsentGranted());
+  const changeAnalytics = () => {
+    const next = !analyticsAllowed;
+    setAnalyticsConsent(next);
+    setAnalyticsAllowed(next);
+  };
   const links = settings.deliveryLinks;
 
   const phoneDisplay = links.phoneDisplay || restaurant.phoneDisplay;
@@ -185,6 +193,8 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <p>{isPt ? "Preços com IVA incluído à taxa legal em vigor." : "All prices include VAT."}</p>
+            <a href="/privacidade/" className="underline underline-offset-4 hover:text-brand-yellow">{isPt ? "Privacidade" : "Privacy"}</a>
+            <button type="button" onClick={changeAnalytics} aria-pressed={analyticsAllowed} className="underline underline-offset-4 hover:text-brand-yellow">{isPt ? `Estatísticas: ${analyticsAllowed ? "ativas" : "desativadas"}` : `Analytics: ${analyticsAllowed ? "on" : "off"}`}</button>
             <Link
               to="/manage"
               className="inline-flex items-center gap-1 text-cream/35 transition-colors hover:text-brand-yellow"
