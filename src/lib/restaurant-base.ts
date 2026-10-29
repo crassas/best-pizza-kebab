@@ -2,14 +2,13 @@ export type Lang = "pt" | "en";
 
 export type Localized = { pt: string; en: string };
 
-// Owner-confirmed holiday closure. Remove only after confirmation of reopening;
-// the approximate ten-day break is not a confirmed reopening date.
+// Holiday closure. Keep orders paused until reopening is confirmed.
 export const temporaryClosure = {
   active: true,
   label: { pt: "Encerrado temporariamente", en: "Temporarily closed" },
   notice: {
-    pt: "Encerrado temporariamente para férias. A data de reabertura será anunciada após confirmação.",
-    en: "Temporarily closed for holidays. The reopening date will be announced once confirmed.",
+    pt: "Encerrado temporariamente para férias. Reabrimos a 14 de novembro.",
+    en: "Temporarily closed for holidays. We reopen on 14 November.",
   },
 };
 
