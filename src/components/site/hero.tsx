@@ -22,7 +22,7 @@ import { getInquiryWhatsAppUrl, type InquiryTopic } from "@/lib/whatsapp-inquiry
 type SignatureDish = { id: string; tag: string; image: string; sizeId?: string };
 
 const SIGNATURE_DISHES: SignatureDish[] = [
-  { id: "durum-kebab", tag: "DURUM KEBAB", image: "/images/optimized/06_kebab_batatas.webp" },
+  { id: "durum", tag: "DURUM KEBAB", image: "/images/uploaded/durum_kebab.png" },
   { id: "special-kebab", tag: "PIZZA", image: "/images/optimized/05_pizza.webp", sizeId: "small" },
   { id: "doner-mix-box", tag: "DONER MIX BOX", image: "/images/menu-optimized/uploaded/doner_box.webp" },
   { id: "crispy-chicken-burger", tag: "BURGER", image: "/images/menu-optimized/food/burger.webp" },
