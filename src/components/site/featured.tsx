@@ -3,9 +3,11 @@ import { useI18n } from "@/lib/i18n";
 import { featured, getCategoryAnchor, type Localized } from "@/lib/restaurant";
 import { trackEvent } from "@/lib/analytics";
 import { scrollToElement } from "@/lib/scroll";
+import { useRestaurantData } from "@/lib/restaurant-context";
 
 export function Featured() {
   const { lang, t } = useI18n();
+  const { settings } = useRestaurantData();
   const isPt = lang === "pt";
 
   const handleCardClick = (e: React.MouseEvent<HTMLAnchorElement>, categoryId: string, dishId: string, titleObj: Localized) => {
@@ -55,7 +57,7 @@ export function Featured() {
                 </div>
                 <div className="flex flex-col flex-1 justify-between p-4 bg-surface-card">
                   <div><h3 className="font-display text-2xl tracking-wide uppercase text-white group-hover:text-brand-yellow transition-colors leading-tight">{t(dish.title)}</h3></div>
-                  <div className="mt-4 flex items-center justify-between pt-3 border-t-2 border-line text-xs font-black uppercase tracking-wider text-brand-yellow group-hover:text-white transition-colors"><span>{isPt ? "Pedir ou Ver no Menu" : "Order / View in Menu"}</span><ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" /></div>
+                  <div className="mt-4 flex items-center justify-between pt-3 border-t-2 border-line text-xs font-black uppercase tracking-wider text-brand-yellow group-hover:text-white transition-colors"><span>{settings.isOnlineOrderingPaused ? (isPt ? "Ver no menu" : "View in menu") : (isPt ? "Pedir ou Ver no Menu" : "Order / View in Menu")}</span><ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" /></div>
                 </div>
               </a>
             </div>
