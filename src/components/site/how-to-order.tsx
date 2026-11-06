@@ -36,6 +36,38 @@ export function HowToOrder() {
     setOpen(true);
   };
 
+  // Não apresentar o percurso de encomenda enquanto a loja não aceita pedidos.
+  if (settings.isOnlineOrderingPaused) {
+    return (
+      <section id="encomenda" aria-labelledby="encomenda-pausada" className="border-y-4 border-black bg-brand-black text-cream">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
+          <p className="text-xs font-black uppercase tracking-widest text-brand-yellow">
+            {isPt ? "Informação de funcionamento" : "Service notice"}
+          </p>
+          <h2 id="encomenda-pausada" className="mt-3 font-display text-3xl uppercase text-white sm:text-5xl">
+            {isPt ? "Pedidos temporariamente pausados" : "Orders temporarily paused"}
+          </h2>
+          <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-cream/85" role="status">
+            {isPt ? settings.pausedNoticePt : settings.pausedNoticeEn}
+          </p>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-cream/70">
+            {isPt
+              ? "Podes consultar o menu e os preços, mas não é possível enviar pedidos pelo site enquanto o serviço estiver suspenso. Confirma a reabertura com o restaurante."
+              : "You can browse the menu and prices, but orders cannot be submitted through the website while the service is paused. Please confirm reopening with the restaurant."}
+          </p>
+          <a
+            href="#menu-quick"
+            onClick={(event) => { event.preventDefault(); goToMenu(); }}
+            className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-md border-2 border-black bg-brand-yellow px-5 py-3 text-sm font-black uppercase text-black"
+          >
+            {isPt ? "Consultar menu (sem encomenda)" : "Browse menu (no ordering)"}
+            <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </section>
+    );
+  }
+
   const tutorialSteps = [
     {
       icon: UtensilsCrossed,
