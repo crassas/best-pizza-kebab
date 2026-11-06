@@ -64,9 +64,13 @@ export function Footer() {
                 {isPt ? "Kebab, pizza e muito mais." : "Kebab, pizza and much more."}
               </p>
               <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-white/75">
-                {isPt
-                  ? "São Roque da Lameira, Campanhã, Porto. Consulta o menu, monta o pedido e envia-o para confirmação."
-                  : "São Roque da Lameira, Campanhã, Porto. Explore the menu, build your order and send it for confirmation."}
+                {settings.isOnlineOrderingPaused
+                  ? (isPt
+                    ? "São Roque da Lameira, Campanhã, Porto. Consulta o menu e confirma a reabertura antes de encomendar."
+                    : "São Roque da Lameira, Campanhã, Porto. Browse the menu and confirm reopening before ordering.")
+                  : (isPt
+                    ? "São Roque da Lameira, Campanhã, Porto. Consulta o menu, monta o pedido e envia-o para confirmação."
+                    : "São Roque da Lameira, Campanhã, Porto. Explore the menu, build your order and send it for confirmation.")}
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
@@ -91,7 +95,7 @@ export function Footer() {
                   {[
                     { id: "menu", label: t(copy.navMenu) },
                     { id: "destaques", label: isPt ? "Mais pedidos" : "Top sellers" },
-                    { id: "encomenda", label: isPt ? "Fazer pedido" : "Place order" },
+                    { id: "encomenda", label: settings.isOnlineOrderingPaused ? (isPt ? "Pedidos pausados" : "Orders paused") : (isPt ? "Fazer pedido" : "Place order") },
                     { id: "avaliacoes", label: t(copy.navReviews) },
                     { id: "local", label: isPt ? "Localização" : "Location" },
                   ].map((item) => (
@@ -156,7 +160,7 @@ export function Footer() {
                   </a>
                 </div>
 
-                {(links.bolt || links.uber) && (
+                {!settings.isOnlineOrderingPaused && (links.bolt || links.uber) && (
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {links.bolt && (
                       <a
