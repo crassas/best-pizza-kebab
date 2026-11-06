@@ -136,14 +136,15 @@ export function Hero() {
               </a>
               <button
                 type="button"
+                disabled={settings.isOnlineOrderingPaused}
                 onClick={() => {
                   trackEvent("cart_open", { from: "hero" });
                   setOpen(true);
                 }}
-                className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-black shadow-fastfood hover:bg-neutral-100"
+                className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-black shadow-fastfood hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <ShoppingBag className="size-5 text-brand-red" />
-                {isPt ? "Ver Pedido" : "View Order"}
+                {settings.isOnlineOrderingPaused ? (isPt ? "Pedidos pausados" : "Orders paused") : (isPt ? "Ver Pedido" : "View Order")}
               </button>
             </div>
 
@@ -162,7 +163,7 @@ export function Hero() {
                 </div>
               </div>
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                {QUICK_QUESTIONS.map(({ topic, pt, en }) => (
+                {QUICK_QUESTIONS.filter(({ topic }) => !settings.isOnlineOrderingPaused || topic !== "takeaway").map(({ topic, pt, en }) => (
                   <a
                     key={topic}
                     href={getInquiryWhatsAppUrl(settings.deliveryLinks.whatsapp, lang, topic)}
@@ -182,6 +183,7 @@ export function Hero() {
               </p>
             </div>
 
+            {!settings.isOnlineOrderingPaused && (
             <div className="mt-8 w-full max-w-lg border-t-2 border-line/60 pt-6">
               <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-red">
                 <Zap className="size-4" />
@@ -220,6 +222,7 @@ export function Hero() {
                 )}
               </div>
             </div>
+            )}
           </div>
 
           <div className="lg:col-span-6">
