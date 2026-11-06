@@ -1,17 +1,19 @@
 import { Zap, ExternalLink } from "lucide-react";
-import { boltFood, boltPromotion, uberEats, temporaryClosure } from "@/lib/restaurant";
+import { boltFood, boltPromotion, uberEats } from "@/lib/restaurant";
+import { useRestaurantData } from "@/lib/restaurant-context";
 import { useI18n } from "@/lib/i18n";
 import { trackEvent } from "@/lib/analytics";
 
 export function BoltNotice() {
   const { lang, t } = useI18n();
   const isPt = lang === "pt";
+  const { settings } = useRestaurantData();
 
-  if (temporaryClosure.active) return (
-    <section id="encomenda" className="bg-brand-black px-4 py-6 sm:px-6" aria-label={t(temporaryClosure.label)}>
+  if (settings.isOnlineOrderingPaused) return (
+    <section id="estado-encerramento" className="bg-brand-black px-4 py-6 sm:px-6" aria-label={isPt ? "Aviso de pedidos pausados" : "Orders paused notice"}>
       <div className="mx-auto max-w-7xl rounded-xl border-3 border-black bg-surface-card p-5 text-cream shadow-fastfood sm:p-7">
-        <h2 className="font-display text-3xl uppercase text-brand-yellow">{t(temporaryClosure.label)}</h2>
-        <p className="mt-2 text-sm">{t(temporaryClosure.notice)}</p>
+        <h2 className="font-display text-3xl uppercase text-brand-yellow">{isPt ? "Pedidos temporariamente pausados" : "Orders temporarily paused"}</h2>
+        <p className="mt-2 text-sm">{isPt ? settings.pausedNoticePt : settings.pausedNoticeEn}</p>
       </div>
     </section>
   );
