@@ -4,7 +4,7 @@ export type Localized = { pt: string; en: string };
 
 // Holiday closure. Keep orders paused until reopening is confirmed.
 export const temporaryClosure = {
-  active: true,
+  active: false,
   label: { pt: "Encerrado temporariamente", en: "Temporarily closed" },
   notice: {
     pt: "Encerrado temporariamente para férias. Reabrimos a 14 de novembro.",
