@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import { ArrowLeft, ArrowRight, Check, CupSoda, Leaf, Plus, Search, Soup, UtensilsCrossed, Wine, X } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
@@ -51,6 +52,16 @@ function optimizedMenuImage(src?: string) {
   return src;
 }
 
+// Entrada da grelha de categorias: as tiles sobem em sequência quando a secção entra no ecrã.
+const categoryGridVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+};
+const categoryTileVariants: Variants = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export function MenuSection() {
   const { lang, t } = useI18n();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -59,6 +70,7 @@ export function MenuSection() {
   const isPt = lang === "pt";
   const chipRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const categoriesNavRef = useRef<HTMLDivElement | null>(null);
+  const reduceMotion = useReducedMotion();
 
   const clearSearch = useCallback(() => {
     setSearch("");
@@ -142,16 +154,22 @@ export function MenuSection() {
         <div>
           {showCategoryOverview ? (
             <div>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <motion.div
+                className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3"
+                variants={categoryGridVariants}
+                initial={reduceMotion ? false : "hidden"}
+                whileInView="show"
+                viewport={{ once: true, amount: 0.15 }}
+              >
                 {visibleMenu.map((category) => {
                   const image = optimizedMenuImage(CATEGORY_IMAGES[category.id]);
                 const FallbackIcon = CATEGORY_FALLBACK_ICONS[category.id as keyof typeof CATEGORY_FALLBACK_ICONS] ?? UtensilsCrossed;
                   return (
+                    <motion.div key={category.id} variants={categoryTileVariants}>
                     <button
-                      key={category.id}
                       type="button"
                       onClick={() => handleSelect(category.id)}
-                      className="group relative min-h-28 overflow-hidden rounded-xl border-3 border-black bg-surface-card text-left shadow-fastfood"
+                      className="group relative h-full min-h-[104px] w-full overflow-hidden rounded-xl border-3 border-black bg-surface-card text-left shadow-fastfood sm:min-h-28"
                     >
                       {image ? (
                         <img
@@ -174,9 +192,9 @@ export function MenuSection() {
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/10" />
-                      <div className="relative z-10 flex min-h-28 items-center justify-between gap-3 p-4">
-                        <div>
-                          <h4 className="font-display text-2xl uppercase leading-none text-white">
+                      <div className="relative z-10 flex h-full min-h-[104px] items-end justify-between gap-2 p-3 sm:min-h-28 sm:items-center sm:gap-3 sm:p-4">
+                        <div className="min-w-0">
+                          <h4 className="font-display text-xl uppercase leading-none text-white sm:text-2xl break-words">
                             {t(category.label)}
                           </h4>
                           <p className="mt-1 text-[11px] font-bold text-brand-yellow">
@@ -186,9 +204,10 @@ export function MenuSection() {
                         <ArrowRight className="size-5 shrink-0 text-brand-yellow transition-transform group-hover:translate-x-1" />
                       </div>
                     </button>
+                    </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           ) : displayedCategories.length ? (
             <div className="space-y-12">
