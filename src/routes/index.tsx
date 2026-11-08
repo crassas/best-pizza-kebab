@@ -14,6 +14,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Location } from "@/components/site/location";
 import { MenuSection } from "@/components/site/menu-section";
 import { OrderDrawer } from "@/components/site/order-drawer";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/lib/i18n";
 import { copy } from "@/lib/restaurant";
@@ -39,6 +40,7 @@ function Home() {
       <a href="#menu-quick" onClick={(e) => { e.preventDefault(); scrollToElement("menu-quick", 128); }} className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand-red focus:px-4 focus:py-2 focus:text-white">
         {t(copy.skip)}
       </a>
+      <ScrollProgress />
       <Header />
       <main className="pb-16 md:pb-0 bg-brand-black">
         <Hero /><FamilyAds /><MenuSection /><BoltNotice /><Featured /><HowToOrder /><Location /><Hyperlocal /><FiveGuysWall />

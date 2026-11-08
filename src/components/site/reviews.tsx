@@ -2,10 +2,8 @@ import { Star } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { maps } from "@/lib/restaurant";
 
-export function Reviews() {
-  const { t } = useI18n();
-
-  const reviews = [
+// Avaliações reais do Google, partilhadas entre o hero e a secção de avaliações.
+export const SITE_REVIEWS = [
     {
       id: "hugo",
       text: "Comida e atendimento excelentes. O dono é muito gentil e simpático.",
@@ -16,7 +14,11 @@ export function Reviews() {
       text: "Excelente lugar para jantares saborosos e batatas fritas bem temperadas. Atendimento muito simpático, bons preços, ótimo para crianças.",
       author: "Tetyana Bilyachenko",
     },
-  ];
+];
+
+export function Reviews() {
+  const { t } = useI18n();
+  const reviews = SITE_REVIEWS;
 
   return (
     <section id="avaliacoes" className="scroll-mt-[calc(4rem+env(safe-area-inset-top))] border-t border-line bg-surface px-4 py-10 sm:px-6 sm:py-14">

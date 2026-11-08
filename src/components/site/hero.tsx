@@ -3,13 +3,12 @@ import {
   UtensilsCrossed,
   Flame,
   Star,
-  MapPin,
   ShoppingBag,
   ArrowRight,
   ShieldCheck,
-  Zap,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { SITE_REVIEWS } from "@/components/site/reviews";
 import { useCartStore } from "@/lib/cart-store";
 import { useI18n } from "@/lib/i18n";
 import { ALL_DISHES } from "@/lib/restaurant";
@@ -38,6 +37,11 @@ const QUICK_QUESTIONS: { topic: InquiryTopic; pt: string; en: string }[] = [
 export function Hero() {
   const { lang, t } = useI18n();
   const { addItem, setOpen } = useCartStore();
+  const cartCount = useCartStore((s) => s.items.reduce((n, item) => n + item.quantity, 0));
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  // Fundo de pontos com parallax suave: dá profundidade sem competir com o conteúdo.
+  const dotsY = useTransform(scrollYProgress, [0, 1], [0, -160]);
   const {
     settings,
     getDishPrice,
@@ -82,7 +86,11 @@ export function Hero() {
       id="topo"
       className="relative overflow-hidden border-b-4 border-black bg-brand-black text-cream"
     >
-      <div className="absolute inset-0 bg-diner-dots opacity-40 pointer-events-none" />
+      <motion.div
+        aria-hidden="true"
+        style={reduceMotion ? undefined : { y: dotsY }}
+        className="absolute -inset-y-24 inset-x-0 bg-diner-dots opacity-40 pointer-events-none"
+      />
       <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-14 lg:py-16">
         <div className="mb-6 flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="badge-stamp bg-surface px-3.5 py-1.5 text-xs text-white">
@@ -97,10 +105,6 @@ export function Hero() {
           </div>
           <div className="badge-stamp rotate-1 bg-brand-yellow px-3 py-1.5 text-xs text-black">
             <Star className="mr-1 size-3.5 fill-black" />4.9 / 5.0 Google Reviews
-          </div>
-          <div className="hidden sm:inline-flex badge-stamp bg-surface/90 px-3 py-1.5 text-xs text-muted border-line">
-            <MapPin className="mr-1.5 size-3.5 text-brand-red" />
-            São Roque da Lameira 2346, Porto
           </div>
         </div>
 
@@ -121,32 +125,90 @@ export function Hero() {
                 ? "Kebab e pizza em São Roque da Lameira, perto da Praça das Flores e do Jardim Guedes de Oliveira. Doner, Durum, Falafel, Burgers e takeaway. Entregas via Bolt Food."
                 : "Kebab and pizza in São Roque da Lameira, near Praça das Flores and Jardim Guedes de Oliveira. Doner, Durum, Falafel, Burgers and takeaway. Delivery via Bolt Food."}
             </p>
-            <div className="mt-7 flex w-full sm:w-auto flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
-              <a
-                href="#menu-quick"
-                onClick={(e) => {
-                  e.preventDefault();
-                  trackEvent("menu_view", { from: "hero_cta" });
-                  scrollToElement("menu-quick", 128);
-                }}
-                className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-red px-7 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-white shadow-fastfood hover:bg-brand-red-dark"
-              >
-                <UtensilsCrossed className="size-5" />
-                {isPt ? "Ver Cardápio & Preços" : "Explore Menu & Prices"}
-              </a>
-              <button
-                type="button"
-                disabled={settings.isOnlineOrderingPaused}
-                onClick={() => {
-                  trackEvent("cart_open", { from: "hero" });
-                  setOpen(true);
-                }}
-                className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-black shadow-fastfood hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <ShoppingBag className="size-5 text-brand-red" />
-                {settings.isOnlineOrderingPaused ? (isPt ? "Pedidos pausados" : "Orders paused") : (isPt ? "Ver Pedido" : "View Order")}
-              </button>
-            </div>
+            <motion.div
+              className="mt-7 w-full max-w-xl"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-4">
+                <a
+                  href="#menu-quick"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackEvent("menu_view", { from: "hero_cta" });
+                    scrollToElement("menu-quick", 128);
+                  }}
+                  className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-brand-red px-7 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-white shadow-fastfood hover:bg-brand-red-dark"
+                >
+                  <UtensilsCrossed className="size-5" />
+                  {isPt ? "Escolher o meu pedido" : "Choose my order"}
+                </a>
+                <button
+                  type="button"
+                  disabled={settings.isOnlineOrderingPaused}
+                  onClick={() => {
+                    trackEvent("cart_open", { from: "hero" });
+                    setOpen(true);
+                  }}
+                  className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md border-3 border-black bg-white px-6 py-3.5 text-base sm:text-lg font-extrabold uppercase tracking-wider text-black shadow-fastfood hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <ShoppingBag className="size-5 text-brand-red" />
+                  {settings.isOnlineOrderingPaused
+                    ? (isPt ? "Pedidos pausados" : "Orders paused")
+                    : cartCount > 0
+                      ? (isPt ? `Ver pedido (${cartCount})` : `View order (${cartCount})`)
+                      : (isPt ? "Ver pedido" : "View order")}
+                </button>
+              </div>
+
+              {!settings.isOnlineOrderingPaused && (links.bolt || links.uber) && (
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  {links.bolt && (
+                    <a
+                      href={links.bolt}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("bolt_food_click", { from: "hero_cta" })}
+                      className="flex items-center justify-between gap-2 rounded-md border-2 border-black bg-surface px-4 py-3 shadow-fastfood transition-colors hover:border-bolt"
+                    >
+                      <span>
+                        <b className="block font-display text-xl uppercase leading-none tracking-wide text-white">Bolt Food</b>
+                        <small className="mt-1 block text-xs font-black text-bolt">{isPt ? "-30% desde 12 €" : "-30% over €12"}</small>
+                      </span>
+                      <ArrowRight className="size-5 shrink-0 text-bolt" />
+                    </a>
+                  )}
+                  {links.uber && (
+                    <a
+                      href={links.uber}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("uber_eats_click", { from: "hero_cta" })}
+                      className="flex items-center justify-between gap-2 rounded-md border-2 border-black bg-surface px-4 py-3 shadow-fastfood transition-colors hover:border-uber"
+                    >
+                      <span>
+                        <b className="block font-display text-xl uppercase leading-none tracking-wide text-white">Uber Eats</b>
+                        <small className="mt-1 block text-xs font-bold text-muted">{isPt ? "Entrega" : "Delivery"}</small>
+                      </span>
+                      <ArrowRight className="size-5 shrink-0 text-uber" />
+                    </a>
+                  )}
+                </div>
+              )}
+
+              <figure className="mt-5 flex items-start gap-3 border-l-4 border-brand-yellow pl-3">
+                <div className="flex shrink-0 gap-0.5 pt-0.5" aria-label="5/5">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <Star key={i} className="size-3.5 fill-brand-yellow text-brand-yellow" aria-hidden="true" />
+                  ))}
+                </div>
+                <blockquote className="min-w-0 text-sm leading-snug text-cream/85">
+                  <p>&ldquo;{SITE_REVIEWS[1].text}&rdquo;</p>
+                  <figcaption className="mt-1 text-xs font-bold text-muted">— {SITE_REVIEWS[1].author}, Google</figcaption>
+                </blockquote>
+              </figure>
+            </motion.div>
 
             <div className="mt-5 w-full max-w-xl rounded-lg border-2 border-brand-yellow/70 bg-surface-card p-4 sm:p-5" aria-label={isPt ? "Perguntas rápidas pelo WhatsApp" : "Quick questions on WhatsApp"}>
               <div className="flex items-start gap-3">
@@ -183,46 +245,6 @@ export function Hero() {
               </p>
             </div>
 
-            {!settings.isOnlineOrderingPaused && (
-            <div className="mt-8 w-full max-w-lg border-t-2 border-line/60 pt-6">
-              <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-red">
-                <Zap className="size-4" />
-                {isPt ? "Peça Também Pelas Apps Parceiras:" : "Also Available On Official Apps:"}
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {links.bolt && (
-                  <a
-                    href={links.bolt}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("bolt_food_click", { from: "hero" })}
-                    className="flex items-center justify-between rounded-md border-2 border-black bg-surface p-2.5 shadow-fastfood hover:border-bolt"
-                  >
-                    <span>
-                      <b className="text-white">Bolt Food</b>
-                      <small className="block font-black text-bolt">-30% DESCONTO</small>
-                    </span>
-                    <ArrowRight className="size-4 text-bolt" />
-                  </a>
-                )}
-                {links.uber && (
-                  <a
-                    href={links.uber}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("uber_eats_click", { from: "hero" })}
-                    className="flex items-center justify-between rounded-md border-2 border-black bg-surface p-2.5 shadow-fastfood hover:border-uber"
-                  >
-                    <span>
-                      <b className="text-white">Uber Eats</b>
-                      <small className="block text-muted">{isPt ? "Entrega" : "Delivery"}</small>
-                    </span>
-                    <ArrowRight className="size-4 text-uber" />
-                  </a>
-                )}
-              </div>
-            </div>
-            )}
           </div>
 
           <div className="lg:col-span-6">
