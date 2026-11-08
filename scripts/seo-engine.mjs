@@ -170,9 +170,35 @@ function generate() {
   fs.mkdirSync(publicDir, { recursive: true });
   const base = ensureSlash(site.url);
   const pages = Array.from(new Set(["/", ...(config.pages || [])]));
+  // Preserva lastmod/changefreq/priority já publicados para cada URL. URLs novas
+  // recebem apenas lastmod (hoje), sem inventar prioridades.
+  const sitemapPath0 = path.join(publicDir, "sitemap.xml");
+  const previous = fs.existsSync(sitemapPath0) ? read(sitemapPath0) : "";
+  const previousEntries = new Map();
+  for (const m of previous.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const loc = (m[1].match(/<loc>([^<]*)<\/loc>/) || [])[1];
+    if (loc) previousEntries.set(loc, m[1]);
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const field = (block, name) => (block.match(new RegExp(`<${name}>([^<]*)</${name}>`)) || [])[1];
+  const entries = pages.map((p) => {
+    const loc = new URL(p.replace(/^\//, ""), base).href;
+    const prev = previousEntries.get(xmlEscape(loc)) || previousEntries.get(loc) || "";
+    const lastmod = field(prev, "lastmod") || today;
+    const changefreq = field(prev, "changefreq");
+    const priority = field(prev, "priority");
+    return [
+      "  <url>",
+      `    <loc>${xmlEscape(loc)}</loc>`,
+      `    <lastmod>${lastmod}</lastmod>`,
+      ...(changefreq ? [`    <changefreq>${changefreq}</changefreq>`] : []),
+      ...(priority ? [`    <priority>${priority}</priority>`] : []),
+      "  </url>",
+    ].join("\n");
+  });
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map((p) => `  <url><loc>${xmlEscape(new URL(p.replace(/^\//, ""), base).href)}</loc></url>`).join("\n")}
+${entries.join("\n")}
 </urlset>
 `;
   write(path.join(publicDir, "sitemap.xml"), sitemap);
