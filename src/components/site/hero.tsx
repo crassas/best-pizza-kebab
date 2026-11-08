@@ -121,7 +121,7 @@ export function Hero() {
                 ? "Kebab e pizza em São Roque da Lameira, perto da Praça das Flores e do Jardim Guedes de Oliveira. Doner, Durum, Falafel, Burgers e takeaway. Entregas via Bolt Food."
                 : "Kebab and pizza in São Roque da Lameira, near Praça das Flores and Jardim Guedes de Oliveira. Doner, Durum, Falafel, Burgers and takeaway. Delivery via Bolt Food."}
             </p>
-            <div className="mt-7 flex w-full sm:w-auto flex-wrap gap-3 sm:gap-4">
+            <div className="mt-7 flex w-full sm:w-auto flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
               <a
                 href="#menu-quick"
                 onClick={(e) => {

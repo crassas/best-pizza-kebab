@@ -94,15 +94,17 @@ export function MenuSection() {
 
   const filteredMenu = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return visibleMenu.map((cat) => {
+    const result: MenuCategory[] = [];
+    for (const cat of visibleMenu) {
       const catMatches = q ? cat.label.pt.toLowerCase().includes(q) || cat.label.en.toLowerCase().includes(q) : false;
       const items = cat.items.filter((item) => {
         if (vegOnly && !item.vegetarian) return false;
         if (!q || catMatches) return true;
         return item.name.pt.toLowerCase().includes(q) || item.name.en.toLowerCase().includes(q) || (item.description?.pt.toLowerCase() ?? "").includes(q) || (item.description?.en.toLowerCase() ?? "").includes(q);
       });
-      return items.length ? { ...cat, items } : null;
-    }).filter((cat): cat is MenuCategory => Boolean(cat));
+      if (items.length) result.push({ ...cat, items });
+    }
+    return result;
   }, [search, vegOnly]);
 
   const filtered = Boolean(search.trim() || vegOnly);
