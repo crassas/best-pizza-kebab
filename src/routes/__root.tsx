@@ -49,20 +49,22 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" },
     ],
   }),
+  // A app é uma SPA montada em #root: o <html>, <head> e <body> já vêm do index.html.
+  // Renderizá-los dentro da árvore do React faz do <body> um "host singleton" que é
+  // também antecessor do #root, e o despacho de eventos (ex.: selectionchange ao
+  // focar um campo) fica preso num ciclo infinito. Por isso aqui só há um contentor.
   component: () => (
-    <html lang="pt-PT" suppressHydrationWarning>
-      <head><HeadContent /></head>
-      <body className="antialiased">
-        <PreviewHostBridge />
-        <AuthProvider>
-          <OwnerAuthProvider>
-            <RestaurantDataProvider>
-              <LanguageProvider><Outlet /></LanguageProvider>
-            </RestaurantDataProvider>
-          </OwnerAuthProvider>
-        </AuthProvider>
-        <Scripts />
-      </body>
-    </html>
+    <div className="antialiased">
+      <HeadContent />
+      <PreviewHostBridge />
+      <AuthProvider>
+        <OwnerAuthProvider>
+          <RestaurantDataProvider>
+            <LanguageProvider><Outlet /></LanguageProvider>
+          </RestaurantDataProvider>
+        </OwnerAuthProvider>
+      </AuthProvider>
+      <Scripts />
+    </div>
   ),
 });
