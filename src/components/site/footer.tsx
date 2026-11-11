@@ -198,6 +198,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <p>{isPt ? "Preços com IVA incluído à taxa legal em vigor." : "All prices include VAT."}</p>
             <a href="/privacidade/" className="underline underline-offset-4 hover:text-brand-yellow">{isPt ? "Privacidade" : "Privacy"}</a>
+            <a href="/termos/" className="underline underline-offset-4 hover:text-brand-yellow">{isPt ? "Termos" : "Terms"}</a>
             <button type="button" onClick={changeAnalytics} aria-pressed={analyticsAllowed} className="underline underline-offset-4 hover:text-brand-yellow">{isPt ? `Estatísticas: ${analyticsAllowed ? "ativas" : "desativadas"}` : `Analytics: ${analyticsAllowed ? "on" : "off"}`}</button>
             <Link
               to="/manage"
