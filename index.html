@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Kebab em Campanhã, Porto | Pizza e Takeaway | Best Pizza &amp; Kebab</title>
+    <title>Kebab e Pizza em Campanhã, Porto | Best Pizza &amp; Kebab</title>
     <meta name="description" content="Kebab em Campanhã, Porto, na Rua de São Roque da Lameira 2346. Doner, durum, falafel, pizza e takeaway. Consulta o menu e como chegar." />
-    <meta property="og:title" content="Kebab em Campanhã, Porto | Pizza e Takeaway | Best Pizza &amp; Kebab" />
+    <meta property="og:title" content="Kebab e Pizza em Campanhã, Porto | Best Pizza &amp; Kebab" />
     <meta property="og:description" content="Kebab em Campanhã, Porto, na Rua de São Roque da Lameira 2346. Doner, durum, falafel, pizza e takeaway. Consulta o menu e como chegar." />
     <meta property="og:type" content="restaurant" />
     <meta property="og:image" content="https://bestpizzaandkebab.pt/og.jpg" />
@@ -26,7 +26,14 @@
     />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Conteúdo estático para motores de busca e para o instante antes de a aplicação montar.
+           O React substitui-o ao arrancar. O texto é o mesmo do topo do site. -->
+      <main style="min-height:100vh;display:grid;place-content:center;gap:12px;padding:24px;background:#0d0c0b;color:#fbf6ee;font-family:Figtree,system-ui,sans-serif;text-align:center">
+        <h1 style="margin:0;font-size:clamp(2.5rem,9vw,5rem);line-height:0.9;text-transform:uppercase">Best Pizza &amp; Kebab</h1>
+        <p style="margin:0;max-width:34rem">Kebab e pizza em São Roque da Lameira, Campanhã, Porto. Doner, durum, falafel, burgers e takeaway.</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
