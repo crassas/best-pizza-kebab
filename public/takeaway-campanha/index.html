@@ -31,6 +31,12 @@
     .facts{display:grid;gap:13px}.fact{border-bottom:1px solid var(--line);padding-bottom:12px}.fact:last-child{border:0;padding-bottom:0}.label{display:block;color:var(--yellow);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}.value{font-weight:800;line-height:1.4}.halal{margin-top:16px;padding:12px;border:2px solid var(--line);border-radius:9px;background:#151210;color:#ddd0c2;font-size:13px;line-height:1.5}
     footer{border-top:4px solid #000;padding:28px 20px 100px;color:var(--muted);font-size:12px;text-align:center}
     @media(max-width:760px){.grid{grid-template-columns:1fr}.hero{padding-top:36px}.nav{padding:14px 16px}.grid{padding-left:16px;padding-right:16px}.actions{display:grid}.btn{width:100%}}
+  
+.nav-cta{display:flex;align-items:center;gap:8px}
+.cta{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border:3px solid #000;border-radius:7px;font-weight:900;font-size:12px;text-transform:uppercase;text-decoration:none;box-shadow:3px 3px 0 #000}
+.cta.call{background:var(--yellow);color:#000}
+.cta.wa{background:#25d366;color:#000}
+@media(max-width:760px){.back{display:none}}
   </style>
   <script type="application/ld+json">
   {
@@ -73,7 +79,7 @@
     <div class="bar"></div>
     <div class="nav">
       <a class="brand" href="/">BEST PIZZA &amp; KEBAB</a>
-      <a class="back" href="/#menu">← MENU E PREÇOS</a>
+      <div class="nav-cta"><a class="cta call" href="tel:+351920163613">Ligar</a><a class="cta wa" href="https://wa.me/351920163613?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20o%20menu%20e%20fazer%20um%20pedido%20no%20BEST%20PIZZA%20%26%20KEBAB." target="_blank" rel="noopener noreferrer">WhatsApp</a><a class="back" href="/#menu">← MENU E PREÇOS</a></div>
     </div>
   </header>
 

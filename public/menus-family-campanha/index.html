@@ -15,14 +15,20 @@
   <style>
     :root{--bg:#100e0c;--panel:#1b1714;--red:#e9002b;--yellow:#ffc52c;--cream:#f6eee2;--muted:#b8aea3}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:Arial,Helvetica,sans-serif}
-    a{color:inherit}.top{border-bottom:4px solid #000}.bar{height:12px;background:repeating-linear-gradient(90deg,var(--red) 0 22px,#fff 22px 44px)}
-    .nav,.hero,.grid,.faq{max-width:1080px;margin:auto;padding-left:20px;padding-right:20px}.nav{padding-top:18px;padding-bottom:18px;display:flex;justify-content:space-between;gap:16px}.brand{font-weight:900;text-decoration:none}.back{font-weight:900;color:var(--yellow);text-decoration:none;font-size:12px}
+    a{color:inherit}.top{border-bottom:4px solid #000;background:var(--bg);position:sticky;top:0;z-index:5}.bar{height:12px;background:repeating-linear-gradient(90deg,var(--red) 0 22px,#fff 22px 44px)}
+    .nav,.hero,.grid,.faq{max-width:1080px;margin:auto;padding-left:20px;padding-right:20px}.nav{padding-top:18px;padding-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;text-decoration:none}.back{font-weight:900;color:var(--yellow);text-decoration:none;font-size:12px}
     .hero{padding-top:50px;padding-bottom:28px}.eyebrow{display:inline-block;background:var(--yellow);color:#000;border:3px solid #000;padding:7px 11px;font-size:11px;font-weight:900;text-transform:uppercase}
     h1{font-size:clamp(42px,8vw,76px);line-height:.94;margin:18px 0 14px;text-transform:uppercase}.lead{max-width:760px;color:#e8ddd0;font-size:18px;line-height:1.55}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding-top:8px;padding-bottom:36px}.card{background:var(--panel);border:4px solid #000;border-radius:15px;padding:22px;box-shadow:5px 5px 0 #000}.card h2{font-size:28px;margin:0 0 8px;text-transform:uppercase}.price{display:inline-block;margin-top:14px;background:var(--red);border:3px solid #000;padding:8px 13px;font-size:26px;font-weight:900}.desc{color:var(--muted);line-height:1.5}.btn{display:inline-block;margin-top:16px;background:var(--yellow);color:#000;border:3px solid #000;padding:11px 15px;font-weight:900;text-decoration:none;text-transform:uppercase}
     .faq{padding-bottom:48px}.faq h2{font-size:30px;text-transform:uppercase}.faq details{border-top:1px solid #3a312a;padding:14px 0}.faq summary{font-weight:900;cursor:pointer}.faq p{color:var(--muted);line-height:1.6}
     footer{border-top:4px solid #000;padding:28px 20px 70px;text-align:center;color:var(--muted);font-size:12px}
     @media(max-width:720px){.grid{grid-template-columns:1fr}.nav,.hero,.grid,.faq{padding-left:16px;padding-right:16px}}
+  
+.nav-cta{display:flex;align-items:center;gap:8px}
+.cta{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border:3px solid #000;border-radius:7px;font-weight:900;font-size:12px;text-transform:uppercase;text-decoration:none;box-shadow:3px 3px 0 #000}
+.cta.call{background:var(--yellow);color:#000}
+.cta.wa{background:#25d366;color:#000}
+@media(max-width:760px){.back{display:none}}
   </style>
   <script type="application/ld+json">
   {
@@ -52,7 +58,7 @@
   </script>
 </head>
 <body>
-<header class="top"><div class="bar"></div><div class="nav"><a class="brand" href="/">BEST PIZZA &amp; KEBAB</a><a class="back" href="/#family-menus">← PUBLICIDADE FAMILY</a></div></header>
+<header class="top"><div class="bar"></div><div class="nav"><a class="brand" href="/">BEST PIZZA &amp; KEBAB</a><div class="nav-cta"><a class="cta call" href="tel:+351920163613">Ligar</a><a class="cta wa" href="https://wa.me/351920163613?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20o%20menu%20e%20fazer%20um%20pedido%20no%20BEST%20PIZZA%20%26%20KEBAB." target="_blank" rel="noopener noreferrer">WhatsApp</a><a class="back" href="/#family-menus">← PUBLICIDADE FAMILY</a></div></div></header>
 <main>
 <section class="hero">
   <span class="eyebrow">São Roque da Lameira · Campanhã · Porto</span>
