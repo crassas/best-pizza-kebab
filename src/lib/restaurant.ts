@@ -68,7 +68,7 @@ export const ALL_DISHES: DishWithCategory[] = menu.flatMap((category) =>
 export const seo = {
   ...baseSeo,
   title: {
-    pt: "Kebab em Campanhã, Porto | Pizza e Takeaway | Best Pizza & Kebab",
+    pt: "Kebab e Pizza em Campanhã, Porto | Best Pizza & Kebab",
     en: "Kebab & Pizza in São Roque da Lameira, Porto | Best Pizza & Kebab",
   },
   description: {
