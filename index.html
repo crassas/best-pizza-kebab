@@ -27,11 +27,22 @@
   </head>
   <body>
     <div id="root">
-      <!-- Conteúdo estático para motores de busca e para o instante antes de a aplicação montar.
-           O React substitui-o ao arrancar. O texto é o mesmo do topo do site. -->
-      <main style="min-height:100vh;display:grid;place-content:center;gap:12px;padding:24px;background:#0d0c0b;color:#fbf6ee;font-family:Figtree,system-ui,sans-serif;text-align:center">
-        <h1 style="margin:0;font-size:clamp(2.5rem,9vw,5rem);line-height:0.9;text-transform:uppercase">Best Pizza &amp; Kebab</h1>
-        <p style="margin:0;max-width:34rem">Kebab e pizza em São Roque da Lameira, Campanhã, Porto. Doner, durum, falafel, burgers e takeaway.</p>
+      <!-- O React substitui este resumo ao arrancar. As ligações também funcionam sem JavaScript. -->
+      <main style="min-height:100vh;box-sizing:border-box;display:grid;justify-items:center;align-content:center;padding:24px;background:#0d0c0b;color:#fbf6ee;font-family:Figtree,system-ui,sans-serif">
+        <div style="width:100%;max-width:36rem;line-height:1.55">
+          <h1 style="margin:0;font-size:clamp(2.5rem,9vw,5rem);line-height:0.9;text-transform:uppercase">Best Pizza &amp; Kebab</h1>
+          <p>Kebab e pizza em São Roque da Lameira, Campanhã, Porto. No menu há doner, durum, falafel, hambúrgueres, pizzas e opções para partilhar.</p>
+          <p>Para levantar o pedido, consulta o menu ou abre o guia de takeaway. O restaurante confirma o pedido pelo WhatsApp antes de começar a preparação. Se precisares de confirmar um ingrediente ou um alergénio, fala com a equipa antes de encomendar.</p>
+          <p>Se preferires entrega ao domicílio, consulta o Best Pizza &amp; Kebab na Bolt Food. O preço, a disponibilidade e o tempo de entrega aparecem na aplicação antes de confirmares o pedido.</p>
+          <ul style="padding-left:1.25em">
+            <li><a href="/kebab-porto/" style="color:#ffc52c">Menu e localização para quem procura kebab no Porto</a></li>
+            <li><a href="/pizza-campanha/" style="color:#ffc52c">Pizzas em Campanhã</a></li>
+            <li><a href="/menus-family-campanha/" style="color:#ffc52c">Menus de kebab para partilhar</a></li>
+            <li><a href="/takeaway-campanha/" style="color:#ffc52c">Como encomendar para levantar</a></li>
+            <li><a href="/termos/" style="color:#ffc52c">Termos do serviço e informação sobre alergénios</a></li>
+          </ul>
+          <p>O restaurante fica na Rua de São Roque da Lameira 2346, 4350-307 Porto, na zona de Campanhã. O <a href="/kebab-sao-roque-lameira/" style="color:#ffc52c">guia de São Roque da Lameira</a> indica o caminho a partir do Parque de São Roque e de Cartes.</p>
+        </div>
       </main>
     </div>
     <script type="module" src="/src/main.tsx"></script>
