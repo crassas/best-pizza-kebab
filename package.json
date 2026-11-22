@@ -1,7 +1,7 @@
 {
   "name": "app-builder-workspace",
   "private": true,
-  "sideEffects": false,
+  "sideEffects": ["./src/main.tsx", "**/*.css"],
   "type": "module",
   "overrides": {
     "nf3": "0.3.17"
