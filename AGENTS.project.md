@@ -27,3 +27,9 @@ This project enforces high-craft design standards, UI/UX polish, image-to-code t
   - Both desktop (1280×800) and mobile (390×844) viewport renders.
   - Console error freedom (0 uncaught runtime exceptions).
   - Proper interactive behavior on click, scroll, and navigation events.
+
+---
+
+## Existing backend
+
+This app already uses Firebase: Google sign-in for the owner (`src/lib/owner-auth.tsx`), Firestore for restaurant data (`firestore.rules`) and Storage for dish photos (`src/lib/photo-storage.ts`). Keep using it; the "auth and database off by default" triage in `AGENTS.md` applies to new apps, not to this one. The template Postgres/Better Auth helpers in `src/lib` stay untouched unless asked.
