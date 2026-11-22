@@ -303,9 +303,8 @@ changes. Revive, reboot-wipe and the `startup.sh` worked example:
    first, then `npm run preview:restart`** — it frees `:8081` first, so you
    never smoke the previous build's output. A clean, non-diverging JSON is
    enough. Mobile (~390×844) is already covered by the combined smoke pass.
-9. Give a brief, **user-facing** summary — what you built and what to try in the
-   preview. **Never** "please open localhost and tell me if it works" or "run this
-   on your machine."
+9. Give a brief, user-facing summary: what you built and what to try in the
+   preview (see Communication rules).
 
 ### Browser QA (the user is not your QA)
 

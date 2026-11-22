@@ -20,14 +20,6 @@ This project enforces high-craft design standards, UI/UX polish, image-to-code t
 
 ---
 
-## 📷 Image-to-Code Standards
-
-- **Visual Fidelity**: Replicate layout hierarchy, proportions, and visual weight faithfully from design references or uploaded images.
-- **Semantic Components**: Map UI regions to clean React/Tailwind components with full accessibility (`aria-*` labels, proper landmark tags).
-- **Responsive Adaptability**: Convert fixed image layouts into fluid CSS grid/flexbox layouts.
-
----
-
 ## 🧪 Playwright CLI & Automated QA Guidelines
 
 - **Preinstalled Tooling**: `playwright` is installed in `devDependencies`.
